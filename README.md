@@ -21,7 +21,7 @@ This guide employs both **white-box** (where the attacker has complete knowledge
 ## White-Box Attacks
 
 White-box attacks have full access to the target model, including its architecture, parameters, and weights. In this section, an algorithm is developed to craft an Adversarial Example, exploring how to manage data for the Supercombo model:
-- Input data types: YUV 4:2:0 format
+- Input data types: [YUV 4:2:0](https://github.com/peter-popov/unhack-openpilot) format
 - Model Output: Array of 6120 floats
 - Iterative algorithm: Train an Adversarial Example by making small changes
 - Loss function: Disappearance attack
