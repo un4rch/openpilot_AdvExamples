@@ -14,17 +14,17 @@ This repository explains methodologies to attack the OpenPilot 0.9.4 self-drivin
 
 OpenPilot is an open-source software for autonomous vehicles. In this project, we explore how adversarial examples can be used to trick the perception system of OpenPilot, causing it to make incorrect driving decisions, such as accelerating unsafely and causing a rear-end collision.
 
-We employ both **white-box** (where the attacker has complete knowledge of the model) and **black-box** (where the attacker has no knowledge of the model) attack strategies.
+This guide employs both **white-box** (where the attacker has complete knowledge of the model) and **black-box** (where the attacker has no knowledge of the model) attack strategies.
 
 ## White-Box Attacks
 
-White-box attacks assume full knowledge of the target model, including its architecture, parameters, and weights. In this section, we explore attacks such as the Fast Gradient Sign Method (FGSM) and Projected Gradient Descent (PGD).
+White-box attacks have full access to the target model, including its architecture, parameters, and weights. In this section, an algorithm is developed to craft an adversarial example, exploring how to manage data for the Supercombo model.
 
 Read more in [White-Box Attacks](docs/white-box.md).
 
 ## Black-Box Attacks
 
-In black-box attacks, the attacker only has access to the inputs and outputs of the model. We use methods like transfer learning-based attacks and query-based attacks to trick the model.
+In black-box attacks, the attacker only has access to the inputs and outputs of the model. This means that the Supercombo model cannot be used, therefore Evolution Strategies and Gaussian mutations are implemented.
 
 Learn more in [Black-Box Attacks](docs/black-box.md).
 
