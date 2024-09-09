@@ -1,6 +1,6 @@
 # Adversarial Examples against OpenPilot 0.9.4
 
-This repository demonstrates how to attack the OpenPilot 0.9.4 self-driving software using adversarial examples in both **white-box** and **black-box** settings.
+This repository explains methodologies to attack the OpenPilot 0.9.4 self-driving software using adversarial examples in both **white-box** and **black-box** settings.
 
 ## Table of Contents
 - [Introduction](#introduction)
