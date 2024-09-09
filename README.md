@@ -1,6 +1,6 @@
 # Adversarial Examples against OpenPilot 0.9.4
 
-This repository explains methodologies to attack the OpenPilot 0.9.4 self-driving software using adversarial examples in both **white-box** and **black-box** settings.
+This repository explains methodologies to attack the OpenPilot 0.9.4 self-driving software using adversarial examples in both **white-box** and **black-box** settings. This user guide facilitates knowledge for new users who want to learn about adversarial examples and also provides new information to the field based on research of scientific papers and analysis of source code performed for the development of the algorithms.
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -12,7 +12,7 @@ This repository explains methodologies to attack the OpenPilot 0.9.4 self-drivin
 
 ## Introduction
 
-OpenPilot is an open-source software for autonomous vehicles. In this project, we explore how adversarial examples can be used to trick the perception system of OpenPilot, causing it to make incorrect driving decisions.
+OpenPilot is an open-source software for autonomous vehicles. In this project, we explore how adversarial examples can be used to trick the perception system of OpenPilot, causing it to make incorrect driving decisions, such as accelerating unsafely and causing a rear-end collision.
 
 We employ both **white-box** (where the attacker has complete knowledge of the model) and **black-box** (where the attacker has no knowledge of the model) attack strategies.
 
