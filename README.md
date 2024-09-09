@@ -34,7 +34,7 @@ White-box attacks have full access to the target model, including its architectu
 - Gradients: Optimization vector indicating the direction in which the loss function increases the most
 - Expectation over Transform: [EoT](https://proceedings.mlr.press/v80/athalye18b/athalye18b.pdf) consists of applying transformations to the Adversarial Example to make more robust the effect under different conditions
 
-Read more in [White-Box Attacks](docs/white-box.md).
+Learn more in [White-Box Attacks](docs/white-box.md).
 
 ## Black-Box Attacks
 
