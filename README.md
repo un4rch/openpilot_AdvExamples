@@ -26,7 +26,7 @@ White-box attacks have full access to the target model, including its architectu
 - Iterative algorithm: Train an Adversarial Example by making small changes
 - Loss function: [Disappearance attack](https://iccv21-adv-workshop.github.io/short_paper/yanan_arow.pdf)
 - Gradients: Optimization vector indicating the direction in which the loss function increases the most
-- Expectation over Transform: Apply transformations to the Adversarial Example to make more robust the effect under different conditions
+- Expectation over Transform: [EoT](https://proceedings.mlr.press/v80/athalye18b/athalye18b.pdf) consists of applying transformations to the Adversarial Example to make more robust the effect under different conditions
 
 Read more in [White-Box Attacks](docs/white-box.md).
 
