@@ -18,6 +18,12 @@ A [Physical Adversarial Example](https://github.com/weihui1308/PAA?tab=readme-ov
 
 This guide employs both **white-box** (where the attacker has complete knowledge of the model) and **black-box** (where the attacker has no knowledge of the model) attack strategies.
 
+## Methodology
+
+A generical step-by-step methodology for researching and developing attacks, including the information gathering, tools setup, data collection, algorithm structures, and experiment results, can be found in [Methodology](docs/methodology.md).
+
+Then, **white-box** attack and **black-box** strategies are explained more deeply.
+
 ## White-Box Attacks
 
 White-box attacks have full access to the target model, including its architecture, parameters, and weights. In this section, an algorithm is developed to craft an Adversarial Example, exploring how to manage data for the Supercombo model:
@@ -35,10 +41,6 @@ Read more in [White-Box Attacks](docs/white-box.md).
 In black-box attacks, the attacker only has access to the inputs and outputs of the model. This means that the Supercombo model cannot be used, therefore Evolution Strategies and Gaussian mutations are implemented.
 
 Learn more in [Black-Box Attacks](docs/black-box.md).
-
-## Methodology
-
-A detailed explanation of the methodology used for the attacks, including the setup, data collection, and experiment results, can be found in [Methodology](docs/methodology.md).
 
 ## Installation and Usage
 
