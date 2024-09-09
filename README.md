@@ -19,8 +19,9 @@ This guide employs both **white-box** (where the attacker has complete knowledge
 ## White-Box Attacks
 
 White-box attacks have full access to the target model, including its architecture, parameters, and weights. In this section, an algorithm is developed to craft an adversarial example, exploring how to manage data for the Supercombo model:
-- aaa
-- bbb
+- Disappearance loss function
+- Iterative algorithm
+- ???
 
 Read more in [White-Box Attacks](docs/white-box.md).
 
