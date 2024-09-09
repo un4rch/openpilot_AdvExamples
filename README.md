@@ -22,14 +22,14 @@ This guide employs both **white-box** (where the attacker has complete knowledge
 
 A generical step-by-step methodology for researching and developing attacks, including the information gathering, tools setup, data collection, algorithm structures, and experiment results, can be found in [Methodology](docs/methodology.md).
 
-Then, **white-box** attack and **black-box** strategies are explained more deeply.
+Then, **white-box** attack and **black-box** strategies are explained more deeply in the following sections.
 
 ## White-Box Attacks
 
 White-box attacks have full access to the target model, including its architecture, parameters, and weights. In this section, an algorithm is developed to craft an Adversarial Example, exploring how to manage data for the Supercombo model:
 - Input data types: [YUV 4:2:0](https://github.com/peter-popov/unhack-openpilot) format
 - Model Output: [Array](https://github.com/commaai/openpilot/blob/fa310d9e2542cf497d92f007baec8fd751ffa99c/selfdrive/modeld/models/driving.h#L239) of 6120 floats
-- Iterative algorithm: Train an Adversarial Example by making small changes
+- Iterative algorithm: Train an Adversarial Example by making small changes (e.g. [FGSM tutorial](https://www.tensorflow.org/tutorials/generative/adversarial_fgsm))
 - Loss function: [Disappearance attack](https://iccv21-adv-workshop.github.io/short_paper/yanan_arow.pdf)
 - Gradients: Optimization vector indicating the direction in which the loss function increases the most
 - Expectation over Transform: [EoT](https://proceedings.mlr.press/v80/athalye18b/athalye18b.pdf) consists of applying transformations to the Adversarial Example to make more robust the effect under different conditions
