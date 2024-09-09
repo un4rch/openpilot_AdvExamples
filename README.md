@@ -23,9 +23,9 @@ This guide employs both **white-box** (where the attacker has complete knowledge
 White-box attacks have full access to the target model, including its architecture, parameters, and weights. In this section, an algorithm is developed to craft an Adversarial Example, exploring how to manage data for the Supercombo model:
 - Input data types: YUV 4:2:0 format
 - Model Output: Array of 6120 floats
-- Iterative algorithm
+- Iterative algorithm: Train an Adversarial Example by making small changes
 - Loss function: Disappearance attack
-- Gradients: 
+- Gradients: Optimization vector indicating the direction in which the loss function increases the most
 - Expectation over Transform: Apply transformations to the Adversarial Example to make more robust the effect under different conditions
 
 Read more in [White-Box Attacks](docs/white-box.md).
