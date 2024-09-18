@@ -11,7 +11,7 @@ Adversarial attacks aim to deceive machine learning models by introducing pertur
 
 There are two main categories of adversarial attacks:
 1. **Whitebox Attacks**: The attacker has full knowledge of the model architecture, parameters, and gradients.
-2. **Blackbox Attacks**: The attacker has no direct access to the model’s internals and must rely solely on input-output observations.
+2. **Blackbox Attacks**: The attacker has no direct access to the model’s internals and must rely only on input-output observations.
 
 ## Whitebox Attacks
 
