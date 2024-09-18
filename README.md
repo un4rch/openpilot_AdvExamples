@@ -21,7 +21,7 @@ This guide employs both **white-box** (where the attacker has complete knowledge
 
 ## Openpilot Version History
 
-This section will provide a brief summary of the key features and improvements in different versions of Openpilot.
+This section will provide a brief summary of the key features and improvements in different versions of Openpilot since november 2021.
 
 ### [Openpilot 0.8.10](https://blog.comma.ai/0810release/)
 - Introduced a new driving model trained on over 1 million minutes of driving, improving localization and cut-in prediction. Updated driver monitoring model with wider FOV for comma three.
