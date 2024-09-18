@@ -68,25 +68,25 @@ This section will provide a brief summary of the key features and improvements i
 
 ## Accidents Related to Openpilot
 
-### [1. Adversarial Perturbation Research (2018)](https://people.csail.mit.edu/madry/lab/adversarial/examples/)
-- **Incident**: In research by the MIT CSAIL, subtle perturbations were introduced into road sign images, tricking autonomous systems into misinterpreting them. Stop signs, for instance, were classified as speed limit signs by the system.
-- **Impact on Openpilot**: Though no specific accidents involving Openpilot were reported, this research raised concerns about how easily ADAS systems relying on image classification can be fooled by adversarial inputs. This finding highlights a potential vulnerability in any system using vision-based models, including Openpilot.
+### [1. Adversarial Perturbation Research (2018)](https://par.nsf.gov/biblio/10128310)
+- **Incident**: Research from 2018 demonstrated that small, physical perturbations—such as black-and-white stickers on a stop sign—could trick neural networks into misclassifying the sign as a different traffic sign, such as a speed limit sign. This raised alarms about the vulnerability of autonomous driving systems to adversarial inputs in real-world settings.
+- **Impact on Openpilot**: While the research did not directly target Openpilot, it highlighted the potential risks for vision-based ADAS like Openpilot, which rely heavily on camera inputs for road sign interpretation&#8203;:contentReference[oaicite:0]{index=0}&#8203;:contentReference[oaicite:1]{index=1}.
 
 ### [2. Tesla Adversarial Image Attack (2020)](https://arxiv.org/abs/2003.01265)
-- **Incident**: Researchers demonstrated how small stickers placed on the road could mislead Tesla’s Autopilot into changing lanes or slowing down unexpectedly. The adversarial inputs tricked the system into seeing non-existent obstacles or misreading lane lines.
-- **Impact on Openpilot**: While the attack targeted Tesla’s Autopilot, the principle of this adversarial attack could be extended to Openpilot’s camera and vision-based systems, raising concerns about similar vulnerabilities.
+- **Incident**: Researchers demonstrated how small, strategically placed stickers on a road could cause Tesla’s Autopilot system to misinterpret lane markings, leading to improper lane changes or unplanned deceleration.
+- **Impact on Openpilot**: Similar adversarial attacks could potentially trick Openpilot’s camera-based system into making dangerous driving decisions by misreading lane lines&#8203;:contentReference[oaicite:2]{index=2}.
 
 ### [3. Adversarial Attack on Camera-based Perception Systems (2020)](https://keenlab.tencent.com/en/2020/03/30/Exploring-Security-Implications-of-AI-in-Autonomous-Driving-%E2%80%93-Case-Studies-on-Tesla/)
-- **Incident**: Researchers from Tencent’s Keen Security Lab successfully executed adversarial attacks on Tesla's Autopilot by projecting altered images onto a car’s path. These images caused the system to misinterpret lane markings and traffic signs, posing a potential crash risk.
-- **Impact on Openpilot**: The attack method demonstrated a generalized threat to any camera-based ADAS, including Openpilot, especially in scenarios involving manipulated road markings or projected adversarial images.
+- **Incident**: Tencent’s Keen Security Lab researchers used projected images to fool Tesla’s Autopilot into misinterpreting lane markers and road signs. The manipulated inputs caused the system to take erroneous actions, like steering off-course or failing to stop.
+- **Impact on Openpilot**: The attack highlighted the vulnerability of any ADAS relying on camera-based systems, including Openpilot, to adversarial attacks that could manipulate the system's perception of the road environment&#8203;:contentReference[oaicite:3]{index=3}.
 
 ### [4. Image Classifier Misinterpretation by Adversarial Attacks (2021)](https://arxiv.org/abs/2101.04232)
-- **Incident**: Research conducted on deep neural networks used in ADAS showed how small, imperceptible noise added to images could cause significant misinterpretation of traffic scenes. For example, adding minor noise to images of traffic signs or pedestrians could lead to fatal decisions by the ADAS.
-- **Impact on Openpilot**: Systems like Openpilot, which rely on convolutional neural networks for perception, could be susceptible to such attacks, especially in their earlier versions. This demonstrates a critical risk of adversarial attacks in real-world driving, although no specific accidents were attributed to Openpilot.
+- **Incident**: Research showed that imperceptible noise added to images could cause deep neural networks to misinterpret traffic signs and other visual inputs, potentially leading to catastrophic decisions by autonomous driving systems.
+- **Impact on Openpilot**: Given that Openpilot relies on convolutional neural networks for its perception model, it could also be susceptible to such adversarial examples, especially in earlier versions that may lack robust adversarial defenses&#8203;:contentReference[oaicite:4]{index=4}&#8203;:contentReference[oaicite:5]{index=5}.
 
 ### [5. Adversarial Examples Leading to Over- or Under-Braking (Theoretical Impact)](https://arxiv.org/abs/1807.00459)
-- **Incident**: Research in adversarial machine learning has demonstrated how adversarial perturbations can be introduced to alter the car's perception of nearby obstacles, potentially leading to false-positive or false-negative braking scenarios.
-- **Potential Openpilot Impact**: Adversarial perturbations could mislead Openpilot’s obstacle detection system, causing it to either brake unnecessarily or fail to brake when needed, posing a significant risk in real-world driving. While this remains theoretical, the possibility of such attacks could lead to severe accidents if exploited in practice.
+- **Incident**: Researchers showed that adversarial perturbations could alter the perception of nearby obstacles in autonomous driving systems, causing them to either brake unnecessarily or fail to brake when needed.
+- **Potential Openpilot Impact**: Although theoretical, this kind of attack could mislead Openpilot’s obstacle detection and lead to dangerous over- or under-braking, with severe consequences if exploited in real-world driving&#8203;:contentReference[oaicite:6]{index=6}.
 
 ## Methodology
 
