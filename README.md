@@ -23,19 +23,19 @@ This guide employs both **white-box** (where the attacker has complete knowledge
 
 This section will provide a brief summary of the key features and improvements in different versions of Openpilot.
 
-### Openpilot 0.8.10
+### [Openpilot 0.8.10](https://blog.comma.ai/0810release/)
 - Introduced a new driving model trained on over 1 million minutes of driving, improving localization and cut-in prediction. Updated driver monitoring model with wider FOV for comma three.
 
-### Openpilot 0.8.11
+### [Openpilot 0.8.11](https://blog.comma.ai/0811release/)
 - Introduced smoother acceleration trajectories to improve user comfort and support for CAN FD for more vehicles. Added six new car ports.
 
-### Openpilot 0.8.12
+### [Openpilot 0.8.12](https://blog.comma.ai/0812release/)
 - Improved longitudinal control, redesigned the alert system, and introduced new sounds for alerts. Enhanced stopping behavior and reduced follow distance.
 
-### Openpilot 0.8.13
+### [Openpilot 0.8.13](https://blog.comma.ai/0813release/)
 - Implemented improvements in laneline detection and enhanced longitudinal control, especially for stop-and-go traffic.
 
-### Openpilot 0.8.14
+### [Openpilot 0.8.14](https://blog.comma.ai/0814release/)
 - Further enhancements to longitudinal and lateral control systems, as well as bug fixes for braking disengagements in supported cars.
 
 ### [Openpilot 0.8.16](https://blog.comma.ai/0816release/)
