@@ -5,11 +5,12 @@ This repository explains methodologies to attack the OpenPilot 0.9.4 self-drivin
 ## Table of Contents
 - [Introduction](#introduction)
 - [Openpilot Version History](#openpilot-version-history)
-- [Accidents Related to Openpilot](accidents-related-to-openpilot)
+- [Accidents Related to Openpilot](#accidents-related-to-openpilot)
 - [Methodology](#methodology)
 - [White-Box Attacks](#white-box-attacks)
 - [Black-Box Attacks](#black-box-attacks)
 - [Installation and Usage](#installation-and-usage)
+- [Conclusions](#conclusions)
 - [References](#references)
 
 ## Introduction
@@ -132,6 +133,10 @@ Learn more in [Black-Box Attacks](docs/black-box.md).
     ```
 
 3. Follow the instructions in the `attacks` folder to execute white-box and black-box attacks.
+
+## Conclusions
+
+TODO: a partir de la version 0.9.0 surgen todas las mejoras en las DNNs por lo que desde la 0.8.3 se han solucionado los EA: https://ar5iv.labs.arxiv.org/html/2103.00345
 
 ## References
 
