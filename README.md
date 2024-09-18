@@ -21,6 +21,44 @@ This guide employs both **white-box** (where the attacker has complete knowledge
 
 ## Openpilot Version History
 
+This section will provide a concise summary of the key features and improvements in different versions of Openpilot.
+
+### Openpilot 0.8.10
+- Introduced a new driving model trained on over 1 million minutes of driving, improving localization and cut-in prediction. Updated driver monitoring model with wider FOV for comma three.
+
+### Openpilot 0.8.11
+- Introduced smoother acceleration trajectories to improve user comfort and support for CAN FD for more vehicles. Added six new car ports.
+
+### Openpilot 0.8.12
+- Improved longitudinal control, redesigned the alert system, and introduced new sounds for alerts. Enhanced stopping behavior and reduced follow distance.
+
+### Openpilot 0.8.13
+- Implemented improvements in laneline detection and enhanced longitudinal control, especially for stop-and-go traffic.
+
+### Openpilot 0.8.14
+- Further enhancements to longitudinal and lateral control systems, as well as bug fixes for braking disengagements in supported cars.
+
+### Openpilot 0.8.16
+- Introduced a new stop-and-go longitudinal control and several user interface updates. Enhanced braking accuracy and responsiveness.
+
+### Openpilot 0.9.0
+- Major improvements to driving models, with updates that included refined steering control and new platforms support.
+
+### Openpilot 0.9.2
+- New dataset used for the driving model, expanding supported platforms. Improved path visualization for better trajectory understanding.
+
+### Openpilot 0.9.3
+- Introduced fuzzy fingerprinting for Hyundai, Kia, and Genesis models, improving first-time setup. Driving personality settings were added to control how aggressively Openpilot drives.
+
+### Openpilot 0.9.4
+- Enhanced driving performance in different environments and fixed several bugs related to steering control and braking.
+
+### Openpilot 0.9.5
+- Implemented smoother handling of long turns, with more precise lateral control, focusing on user comfort during high-speed driving.
+
+### Openpilot 0.9.7
+- New updates focused on long-term stability of the driving models, with further refinements to trajectory control.
+
 ## Methodology
 
 A generical step-by-step methodology for researching and developing attacks, including the information gathering, tools setup, data collection, algorithm structures, and experiment results, can be found in [Methodology](docs/methodology.md).
