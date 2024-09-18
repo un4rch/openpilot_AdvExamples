@@ -38,25 +38,28 @@ This section will provide a brief summary of the key features and improvements i
 ### Openpilot 0.8.14
 - Further enhancements to longitudinal and lateral control systems, as well as bug fixes for braking disengagements in supported cars.
 
-### Openpilot 0.8.16
+### [Openpilot 0.8.16](https://blog.comma.ai/0816release/)
 - Introduced a new stop-and-go longitudinal control and several user interface updates. Enhanced braking accuracy and responsiveness.
 
-### Openpilot 0.9.0
+### [Openpilot 0.9.0](https://blog.comma.ai/090release/)
 - Major improvements to driving models, with updates that included refined steering control and new platforms support.
 
-### Openpilot 0.9.2
+### [Openpilot 0.9.2](https://blog.comma.ai/092release/)
 - New dataset used for the driving model, expanding supported platforms. Improved path visualization for better trajectory understanding.
 
-### Openpilot 0.9.3
+### [Openpilot 0.9.3](https://blog.comma.ai/093release/)
 - Introduced fuzzy fingerprinting for Hyundai, Kia, and Genesis models, improving first-time setup. Driving personality settings were added to control how aggressively Openpilot drives.
 
-### Openpilot 0.9.4
+### [Openpilot 0.9.4](https://blog.comma.ai/094release/)
 - Enhanced driving performance in different environments and fixed several bugs related to steering control and braking.
 
-### Openpilot 0.9.5
+### [Openpilot 0.9.5](https://blog.comma.ai/095release/)
 - Implemented smoother handling of long turns, with more precise lateral control, focusing on user comfort during high-speed driving.
 
-### Openpilot 0.9.7
+### [Openpilot 0.9.6](https://blog.comma.ai/096release/)
+- Introduced a new driving model and improved driver monitoring, along with a neural-based steering control model. Fuzzy fingerprinting was further improved, and support was added for new Toyota models. The update also included a new format for log segment management and bug fixes in the CAN parser.
+
+### [Openpilot 0.9.7](https://blog.comma.ai/097release/)
 - New updates focused on long-term stability of the driving models, with further refinements to trajectory control.
 
 ## Methodology
