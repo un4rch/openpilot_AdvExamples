@@ -38,6 +38,9 @@ This section will provide a brief summary of the key features and improvements i
 ### [Openpilot 0.8.14](https://blog.comma.ai/0814release/)
 - Further enhancements to longitudinal and lateral control systems, as well as bug fixes for braking disengagements in supported cars.
 
+### [Openpilot 0.8.15](https://blog.comma.ai/0815release/)
+- Improved model performance by reducing unplanned disengagements and introduced the ability to export and share video clips of drives. UI updates and stability improvements.
+
 ### [Openpilot 0.8.16](https://blog.comma.ai/0816release/)
 - Introduced a new stop-and-go longitudinal control and several user interface updates. Enhanced braking accuracy and responsiveness.
 
