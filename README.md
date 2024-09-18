@@ -4,9 +4,9 @@ This repository explains methodologies to attack the OpenPilot 0.9.4 self-drivin
 
 ## Table of Contents
 - [Introduction](#introduction)
+- [Methodology](#methodology)
 - [White-Box Attacks](#white-box-attacks)
 - [Black-Box Attacks](#black-box-attacks)
-- [Methodology](#methodology)
 - [Installation and Usage](#installation-and-usage)
 - [References](#references)
 
