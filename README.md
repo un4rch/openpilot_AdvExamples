@@ -4,6 +4,7 @@ This repository explains methodologies to attack the OpenPilot 0.9.4 self-drivin
 
 ## Table of Contents
 - [Introduction](#introduction)
+- [Openpilot Version History](#openpilot-version-history)
 - [Methodology](#methodology)
 - [White-Box Attacks](#white-box-attacks)
 - [Black-Box Attacks](#black-box-attacks)
@@ -17,6 +18,8 @@ OpenPilot is an open-source software for autonomous vehicles. In this project, w
 A [Physical Adversarial Example](https://github.com/weihui1308/PAA?tab=readme-ov-file) is a carefully crafted input designed to mislead the prediction of DNN-based models.
 
 This guide employs both **white-box** (where the attacker has complete knowledge of the model) and **black-box** (where the attacker has no knowledge of the model) attack strategies.
+
+## Openpilot Version History
 
 ## Methodology
 
