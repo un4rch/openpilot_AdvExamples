@@ -5,6 +5,7 @@ This repository explains methodologies to attack the OpenPilot 0.9.4 self-drivin
 ## Table of Contents
 - [Introduction](#introduction)
 - [Openpilot Version History](#openpilot-version-history)
+- [Accidents Related to Openpilot](accidents-related-to-openpilot)
 - [Methodology](#methodology)
 - [White-Box Attacks](#white-box-attacks)
 - [Black-Box Attacks](#black-box-attacks)
@@ -64,6 +65,28 @@ This section will provide a brief summary of the key features and improvements i
 
 ### [Openpilot 0.9.7](https://blog.comma.ai/097release/)
 - New updates focused on long-term stability of the driving models, with further refinements to trajectory control.
+
+## Accidents Related to Openpilot
+
+### [1. Adversarial Perturbation Research (2018)](https://people.csail.mit.edu/madry/lab/adversarial/examples/)
+- **Incident**: In research by the MIT CSAIL, subtle perturbations were introduced into road sign images, tricking autonomous systems into misinterpreting them. Stop signs, for instance, were classified as speed limit signs by the system.
+- **Impact on Openpilot**: Though no specific accidents involving Openpilot were reported, this research raised concerns about how easily ADAS systems relying on image classification can be fooled by adversarial inputs. This finding highlights a potential vulnerability in any system using vision-based models, including Openpilot.
+
+### [2. Tesla Adversarial Image Attack (2020)](https://arxiv.org/abs/2003.01265)
+- **Incident**: Researchers demonstrated how small stickers placed on the road could mislead Tesla’s Autopilot into changing lanes or slowing down unexpectedly. The adversarial inputs tricked the system into seeing non-existent obstacles or misreading lane lines.
+- **Impact on Openpilot**: While the attack targeted Tesla’s Autopilot, the principle of this adversarial attack could be extended to Openpilot’s camera and vision-based systems, raising concerns about similar vulnerabilities.
+
+### [3. Adversarial Attack on Camera-based Perception Systems (2020)](https://keenlab.tencent.com/en/2020/03/30/Exploring-Security-Implications-of-AI-in-Autonomous-Driving-%E2%80%93-Case-Studies-on-Tesla/)
+- **Incident**: Researchers from Tencent’s Keen Security Lab successfully executed adversarial attacks on Tesla's Autopilot by projecting altered images onto a car’s path. These images caused the system to misinterpret lane markings and traffic signs, posing a potential crash risk.
+- **Impact on Openpilot**: The attack method demonstrated a generalized threat to any camera-based ADAS, including Openpilot, especially in scenarios involving manipulated road markings or projected adversarial images.
+
+### [4. Image Classifier Misinterpretation by Adversarial Attacks (2021)](https://arxiv.org/abs/2101.04232)
+- **Incident**: Research conducted on deep neural networks used in ADAS showed how small, imperceptible noise added to images could cause significant misinterpretation of traffic scenes. For example, adding minor noise to images of traffic signs or pedestrians could lead to fatal decisions by the ADAS.
+- **Impact on Openpilot**: Systems like Openpilot, which rely on convolutional neural networks for perception, could be susceptible to such attacks, especially in their earlier versions. This demonstrates a critical risk of adversarial attacks in real-world driving, although no specific accidents were attributed to Openpilot.
+
+### [5. Adversarial Examples Leading to Over- or Under-Braking (Theoretical Impact)](https://arxiv.org/abs/1807.00459)
+- **Incident**: Research in adversarial machine learning has demonstrated how adversarial perturbations can be introduced to alter the car's perception of nearby obstacles, potentially leading to false-positive or false-negative braking scenarios.
+- **Potential Openpilot Impact**: Adversarial perturbations could mislead Openpilot’s obstacle detection system, causing it to either brake unnecessarily or fail to brake when needed, posing a significant risk in real-world driving. While this remains theoretical, the possibility of such attacks could lead to severe accidents if exploited in practice.
 
 ## Methodology
 
