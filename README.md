@@ -93,7 +93,7 @@ This section will provide a brief summary of the key features and improvements i
 
 A generical step-by-step methodology for researching and developing attacks, including the information gathering, tools setup, data collection, algorithm structures, and experiment results, can be found in [Methodology](docs/methodology.md).
 
-Then, **white-box** attack and **black-box** strategies are explained more deeply in the following sections.
+Then, **white-box** attack and **black-box** strategies against Openpilot are explained more deeply in the following sections.
 
 ## White-Box Attacks
 
