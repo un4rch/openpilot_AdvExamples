@@ -59,23 +59,35 @@ This method requires significant knowledge of the system's internals but can be 
 
 ## Blackbox Attacks
 
-In blackbox attacks, the attacker has no direct access to the model’s internal parameters or architecture. Instead, they must rely on input-output pairs and make inferences about the model’s behavior.
+A black-box attack consists of crafting adversarial examples (AEs) without access to the model's architecture, weights, and biases. In this scenario, the attacker interacts with the system only through its inputs and outputs, treating the model as a "black box." The goal is to manipulate the input data, such as camera images, to mislead the system into making incorrect decisions. To attack the Openpilot autonomous driving (AD) system using a black-box strategy, the following steps can be followed (during simulation executions, customizing [bridge.py](https://github.com/commaai/openpilot/blob/fa310d9e2542cf497d92f007baec8fd751ffa99c/tools/sim/bridge.py) file):
 
 ### Steps for Blackbox Attacks
 
-1. **Querying the Model**:
-    - Send a series of inputs to the system (e.g., camera images of road signs or lanes) and record the outputs (e.g., the classification of the road sign or detected lane lines).
-    - Build a surrogate model that mimics the behavior of the target model by training it on the input-output pairs obtained from the target system.
+1. **Initialize Random Patch**:
+   If no adversarial patch has been created yet, generate a random RGB pixel patch. This patch will serve as the basis for subsequent iterations and modifications.
 
-2. **Crafting Perturbations**:
-    - Use optimization techniques like **Genetic Algorithms (GA)** or **Differential Evolution** to search for adversarial perturbations that lead to incorrect outputs from the surrogate model.
-    - Generate adversarial examples by using methods such as **ZOO (Zeroth Order Optimization)** to iteratively perturb the inputs based on the surrogate model.
+2. **Place Patch**:
+   The adversarial patch should be strategically placed on the rear part of the lead vehicle in the driving scenario. There are two approaches to do this:
+   - **Approximate Positioning**: Use real-time simulation to approximate the patch’s position in each iteration. This method is faster but may lack precision.
+   - **UnrealEditor4 Positioning**: Use the UnrealEditor4 simulation environment to place the patch more accurately during each iteration, although this method is slower due to the overhead of editing.
 
-3. **Transferability**:
-    - Transfer the adversarial examples generated using the surrogate model to the target model, as adversarial examples crafted for one model often transfer to others, especially if they share similar architectures.
-  
-4. **Evaluation**:
-    - Test the adversarial examples on the target system (Openpilot) and measure the success rate of the attack. Evaluate the system's resilience by trying multiple inputs and conditions, such as different lighting or weather scenarios.
+3. **Data Preparation**:
+   Load the simulation data from previous iterations, enabling comparison of the current simulation’s output with previous runs. This comparison helps in assessing whether the adversarial patch is having the intended effect or needs further updates.
+
+4. **Model Interaction**:
+   Since you don’t have access to the internal workings of the model, interact with Openpilot’s end-to-end model via messaging packages, replicating how the real Openpilot interacts with the model. Use messaging frameworks such as [VisionIPC](https://github.com/commaai/msgq/tree/a9082c826872e5650e8a8e9a6f3e5f95a4d27572/visionipc) to send inputs and retrieve outputs.
+
+5. **Loss Function**:
+   Evaluate the model’s output by comparing it with the results from previous executions. Define a loss function that measures how well the adversarial patch is achieving its goal, such as causing lane deviations or improper braking decisions.
+
+6. **Patch Update**:
+   After evaluating the loss, update the adversarial patch’s parameters. These updates can be applied randomly, for example using a Gaussian distribution, or any other update rule that seeks to maximize the model’s misclassification.
+
+7. **Iterative Method**:
+   Continuously update the patch through an iterative process. After each iteration, evaluate the patch’s performance using the loss function and continue updating until a predefined threshold is reached, or a set number of iterations have been completed.
+
+This black-box approach is less direct than the white-box method but is more practical in real-world settings where attackers typically do not have access to the internal model parameters. By interacting with the system only through its inputs and outputs, the attacker can iteratively refine adversarial examples to exploit vulnerabilities in Openpilot’s perception model.
+
 
 ## Defenses Against Adversarial Attacks
 
