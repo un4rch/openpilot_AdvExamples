@@ -7,7 +7,7 @@ This methodology outlines the steps for conducting adversarial attacks, focusing
 
 ## General Overview of Adversarial Attacks
 
-Adversarial attacks aim to deceive machine learning models by introducing perturbations to their inputs. In the context of an autonomous driving system, these inputs could be camera images, lidar data, or radar signals. The goal is to manipulate the system into making incorrect predictions, such as misclassifying road signs or detecting nonexistent obstacles. 
+Adversarial attacks aim to deceive machine learning models by introducing perturbations to their inputs. In the context of an autonomous driving system, these inputs could be camera images, lidar data, or radar signals. The goal is to manipulate the system into making incorrect predictions, such as not detecting existent obstacles. 
 
 There are two main categories of adversarial attacks:
 1. **Whitebox Attacks**: The attacker has full knowledge of the model architecture, parameters, and gradients.
