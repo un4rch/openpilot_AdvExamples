@@ -91,19 +91,51 @@ This black-box approach is less direct than the white-box method but is more pra
 
 ## Defenses Against Adversarial Attacks
 
-Adversarial example attacks pose a serious threat to autonomous driving systems. To mitigate these risks, several defense techniques can be implemented:
+Adversarial attacks pose significant challenges to the security and reliability of autonomous driving systems like Openpilot. Various defense mechanisms have been proposed to mitigate the risks posed by adversarial examples (AEs). The most effective defenses often involve a combination of techniques designed to make machine learning models more robust. Below are some commonly used defenses against adversarial attacks, along with relevant references to academic research.
 
-1. **Adversarial Training**:
-    - During training, expose the model to adversarial examples so it learns to recognize and resist them. This approach improves the model’s robustness to adversarial inputs.
+### 1. **Adversarial Training**
+Adversarial training is one of the most widely studied defense mechanisms. In this approach, the model is trained not only on clean data but also on adversarially perturbed data. By continuously exposing the model to adversarial examples during the training process, the model learns to become more robust against such attacks.
+
+- **Key Paper**: [Goodfellow et al. (2015) - Explaining and Harnessing Adversarial Examples](https://arxiv.org/abs/1412.6572)
+- **Summary**: The authors introduce adversarial training as a defense by training neural networks on both clean and adversarial examples, demonstrating improved robustness against perturbations.
   
-2. **Input Preprocessing**:
-    - Apply preprocessing techniques such as **JPEG compression** or **image denoising** to remove adversarial noise before passing the input to the model.
+- **Another Reference**: [Madry et al. (2017) - Towards Deep Learning Models Resistant to Adversarial Attacks](https://arxiv.org/abs/1706.06083)
+- **Summary**: This paper presents adversarial training using Projected Gradient Descent (PGD) as a method for creating robust models, which remains one of the most effective defenses against strong attacks.
 
-3. **Gradient Masking**:
-    - This defense method obfuscates the gradient of the model, making it difficult for attackers to compute effective perturbations. However, this technique is vulnerable to certain attack methods like **ZOO**.
+### 2. **Input Preprocessing**
+Input preprocessing involves modifying the inputs before feeding them into the model. The goal is to remove or reduce the adversarial noise that may have been introduced. Common preprocessing methods include image transformations like resizing, JPEG compression, or applying denoising filters.
 
-4. **Model Regularization**:
-    - Apply regularization techniques like **weight decay** and **dropout** to the model during training, which can make the model less sensitive to small perturbations in the input.
+- **Key Paper**: [Guo et al. (2018) - Countering Adversarial Images Using Input Transformations](https://arxiv.org/abs/1711.00117)
+- **Summary**: The authors propose using a series of transformations such as JPEG compression, total variance minimization, and bit-depth reduction to defend against adversarial attacks. These transformations can significantly reduce the effectiveness of adversarial perturbations.
+
+- **Another Reference**: [Xie et al. (2018) - Mitigating Adversarial Effects Through Randomization](https://arxiv.org/abs/1711.01991)
+- **Summary**: This work shows that applying random transformations (like random resizing and padding) to the inputs can make it harder for adversarial perturbations to generalize across different transformations, thus improving robustness.
+
+### 3. **Gradient Masking / Obfuscation**
+Gradient masking is a technique where the model's gradient is hidden or distorted, making it difficult for attackers to compute the necessary perturbations. However, this method can be brittle and may fail against stronger attacks that bypass the obfuscation.
+
+- **Key Paper**: [Papernot et al. (2016) - Distillation as a Defense to Adversarial Perturbations Against Deep Neural Networks](https://arxiv.org/abs/1511.04508)
+- **Summary**: This paper introduces defensive distillation, a technique that trains a neural network with soft labels generated from another network to reduce the gradients, making it harder to generate adversarial examples. 
+
+- **Critique**: While gradient masking can work against simple attacks, [Athalye et al. (2018) - Obfuscated Gradients Give a False Sense of Security](https://arxiv.org/abs/1802.00420) demonstrated that it is often insufficient against adaptive attacks and can be bypassed.
+
+### 4. **Ensemble Methods**
+Ensemble-based defenses involve using multiple models to make a decision collectively. By combining the predictions of several models, it becomes harder for adversarial perturbations to fool all models simultaneously.
+
+- **Key Paper**: [Tramèr et al. (2018) - Ensemble Adversarial Training: Attacks and Defenses](https://arxiv.org/abs/1705.07204)
+- **Summary**: This paper introduces ensemble adversarial training, where the training process involves adversarial examples generated from multiple models. The authors show that this approach leads to more robust models, capable of withstanding transfer-based attacks.
+
+### 5. **Model Regularization**
+Regularization techniques, such as weight decay and dropout, can make the model less sensitive to small input changes. This reduces the model’s susceptibility to adversarial perturbations.
+
+- **Key Paper**: [Gu & Rigazio (2015) - Towards Deep Neural Network Architectures Robust to Adversarial Examples](https://arxiv.org/abs/1412.5068)
+- **Summary**: The paper proposes the use of deep contractive networks (DCNs), which add a regularization term to the network's loss function to ensure that the network is less sensitive to small changes in input, including adversarial perturbations.
+
+### 6. **Defensive Quantization**
+This defense reduces the precision of the input data or the model’s weights, thus reducing the impact of small, imperceptible perturbations caused by adversarial examples. Quantization makes the network less sensitive to small input perturbations.
+
+- **Key Paper**: [Lin et al. (2019) - Defensive Quantization: When Efficiency Meets Robustness](https://arxiv.org/abs/1904.08444)
+- **Summary**: The authors propose quantizing neural networks to improve their robustness against adversarial attacks. By using lower-precision representations for weights and activations, the model becomes more resistant to small, malicious perturbations in input data.
 
 ## Conclusion
 
