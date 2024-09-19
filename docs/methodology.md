@@ -15,28 +15,49 @@ There are two main categories of adversarial attacks:
 
 ## Whitebox Attacks
 
-In whitebox attacks, the attacker has full access to the model, including its architecture, weights, and gradients. This allows for precise perturbations to be crafted that target specific weaknesses in the model.
+A white-box attack consists of accessing the model's parameters, architecture, and internal workings. This allows the attacker to analyze the entire neural network, including its weights, biases, and the data flow through the network layers. To craft adversarial examples (AEs) against the Openpilot autonomous driving (AD) system, the white-box approach involves the following steps:
 
 ### Steps for Whitebox Attacks
 
-1. **Model Access and Analysis**: 
-    - Acquire the model architecture and weights of the target system (e.g., Openpilot’s neural networks).
-    - Understand the decision-making process, such as how the model perceives lane lines or road signs.
+1. **Model Analysis**:
+   Understanding the architecture and components of the Openpilot system, including the neural network models it uses. The key resources for this analysis are:
+   - [Openpilot components and architecture](https://blog.comma.ai/openpilot-in-2021/)
+   - [Supercombo model](https://arxiv.org/pdf/2206.08176)
+   - [Inputs for Openpilot](https://github.com/commaai/openpilot/tree/fa310d9e2542cf497d92f007baec8fd751ffa99c/selfdrive/modeld/models)
+   - [Outputs of the driving model](https://github.com/commaai/openpilot/blob/fa310d9e2542cf497d92f007baec8fd751ffa99c/selfdrive/modeld/models/driving.h#L239)
+   - [Qcom cameras](https://github.com/commaai/openpilot/tree/fa310d9e2542cf497d92f007baec8fd751ffa99c/system/camerad/cameras)
+   - [Interaction with the Supercombo model](https://github.com/commaai/openpilot/blob/fa310d9e2542cf497d92f007baec8fd751ffa99c/selfdrive/modeld/models/driving.cc)
+   - [Model execution](https://github.com/commaai/openpilot/blob/fa310d9e2542cf497d92f007baec8fd751ffa99c/selfdrive/modeld/runners/onnx_runner.py)
+   - [Cereal messaging package](https://github.com/commaai/msgq/tree/a9082c826872e5650e8a8e9a6f3e5f95a4d27572)
+   - [Visionipc system](https://github.com/commaai/msgq/tree/a9082c826872e5650e8a8e9a6f3e5f95a4d27572/visionipc)
+   - [Simulation connection script to gather environmental data](https://github.com/commaai/openpilot/blob/fa310d9e2542cf497d92f007baec8fd751ffa99c/tools/sim/bridge.py)
+   - [YUV image formats](https://github.com/peter-popov/unhack-openpilot) and [formats from another source](https://gist.github.com/Jim-Bar/3cbba684a71d1a9d468a6711a6eddbeb)
+   - [Existing adversarial attack efforts on Openpilot](https://github.com/noobmasterbala/Adversarial-Attack-and-Defence-On-Openpilot) and [another project](https://github.com/MTammvee/openpilot-supercombo-model/tree/main)
 
-2. **Gradient Calculation**:
-    - Compute the gradient of the model's loss function with respect to the input.
-    - Use backpropagation to determine how small changes in the input affect the model's output.
-  
-3. **Crafting Perturbations**:
-    - Apply gradient-based attack methods, such as the **Fast Gradient Sign Method (FGSM)**, which alters the input image based on the computed gradient.
-    - For more sophisticated attacks, use the **Carlini & Wagner (C&W) Attack**, which minimizes the perturbation size while maximizing the model’s misclassification rate.
+2. **Model Format Conversion**:
+   Since the Openpilot Supercombo model uses the ONNX format, it’s necessary to convert the model into a more manageable framework, such as PyTorch, to enable gradient-based attacks. Conversion can be done using libraries like [onnx2torch](https://pypi.org/project/onnx2torch/).
 
-4. **Evaluation**:
-    - Test the adversarial example against the target system, ensuring that the perturbations are imperceptible to human drivers.
-    - Perform robustness checks across multiple inputs to assess the generalizability of the attack.
+3. **Data Preparation**:
+   Collect camera frame images from the car’s sensors. These images will be saved and used later for feeding into the Supercombo model to craft adversarial examples.
 
-### Example: Carlini & Wagner Attack on Openpilot
-We will perform a Carlini & Wagner attack on Openpilot’s image recognition models to test the system's robustness. We will compare the effectiveness of this attack between Openpilot versions 0.9.4 and 0.8.3 to assess whether newer versions offer better defense mechanisms.
+4. **Data Parsing**:
+   Convert the data formats to ensure compatibility with the neural network's input specifications.
+
+5. **Model Queries**:
+   Access the model's parameters, such as weights and biases, to calculate gradients. These gradients are crucial for updating the adversarial example and steering the output toward the desired misclassification.
+
+6. **Loss Function**:
+   Define a loss function that measures the impact of the adversarial example. The loss will be used to update the pixels of the adversarial example iteratively.
+
+7. **Iterative Algorithm**:
+   Use an iterative process to query the Supercombo model, evaluate the output with the loss function, and update the adversarial example using gradients. Continue until the perturbation reaches a predetermined threshold or number of iterations.
+
+8. **Testing and Validation**:
+   Once the adversarial example is crafted, run simulations or real-world tests to validate its effectiveness. This step is crucial to ensure that the adversarial example consistently fools the model across various scenarios.
+
+---
+
+This method requires significant knowledge of the system's internals but can be highly effective in scenarios where the attacker has access to the model's parameters. The white-box approach is one of the most precise ways to craft adversarial examples as it allows for fine-tuning of perturbations based on complete access to the model.
 
 ## Blackbox Attacks
 
