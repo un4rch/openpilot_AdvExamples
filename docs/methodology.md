@@ -55,8 +55,6 @@ A white-box attack consists of accessing the model's parameters, architecture, a
 8. **Testing and Validation**:
    Once the adversarial example is crafted, run simulations or real-world tests to validate its effectiveness. This step is crucial to ensure that the adversarial example consistently fools the model across various scenarios.
 
----
-
 This method requires significant knowledge of the system's internals but can be highly effective in scenarios where the attacker has access to the model's parameters. The white-box approach is one of the most precise ways to craft adversarial examples as it allows for fine-tuning of perturbations based on complete access to the model.
 
 ## Blackbox Attacks
