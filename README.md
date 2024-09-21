@@ -7,6 +7,7 @@ This repository explains methodologies to attack the OpenPilot 0.9.4 self-drivin
 - [Openpilot Version History](#openpilot-version-history)
 - [Accidents Related to Openpilot](#accidents-related-to-openpilot)
 - [Methodology](#methodology)
+- [Openpilot internals](#openpilot-internals)
 - [White-Box Attacks](#white-box-attacks)
 - [Black-Box Attacks](#black-box-attacks)
 - [Installation and Usage](#installation-and-usage)
@@ -94,6 +95,10 @@ This section will provide a brief summary of the key features and improvements i
 A generical step-by-step methodology for researching and developing attacks, including the information gathering, tools setup, data collection, algorithm structures, and experiment results, can be found in [Methodology](docs/methodology.md).
 
 Then, **white-box** attack and **black-box** strategies against Openpilot are explained more deeply in the following sections.
+
+## Openpilot Internals
+
+´´´´TODO: Explicaciones del source code´´´
 
 ## White-Box Attacks
 
