@@ -98,7 +98,7 @@ Then, **white-box** attack and **black-box** strategies against Openpilot are ex
 
 ## Openpilot Internals
 
-´´´´TODO: Explicaciones del source code´´´
+```TODO: Explicaciones del source code```
 
 ## White-Box Attacks
 
