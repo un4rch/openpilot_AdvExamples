@@ -12,7 +12,6 @@ This repository explains methodologies to attack the OpenPilot 0.9.4 self-drivin
 - [Black-Box Attacks](#black-box-attacks)
 - [Installation and Usage](#installation-and-usage)
 - [Conclusions](#conclusions)
-- [References](#references)
 
 ## Introduction
 
@@ -142,8 +141,3 @@ Learn more in [Black-Box Attacks](docs/black-box.md).
 ## Conclusions
 
 ```TODO: a partir de la version 0.9.0 surgen todas las mejoras en las DNNs por lo que desde la 0.8.3 se han solucionado los EA: https://ar5iv.labs.arxiv.org/html/2103.00345```
-
-## References
-
-- [OpenPilot Documentation](https://github.com/commaai/openpilot)
-- [Adversarial Attacks on Neural Networks](https://arxiv.org/abs/1412.6572)
