@@ -15,9 +15,9 @@ This repository explains methodologies to attack the OpenPilot 0.9.4 self-drivin
 
 ## Introduction
 
-OpenPilot is an open-source software for autonomous vehicles. In this project, we explore how Adversarial Examples can trick the perception system of OpenPilot, causing it to make incorrect driving decisions, such as accelerating unsafely and causing a rear-end collision.
+OpenPilot is an open-source software for autonomous vehicles. In this project, we explore how Adversarial Examples can trick the perception of Machine Learning models, leading them to incorrect predictions.
 
-A [Physical Adversarial Example](https://github.com/weihui1308/PAA?tab=readme-ov-file) is a carefully crafted input designed to mislead the prediction of DNN-based models.
+An [Adversarial Example](https://github.com/weihui1308/PAA?tab=readme-ov-file) is a carefully crafted input designed to mislead the prediction of DNN-based models.
 
 This guide employs both **white-box** (where the attacker has complete knowledge of the model) and **black-box** (where the attacker has no knowledge of the model) attack strategies.
 
