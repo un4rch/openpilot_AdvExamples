@@ -23,11 +23,9 @@ An [**Adversarial Example**](https://www.tensorflow.org/tutorials/generative/adv
 Imagine an image classification model that correctly identifies a stop sign. By adding a minimal adversarial perturbation to the image, the model might mistakenly classify the stop sign as a speed limit sign, posing serious safety risks in an autonomous driving context. This type of vulnerability exemplifies the critical importance of understanding and mitigating adversarial examples.
 
 ## What is Adversarial Machine Learning?
-**Adversarial Machine Learning (AML)** is a field that investigates how adversarial examples exploit the weaknesses of machine learning models. AML explores the methods attackers use to generate adversarial examples and focuses on crafting defenses to make models more robust. Attacks in this domain are typically divided into two categories:
-- **White-box attacks**, where the attacker has full access to the model, including its architecture, parameters, and weights.
-- **Black-box attacks**, where the attacker has no direct access to the model but can infer its behavior by querying its output.
+**Adversarial Machine Learning (AML)** is a field that investigates how adversarial examples exploit the weaknesses of machine learning models. AML explores the methods attackers use to generate adversarial examples and focuses on crafting defenses to make models more robust. Attacks in this domain are typically divided into two categories: **white-box** and **black-box** attacks.
 
-AML is of great importance in areas where security and safety are critical, such as autonomous vehicles, financial fraud detection, and healthcare.
+AML is of great importance in areas where security and safety are critical, such as autonomous vehicles.
 
 ## What is the Openpilot Autonomous Driving System?
 **Openpilot** is an open-source autonomous driving system developed by Comma.ai that provides advanced driver-assistance functionalities, such as Adaptive Cruise Control (ACC) and Lane Keeping Assist System (LKAS). It operates by processing data from cameras, radars, and other sensors through deep learning models, such as the **Supercombo model**, which performs end-to-end driving tasks, including lane detection, vehicle following, and road edge identification.
