@@ -17,7 +17,7 @@
 ## What is an Adversarial Example?
 An [**Adversarial Example**](https://www.tensorflow.org/tutorials/generative/adversarial_fgsm) **(AE)** is a carefully crafted input designed to deceive deep neural network (DNN)-based models into making incorrect predictions. These examples are typically created by adding small, often imperceptible, perturbations to the original input data, such as images, which causes the model to misclassify or predict erroneously with high confidence. While adversarial perturbations may be subtle and unnoticeable to humans, they can significantly disrupt machine learning models, highlighting vulnerabilities that are especially concerning in safety-critical applications like autonomous driving and facial recognition.
 
-![Adversarial Example Perturbation](https://www.tensorflow.org/static/tutorials/generative/images/adversarial_example.png)
+![Adversarial Example Perturbation](images/ae_traffic_sign.png)
 
 ### Example:
 Imagine an image classification model that correctly identifies a stop sign. By adding a minimal adversarial perturbation to the image, the model might mistakenly classify the stop sign as a speed limit sign, posing serious safety risks in an autonomous driving context. This type of vulnerability exemplifies the critical importance of understanding and mitigating adversarial examples.
