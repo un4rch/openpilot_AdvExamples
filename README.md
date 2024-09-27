@@ -12,7 +12,7 @@
 # Introduction
 
 ## What is an Adversarial Example?
-An [**Adversarial Example**](https://www.tensorflow.org/tutorials/generative/adversarial_fgsm) is a carefully crafted input designed to deceive deep neural network (DNN)-based models into making incorrect predictions. These examples are typically created by adding small, often imperceptible, perturbations to the original input data, such as images, which causes the model to misclassify or predict erroneously with high confidence. While adversarial perturbations may be subtle and unnoticeable to humans, they can significantly disrupt machine learning models, highlighting vulnerabilities that are especially concerning in safety-critical applications like autonomous driving and facial recognition.
+An [**Adversarial Example**](https://www.tensorflow.org/tutorials/generative/adversarial_fgsm) (AE) is a carefully crafted input designed to deceive deep neural network (DNN)-based models into making incorrect predictions. These examples are typically created by adding small, often imperceptible, perturbations to the original input data, such as images, which causes the model to misclassify or predict erroneously with high confidence. While adversarial perturbations may be subtle and unnoticeable to humans, they can significantly disrupt machine learning models, highlighting vulnerabilities that are especially concerning in safety-critical applications like autonomous driving and facial recognition.
 
 ![Adversarial Example Perturbation](https://www.tensorflow.org/static/tutorials/generative/images/adversarial_example.png)
 
@@ -20,7 +20,7 @@ An [**Adversarial Example**](https://www.tensorflow.org/tutorials/generative/adv
 Imagine an image classification model that correctly identifies a stop sign. By adding a minimal adversarial perturbation to the image, the model might mistakenly classify the stop sign as a speed limit sign, posing serious safety risks in an autonomous driving context. This type of vulnerability exemplifies the critical importance of understanding and mitigating adversarial examples.
 
 ## What are Machine Learning Models?
-**Machine Learning (ML) models** are algorithms that learn patterns from data to make predictions or decisions based on new, unseen data. These models range from simple linear regressions to complex DNNs, which are capable of recognizing intricate patterns in large datasets. DNNs have become the cornerstone of modern artificial intelligence, powering systems in fields like image classification, speech recognition, and autonomous driving.
+**Machine Learning** (ML) models are algorithms that learn patterns from data to make predictions or decisions based on new, unseen data. These models range from simple linear regressions to complex DNNs, which are capable of recognizing intricate patterns in large datasets. DNNs have become the cornerstone of modern artificial intelligence, powering systems in fields like image classification, speech recognition, and autonomous driving.
 
 However, as these models become more integrated into critical applications, such as autonomous vehicles, their susceptibility to adversarial examples has become a pressing concern. **Adversarial Machine Learning (AML)** focuses on studying these vulnerabilities and developing methods to harden ML models against such attacks.
 
