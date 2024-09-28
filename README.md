@@ -76,45 +76,45 @@ Openpilot is not a fully autonomous system; it is classified as **Level 2 autono
 
 Since its initial release, Openpilot has evolved some [versions](https://github.com/commaai/openpilot/blob/master/RELEASES.md), each improving on the system's robustness, functionality, and ease of use. Below is a brief overview of the key Openpilot versions and their main improvements:
 
-### Version 0.1 (2016-11-29)
+### Version 0.1.x (2016-11-29)
 - Initial release of Openpilot.
 - **Adaptive Cruise Control (ACC)** and **Lane Keep Assist (LKA)** functionalities were introduced.
 - Supported vehicles: **Acura ILX 2016** with AcuraWatch Plus and **Honda Civic 2016 Touring Edition**.
 
-### Version 0.2 (2016-12-12)
+### Version 0.2.x (2016-12-12)
 - Major refactor of the **controls** and **vision** modules.
 - Added **car and radar abstraction layers** for broader compatibility.
 - Docker container introduced for testing on a PC.
 - **Plant model** for testing maneuvers was shipped}.
 
-### Version 0.3 (2017-05-12)
+### Version 0.3.x (2017-05-12)
 - Added **CarParams** struct to improve abstraction layers.
 - New model trained with more crowdsourced data for improved lane tracking.
 - Initial **GPS** and **navigation support**.
 
-### Version 0.4 (2018-01-18)
+### Version 0.4.x (2018-01-18)
 - Significant updates to **UI aesthetics** and **autofocus**.
 - Added alpha support for **2017 Toyota Corolla** and **2017 Lexus RX Hybrid**.
 - Focus on improving lane tracking when only one lane line is detected.
 
-### Version 0.5 (2018-07-11)
+### Version 0.5.x (2018-07-11)
 - Introduced **Driver Monitoring (beta)** feature.
 - Major efficiency improvements to **vision**, **logger**, and **UI** modules.
 - New side-bar with stats, making UI more intuitive.
 
-### Version 0.6 (2019-07-01)
+### Version 0.6.x (2019-07-01)
 - **New driving model**: increased the temporal context tenfold, making lane-keeping more reliable.
 - Openpilot now uses only ~65% of CPU resources, improving system stability and efficiency.
 
-### Version 0.7 (2019-12-13)
+### Version 0.7.x (2019-12-13)
 - Introduced **Lane Departure Warning (LDW)** for all supported vehicles.
 - **Supercombo model**: Combined calibration and driving models for better estimates of lead vehicles.
 
-### Version 0.8 (2020-11-30)
+### Version 0.8.x (2020-11-30)
 - Fully 3D driving model introduced, significantly improving cut-in detection.
 - **UI** now draws 2 road edges, 4 lane lines, and paths in 3D.
 
-### Version 0.9 (2023-11-17)
+### Version 0.9.x (2023-11-17)
 - New **Vision Transformer Architecture** for improved driving performance.
 - Major refinements in lane-keeping and obstacle avoidance, and enhanced compatibility with new Toyota models.
 
