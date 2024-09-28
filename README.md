@@ -29,6 +29,8 @@ The methodology presented in this guide offers a structured approach for both be
   - [Accidents Related to Openpilot](#accidents-related-to-openpilot)
   - [Openpilot Internals](#openpilot-internals)
 - [Running Openpilot in CARLA simulator](#running-openpilot-in-carla-simulator)
+  - [Setup](#setup)
+  - [...]()
 - [White-Box Attacks](#white-box-attacks)
   - [Carlini & Wagner against image classification](#carlini-&-wagner-against-image-classification)
   - [Openpilot](#openpilot)
@@ -64,55 +66,59 @@ Both approaches will be explored in this project, targeting models trained from 
 
 # Openpilot
 ## What is the Openpilot Autonomous Driving System?
-[**Openpilot**](https://comma.ai/openpilot) is an open-source autonomous driving system developed by Comma.ai that provides advanced driver-assistance functionalities, such as Adaptive Cruise Control (ACC) and Lane Keeping Assist System (LKAS). It operates by processing data from cameras, radars, and other sensors through deep learning models, such as the [**Supercombo model**](https://github.com/commaai/openpilot/tree/master/selfdrive/modeld/models), which performs end-to-end driving tasks, including lane detection, vehicle following, and road edge identification.
+[**Openpilot**](https://comma.ai/openpilot) is an [open-source](https://github.com/commaai/openpilot), advanced driver assistance system (ADAS) developed by Comma.ai. It provides autonomous driving capabilities such as **adaptive cruise control (ACC)**, **lane keeping assistance (LKAS)**, and **forward collision warnings (FCW)**. Openpilot uses a combination of sensors (including cameras, radars, and GNSS) along with deep learning models to interpret the driving environment and make real-time decisions. It has been designed to enhance the driving experience, offering partial autonomy that assists drivers in various tasks.
 
-As an [open-source](https://github.com/commaai/openpilot) project, Openpilot is particularly susceptible to adversarial attacks. Adversarial examples could cause the system to misinterpret its environment, leading to dangerous situations such as improper lane changes or failure to recognize obstacles. In this project, we explore how adversarial examples can trick the perception of machine learning models within Openpilot, demonstrating the practical risks posed by these attacks.
+At the heart of Openpilot is a **deep neural network (DNN)**, specifically the [**Supercombo model**](https://github.com/commaai/openpilot/tree/master/selfdrive/modeld/models), which processes sensor inputs and predicts driving actions such as lane positioning, speed adjustments, and obstacle detection. The system integrates with supported vehicles' onboard sensors and actuators to control acceleration, braking, and steering autonomously, reducing the driver's workload and improving safety.
+
+Openpilot is not a fully autonomous system; it is classified as **Level 2 autonomy**, meaning that while the system can manage some driving tasks, the driver is required to remain attentive and ready to take control at any time.
 
 ## Openpilot Version History
 
-This section will provide a brief summary of the key features and improvements in different versions of Openpilot since november 2021.
+Since its initial release, Openpilot has evolved some versions, each improving on the system's robustness, functionality, and ease of use. Below is a brief overview of the key Openpilot versions and their main improvements:
 
-### [Openpilot 0.8.10](https://blog.comma.ai/0810release/)
-- Introduced a new driving model trained on over 1 million minutes of driving, improving localization and cut-in prediction. Updated driver monitoring model with wider FOV for comma three.
+### Version 0.1 (2016-11-29)
+- Initial release of Openpilot.
+- **Adaptive Cruise Control (ACC)** and **Lane Keep Assist (LKA)** functionalities were introduced.
+- Supported vehicles: **Acura ILX 2016** with AcuraWatch Plus and **Honda Civic 2016 Touring Edition**.
 
-### [Openpilot 0.8.11](https://blog.comma.ai/0811release/)
-- Introduced smoother acceleration trajectories to improve user comfort and support for CAN FD for more vehicles. Added six new car ports.
+### Version 0.2 (2016-12-12)
+- Major refactor of the **controls** and **vision** modules.
+- Added **car and radar abstraction layers** for broader compatibility.
+- Docker container introduced for testing on a PC.
+- **Plant model** for testing maneuvers was shipped&#8203;:contentReference[oaicite:1]{index=1}.
 
-### [Openpilot 0.8.12](https://blog.comma.ai/0812release/)
-- Improved longitudinal control, redesigned the alert system, and introduced new sounds for alerts. Enhanced stopping behavior and reduced follow distance.
+### Version 0.3 (2017-05-12)
+- Added **CarParams** struct to improve abstraction layers.
+- New model trained with more crowdsourced data for improved lane tracking.
+- Initial **GPS** and **navigation support**&#8203;:contentReference[oaicite:2]{index=2}.
 
-### [Openpilot 0.8.13](https://blog.comma.ai/0813release/)
-- Implemented improvements in laneline detection and enhanced longitudinal control, especially for stop-and-go traffic.
+### Version 0.4 (2018-01-18)
+- Significant updates to **UI aesthetics** and **autofocus**.
+- Added alpha support for **2017 Toyota Corolla** and **2017 Lexus RX Hybrid**.
+- Focus on improving lane tracking when only one lane line is detected&#8203;:contentReference[oaicite:3]{index=3}.
 
-### [Openpilot 0.8.14](https://blog.comma.ai/0814release/)
-- Further enhancements to longitudinal and lateral control systems, as well as bug fixes for braking disengagements in supported cars.
+### Version 0.5 (2018-07-11)
+- Introduced **Driver Monitoring (beta)** feature.
+- Major efficiency improvements to **vision**, **logger**, and **UI** modules.
+- New side-bar with stats, making UI more intuitive&#8203;:contentReference[oaicite:4]{index=4}.
 
-### [Openpilot 0.8.15](https://blog.comma.ai/0815release/)
-- Improved model performance by reducing unplanned disengagements and introduced the ability to export and share video clips of drives. UI updates and stability improvements.
+### Version 0.6 (2019-07-01)
+- **New driving model**: increased the temporal context tenfold, making lane-keeping more reliable.
+- Openpilot now uses only ~65% of CPU resources, improving system stability and efficiency&#8203;:contentReference[oaicite:5]{index=5}.
 
-### [Openpilot 0.8.16](https://blog.comma.ai/0816release/)
-- Introduced a new stop-and-go longitudinal control and several user interface updates. Enhanced braking accuracy and responsiveness.
+### Version 0.7 (2019-12-13)
+- Introduced **Lane Departure Warning (LDW)** for all supported vehicles.
+- **Supercombo model**: Combined calibration and driving models for better estimates of lead vehicles&#8203;:contentReference[oaicite:6]{index=6}.
 
-### [Openpilot 0.9.0](https://blog.comma.ai/090release/)
-- Major improvements to driving models, with updates that included refined steering control and new platforms support.
+### Version 0.8 (2020-11-30)
+- Fully 3D driving model introduced, significantly improving cut-in detection.
+- **UI** now draws 2 road edges, 4 lane lines, and paths in 3D&#8203;:contentReference[oaicite:7]{index=7}.
 
-### [Openpilot 0.9.2](https://blog.comma.ai/092release/)
-- New dataset used for the driving model, expanding supported platforms. Improved path visualization for better trajectory understanding.
+### Version 0.9 (2023-11-17)
+- New **Vision Transformer Architecture** for improved driving performance.
+- Major refinements in lane-keeping and obstacle avoidance, and enhanced compatibility with new Toyota models&#8203;:contentReference[oaicite:8]{index=8}&#8203;:contentReference[oaicite:9]{index=9}.
 
-### [Openpilot 0.9.3](https://blog.comma.ai/093release/)
-- Introduced fuzzy fingerprinting for Hyundai, Kia, and Genesis models, improving first-time setup. Driving personality settings were added to control how aggressively Openpilot drives.
-
-### [Openpilot 0.9.4](https://blog.comma.ai/094release/)
-- Enhanced driving performance in different environments and fixed several bugs related to steering control and braking.
-
-### [Openpilot 0.9.5](https://blog.comma.ai/095release/)
-- Implemented smoother handling of long turns, with more precise lateral control, focusing on user comfort during high-speed driving.
-
-### [Openpilot 0.9.6](https://blog.comma.ai/096release/)
-- Introduced a new driving model and improved driver monitoring, along with a neural-based steering control model. Fuzzy fingerprinting was further improved, and support was added for new Toyota models. The update also included a new format for log segment management and bug fixes in the CAN parser.
-
-### [Openpilot 0.9.7](https://blog.comma.ai/097release/)
-- New updates focused on long-term stability of the driving models, with further refinements to trajectory control.
+These updates reflect the ongoing improvements in Openpilot's neural network models, safety systems, and vehicle compatibility, ensuring the system remains at the forefront of autonomous driving technology.
 
 ## Accidents Related to Openpilot
 
