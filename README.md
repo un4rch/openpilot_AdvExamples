@@ -221,6 +221,8 @@ The [**Supercombo**](https://arxiv.org/pdf/2206.08176) model is the core neural 
 #### Architecture and Input Processing
 The Supercombo model processes inputs from the car’s front-facing camera, which captures the road environment in real-time. These images are transformed from RGB format into **YUV 4:2:0** format for more efficient processing. The input consists of two consecutive frames that are resized and concatenated to form a (12×128×256) input tensor. This preprocessing allows the model to utilize temporal information, crucial for making accurate predictions in dynamic driving environments
 
+![Supercombo model architecture](images/supercombo_architecture.png)
+
 #### Neural Network Design
 The architecture of the Supercombo model is built around **EfficientNet-B2**, a deep convolutional neural network (CNN) known for its balance of high accuracy and low computational cost. This backbone is augmented with a **Gated Recurrent Unit (GRU)**, which captures temporal dependencies between consecutive frames, allowing the model to make more informed decisions about the vehicle's surroundings and future trajectory. 
 
