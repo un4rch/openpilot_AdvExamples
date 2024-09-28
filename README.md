@@ -74,7 +74,7 @@ Openpilot is not a fully autonomous system; it is classified as **Level 2 autono
 
 ## Openpilot Version History
 
-Since its initial release, Openpilot has evolved some versions, each improving on the system's robustness, functionality, and ease of use. Below is a brief overview of the key Openpilot versions and their main improvements:
+Since its initial release, Openpilot has evolved some [versions](https://github.com/commaai/openpilot/blob/master/RELEASES.md), each improving on the system's robustness, functionality, and ease of use. Below is a brief overview of the key Openpilot versions and their main improvements:
 
 ### Version 0.1 (2016-11-29)
 - Initial release of Openpilot.
