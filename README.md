@@ -144,7 +144,9 @@ These updates reflect the ongoing improvements in Openpilot's neural network mod
 
 ## Openpilot Internals
 
-The internal structure of Openpilot is designed using a modular architecture, where different services interact to provide autonomous driving capabilities. These modules include sensors, neural networks, control systems, and communication frameworks. Each component is responsible for a specific function, all working together to ensure seamless operation.
+The [internal structure](https://blog.comma.ai/openpilot-in-2021/) of Openpilot is designed using a modular architecture, where different services interact to provide autonomous driving capabilities. These modules include sensors, neural networks, control systems, and communication frameworks. Each component is responsible for a specific function, all working together to ensure seamless operation.
+
+![Openpilot architecture](https://blog.comma.ai/img/op_services/openpilot.jpg)
 
 ### 1. Sensors and Actuators
 
