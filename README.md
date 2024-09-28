@@ -150,16 +150,16 @@ The internal structure of Openpilot is designed around a modular architecture, w
 Openpilot interacts with a vehicle's **sensors** (camera, radar, GNSS) and **actuators** (steering, throttle, brakes) to execute driving tasks. The system uses **camerad** to process video inputs from the vehicle’s camera, which are then fed into the deep neural network.
 
 ### Neural Network: Supercombo
-At the heart of Openpilot’s decision-making process is the [**Supercombo model**](https://arxiv.org/pdf/2206.08176), a deep learning model that combines lane-keeping, object detection, and end-to-end driving tasks into a single neural network. It processes sensor inputs and predicts the car's trajectory, adjusting steering, acceleration, and braking accordingly&#8203;:contentReference[oaicite:11]{index=11}&#8203;:contentReference[oaicite:12]{index=12}.
+At the heart of Openpilot’s decision-making process is the [**Supercombo model**](https://arxiv.org/pdf/2206.08176), a deep learning model that combines lane-keeping, object detection, and end-to-end driving tasks into a single neural network. It processes sensor inputs and predicts the car's trajectory, adjusting steering, acceleration, and braking accordingly.
 
 ### Services and Messaging
 Openpilot operates using a publisher-subscriber messaging system where different services communicate through **Cereal**, a message-passing framework. Key services include:
 - **modeld**: Runs the Supercombo model and processes vision-based data.
 - **controlsd**: Implements the vehicle's control policies, such as steering and throttle adjustments.
-- **dmonitoringd**: Ensures the driver remains attentive by monitoring the driver’s gaze and head position&#8203;:contentReference[oaicite:13]{index=13}&#8203;:contentReference[oaicite:14]{index=14}.
+- **dmonitoringd**: Ensures the driver remains attentive by monitoring the driver’s gaze and head position.
 
 ### Safety Features
-Openpilot integrates several safety checks, such as **driver monitoring** to ensure the human driver is ready to take over at any time. Additionally, it includes redundant systems for object detection, using radar in combination with vision-based detection to enhance accuracy in obstacle avoidance&#8203;:contentReference[oaicite:15]{index=15}&#8203;:contentReference[oaicite:16]{index=16}.
+Openpilot integrates several safety checks, such as **driver monitoring** to ensure the human driver is ready to take over at any time. Additionally, it includes redundant systems for object detection, using radar in combination with vision-based detection to enhance accuracy in obstacle avoidance.
 
 # Running Openpilot in CARLA simulator
 
