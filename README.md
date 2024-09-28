@@ -246,7 +246,7 @@ Supercombo is trained on **Comma.ai's proprietary dataset**, consisting of milli
 
 This section provides a step-by-step guide to setting up the **CARLA driving simulator** and **Openpilot autonomous driving software**, along with instructions for connecting both systems using the **bridge.py** file. The connection enables real-time simulation of Openpilot's driving control in the CARLA environment.
 
-### System Requirements
+## System Requirements
 
 Before proceeding with the installation, ensure your system meets the following minimum requirements to avoid performance issues:
 
@@ -257,13 +257,13 @@ Before proceeding with the installation, ensure your system meets the following 
 - **TCP Ports**: Two open TCP ports (default: 2000, 2001)
 - **Internet Connection**: Stable for downloading packages and updates
 
-### Step 1: Install Ubuntu 20.04.06
+## Step 1: Install Ubuntu 20.04.06
 
 1. Download the Ubuntu 20.04.06 ISO from the official Ubuntu website.
 2. Create a bootable USB using a tool like **Rufus**.
 3. Install Ubuntu natively on your system following the standard installation steps.
 
-### Step 2: Installing Openpilot (Version 0.9.4)
+## Step 2: Installing Openpilot (Version 0.9.4)
 
 To install Openpilot on your system, follow these steps:
 
@@ -286,7 +286,7 @@ scons -u -j $(nproc)
    ```
 After completing these steps, Openpilot will be installed and ready to integrate with the CARLA simulator.
 
-### Step 3: Installing CARLA (Version 0.9.14)
+## Step 3: Installing CARLA (Version 0.9.14)
 To install the [CARLA simulator](https://carla.readthedocs.io/en/0.9.14/build_linux/), you can either download a precompiled package or compile it from the source. Follow these steps to complete the installation:
 1. **Software requeriments**:
 ```
@@ -339,9 +339,53 @@ make launch
 ```
 make package
 ```
+## Step 4: Connecting CARLA and Openpilot
+
+To connect CARLA and Openpilot, you will need to use three separate terminals: one for running CARLA, one for Openpilot, and one for the bridge that connects them.
+
+1. **Spawn a vehicle to be engaged by Openpilot**
+Open the bridge.py file and add this content to spawn a vehicle:
+```python
+###########################
+# Spawn openpilot vehicle #
+###########################
+vehicle_bp = blueprint_library.filter('vehicle.tesla.*')[1]
+vehicle_bp.set_attribute('role_name', 'hero')
+spawn_points = world_map.get_spawn_points()
+assert len(spawn_points) > self._args.num_selected_spawn_point, f'''No spawn point {self._args.num_selected_spawn_point}, try a value between 0 and
+{len(spawn_points)} for this town.'''
+spawn_point = spawn_points[self._args.num_selected_spawn_point]
+print(f"OPENPILOT: {spawn_point}")
+global OPENPILOT_VEHICLE
+OPENPILOT_VEHICLE = world.spawn_actor(vehicle_bp, spawn_point)
+self._carla_objects.append(OPENPILOT_VEHICLE)
+max_steer_angle = OPENPILOT_VEHICLE.get_physics_control().wheels[0].max_steer_angle
+```
+
+3. **Terminal 1: Start the CARLA Server**
+First, launch the CARLA simulator in the first terminal:
+```bash
+./CarlaUE4.sh
+```
+3. **Terminal 2: Start Openpilot**
+In the second terminal, navigate to the Openpilot directory and start Openpilot:
+```bash
+cd /<path_to_openpilot>
+poetry shell
+cd tools/sim
+./launch_openpilot.sh
+```
+4. **Terminal 3: Run the Bridge**
+In the third terminal, run the bridge.py script to establish the connection between CARLA and Openpilot:
+```bash
+cd /<path_to_openpilot>
+poetry shell
+cd tools/sim
+python3 /path/to/openpilot/tools/sim/bridge.py
+```
+press "1" and "2" repeatedly for Openpilot to engage the vehicle.
 
 # White-Box Attacks
-
 - C&W
 - Openpilot
 
