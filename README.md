@@ -36,8 +36,8 @@ An [**Adversarial Example**](https://www.tensorflow.org/tutorials/generative/adv
 
 ![Adversarial Example Perturbation](images/ae_traffic_sign.png)
 
-### Example:
-Imagine an image classification model that correctly identifies a stop sign. By adding a minimal adversarial perturbation to the image, the model might mistakenly classify the stop sign as a speed limit sign, posing serious safety risks in an autonomous driving context. This type of vulnerability exemplifies the critical importance of understanding and mitigating adversarial examples.
+### [Example](https://arxiv.org/pdf/1801.02780):
+Imagine an image classification model that identifies a benign logo. By adding a minimal adversarial perturbation to the image, the model might mistakenly classify it as a stop sign with a confidence of 1.0, posing serious safety risks in an autonomous driving context. This type of vulnerability exemplifies the critical importance of understanding and mitigating adversarial examples.
 
 ## What is Adversarial Machine Learning?
 **Adversarial Machine Learning (AML)** is a field that investigates how adversarial examples exploit the weaknesses of machine learning models. AML explores the methods attackers use to generate adversarial examples and focuses on crafting defenses to make models more robust. Attacks in this domain are typically divided into two categories: **white-box** and **black-box** attacks.
