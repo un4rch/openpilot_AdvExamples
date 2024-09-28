@@ -1,8 +1,21 @@
 # Methodology Overview
-This guide serves as a hands-on methodology for generating adversarial examples, focusing on:
-- **White-box attacks** on image recognition models and the Openpilot system.
-- **Black-box strategies**, including evolutionary algorithms and expectation over transformations, to trick complex systems.
-We will integrate **CARLA**, a driving simulator, to test these attacks in a realistic autonomous driving environment. By the end of this guide, readers will have a comprehensive understanding of how adversarial examples work, how they can be generated, and how they affect real-world ML applications such as Openpilot.
+
+This guide serves as a comprehensive, hands-on methodology for generating adversarial examples, providing users with both theoretical insights and practical implementations. It covers attacks on a wide range of machine learning systems, from image classification models to complex autonomous driving systems like **Openpilot**.
+
+The guide is designed for users with a basic understanding of machine learning and neural networks, and it provides clear, step-by-step instructions for implementing adversarial attacks in various environments. Throughout the guide, users will explore both **white-box** and **black-box** adversarial strategies, applying them to different machine learning models, including:
+
+- **Image classification models** such as custom-built neural networks and fine-tuned models like **ResNet-50**.
+- **Autonomous driving systems** like Openpilot, focusing on the internal workings of its modules and deep learning models, such as the **Supercombo** model.
+
+In addition to generating adversarial examples, this guide demonstrates how to simulate attacks in real-world scenarios using **CARLA**, a high-fidelity driving simulator. CARLA will be used to test adversarial attacks on autonomous vehicles in controlled environments, enabling users to observe the practical impact of these examples on complex systems.
+
+By the end of this guide, users will have a solid understanding of:
+- The nature and creation of adversarial examples.
+- How to implement white-box and black-box attacks on various machine learning models.
+- The security vulnerabilities of systems like Openpilot.
+- How to use **CARLA** for testing adversarial examples in simulated autonomous driving scenarios.
+
+The methodology presented in this guide offers a structured approach for both beginners and intermediate users who wish to delve into the field of **Adversarial Machine Learning** and its application in critical real-world systems like image recognition and autonomous driving.
 
 # What is the Openpilot Autonomous Driving System?
 **Openpilot** is an open-source autonomous driving system developed by Comma.ai that provides advanced driver-assistance functionalities, such as Adaptive Cruise Control (ACC) and Lane Keeping Assist System (LKAS). It operates by processing data from cameras, radars, and other sensors through deep learning models, such as the **Supercombo model**, which performs end-to-end driving tasks, including lane detection, vehicle following, and road edge identification.
