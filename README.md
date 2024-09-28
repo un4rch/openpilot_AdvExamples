@@ -26,7 +26,10 @@ The methodology presented in this guide offers a structured approach for both be
   - [Openpilot Internals](#openpilot-internals)
 - [Running Openpilot in CARLA simulator](#running-openpilot-in-carla-simulator)
 - [White-Box Attacks](#white-box-attacks)
+  - [Carlini & Wagner against image classification](#carlini-&-wagner-against-image-classification)
+  - [Openpilot](#openpilot)
 - [Black-Box Attacks](#black-box-attacks)
+  - [Openpilot](#openpilot)
 - [Installation and Usage](#installation-and-usage)
 - [Conclusions](#conclusions)
 
