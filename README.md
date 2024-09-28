@@ -221,7 +221,7 @@ The [**Supercombo**](https://arxiv.org/pdf/2206.08176) model is the core neural 
 ![Supercombo model architecture](images/supercombo_architecture.png)
 
 #### Architecture and Input Processing
-The Supercombo model processes inputs from the car’s front-facing camera, which captures the road environment in real-time. These images are transformed from RGB format into **YUV 4:2:0** format for more efficient processing. The input consists of two consecutive frames that are resized and concatenated to form a (12×128×256) input tensor. This preprocessing allows the model to utilize temporal information, crucial for making accurate predictions in dynamic driving environments
+The Supercombo model processes inputs from the car’s front-facing camera, which captures the road environment in real-time. These images are transformed from BGR format into **YUV 4:2:0** format for more efficient processing. The input consists of two consecutive frames that are resized and concatenated to form a (12×128×256) input tensor. This preprocessing allows the model to utilize temporal information, crucial for making accurate predictions in dynamic driving environments
 
 ![Supercombo model inputs and outputs](images/supercombo_input_output.png)
 
