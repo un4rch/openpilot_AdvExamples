@@ -53,9 +53,9 @@ Both approaches will be explored in this project, targeting models trained from 
 
 # Openpilot
 ## What is the Openpilot Autonomous Driving System?
-**Openpilot** is an open-source autonomous driving system developed by Comma.ai that provides advanced driver-assistance functionalities, such as Adaptive Cruise Control (ACC) and Lane Keeping Assist System (LKAS). It operates by processing data from cameras, radars, and other sensors through deep learning models, such as the **Supercombo model**, which performs end-to-end driving tasks, including lane detection, vehicle following, and road edge identification.
+[**Openpilot**](https://comma.ai/openpilot) is an open-source autonomous driving system developed by Comma.ai that provides advanced driver-assistance functionalities, such as Adaptive Cruise Control (ACC) and Lane Keeping Assist System (LKAS). It operates by processing data from cameras, radars, and other sensors through deep learning models, such as the **Supercombo model**, which performs end-to-end driving tasks, including lane detection, vehicle following, and road edge identification.
 
-As an open-source project, Openpilot is particularly susceptible to adversarial attacks. Adversarial examples could cause the system to misinterpret its environment, leading to dangerous situations such as improper lane changes or failure to recognize obstacles. In this project, we explore how adversarial examples can trick the perception of machine learning models within Openpilot, demonstrating the practical risks posed by these attacks.
+As an [open-source](https://github.com/commaai/openpilot) project, Openpilot is particularly susceptible to adversarial attacks. Adversarial examples could cause the system to misinterpret its environment, leading to dangerous situations such as improper lane changes or failure to recognize obstacles. In this project, we explore how adversarial examples can trick the perception of machine learning models within Openpilot, demonstrating the practical risks posed by these attacks.
 
 ## Openpilot Version History
 
