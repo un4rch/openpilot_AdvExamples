@@ -20,7 +20,10 @@ The methodology presented in this guide offers a structured approach for both be
 # Table of Contents
 - [Introduction](#introduction)
 - [Openpilot](#openpilot)
-- - [What is Openpilot]()
+  - [What is the Openpilot Autonomous Driving System?](#what-is-the-openpilot-autonomous-driving-system)
+  - [Openpilot Version History](#openpilot-version-history)
+  - [Accidents Related to Openpilot](#accidents-related-to-openpilot)
+  - [Openpilot Internals](#openpilot-internals)
 - [Running Openpilot in CARLA simulator](#running-openpilot-in-carla-simulator)
 - [White-Box Attacks](#white-box-attacks)
 - [Black-Box Attacks](#black-box-attacks)
