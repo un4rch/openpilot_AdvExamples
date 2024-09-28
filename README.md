@@ -212,6 +212,32 @@ Openpilot's services communicate using a high-performance, publisher-subscriber 
 
 To run Openpilot in a real-world physical vehicle, you need specialized hardware such as the **Panda** interface and a computing device like the **Comma 2** or **Comma 3**. The **Panda** acts as a bridge between the vehicle’s CAN bus and Openpilot, relaying signals to and from the car. Newer models, such as the **Comma 3**, run **AGNOS**, an Ubuntu-based operating system optimized for real-time vehicle control.
 
+### 8. Supercombo Model: End-to-End Neural Network
+
+The **Supercombo** model is the core neural network in Openpilot, responsible for handling multiple critical tasks related to perception, planning, and control. It is designed to predict the ego vehicle's trajectory directly from camera input in an end-to-end manner, bypassing the need for separate modules for perception, prediction, and planning, which are typical in traditional autonomous driving systems. The Supercombo model enables Openpilot to achieve **Level 2** autonomy, providing advanced driver assistance such as lane-keeping, adaptive cruise control, and obstacle avoidance.
+
+#### Architecture and Input Processing
+The Supercombo model processes inputs from the car’s front-facing camera, which captures the road environment in real-time. These images are transformed from RGB format into **YUV 4:2:0** format for more efficient processing. The input consists of two consecutive frames that are resized and concatenated to form a (12×128×256) input tensor. This preprocessing allows the model to utilize temporal information, crucial for making accurate predictions in dynamic driving environments
+
+#### Neural Network Design
+The architecture of the Supercombo model is built around **EfficientNet-B2**, a deep convolutional neural network (CNN) known for its balance of high accuracy and low computational cost. This backbone is augmented with a **Gated Recurrent Unit (GRU)**, which captures temporal dependencies between consecutive frames, allowing the model to make more informed decisions about the vehicle's surroundings and future trajectory. 
+
+Once the GRU processes the feature maps, several **fully connected layers** act as prediction heads, producing a variety of outputs:
+- **Vehicle trajectory**: The predicted future path of the vehicle, represented as a set of 33 3D points.
+- **Lane line and road edge detection**: Identifies the lanes and road boundaries in the driving environment.
+- **Lead vehicle position and velocity**: Tracks the position and speed of vehicles ahead.
+
+The model outputs five possible trajectory predictions, and the one with the highest confidence score is selected as the final trajectory.
+
+#### End-to-End Planning and Control
+Supercombo integrates perception and planning into a single framework, where the neural network's outputs are used by Openpilot's **plannerd** and **controlsd** modules to make decisions about steering, acceleration, and braking. This seamless integration allows the system to continuously update the vehicle's trajectory based on real-time sensor data, enabling it to handle complex driving tasks like lane-keeping and adaptive cruise control without needing separate prediction and planning modules.
+
+- **Plannerd**: Takes the predicted trajectory and translates it into actionable commands for lateral (steering) and longitudinal (acceleration and braking) planning.
+- **Controlsd**: Executes these commands by sending appropriate signals to the vehicle’s actuators.
+
+#### Key Features and Limitations
+Supercombo is trained on **Comma.ai's proprietary dataset**, consisting of millions of minutes of driving data. This large-scale dataset allows the model to generalize well across different road conditions and vehicle types. However, the exact details of the training process are not publicly available. Researchers have attempted to reimplement the Supercombo model, with comparable results in certain environments, but training such a model from scratch requires a significant amount of data and computational resources.
+
 # Running Openpilot in CARLA simulator
 
 TODO
