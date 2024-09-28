@@ -12,7 +12,7 @@ In addition to generating adversarial examples, this guide demonstrates how to s
 By the end of this guide, users will have a solid understanding of:
 - The nature and creation of adversarial examples.
 - How to implement white-box and black-box attacks on various machine learning models.
-- The security vulnerabilities of systems like Openpilot.
+- Security assessment of systems like Openpilot.
 - How to use **CARLA** for testing adversarial examples in simulated autonomous driving scenarios.
 
 The methodology presented in this guide offers a structured approach for both beginners and intermediate users who wish to delve into the field of **Adversarial Machine Learning** and its application in critical real-world systems like image recognition and autonomous driving.
