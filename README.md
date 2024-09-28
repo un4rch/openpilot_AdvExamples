@@ -20,7 +20,7 @@ The methodology presented in this guide offers a structured approach for both be
 # Table of Contents
 - [Introduction](#introduction)
 - [Openpilot](#openpilot)
-- [CARLA simulator](#carla-simulator)
+- [Running Openpilot in CARLA simulator](#carla-simulator)
 - [White-Box Attacks](#white-box-attacks)
 - [Black-Box Attacks](#black-box-attacks)
 - [Installation and Usage](#installation-and-usage)
