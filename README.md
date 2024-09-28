@@ -26,7 +26,6 @@ As an open-source project, Openpilot is particularly susceptible to adversarial 
 - [Introduction](#introduction)
 - [Openpilot Version History](#openpilot-version-history)
 - [Accidents Related to Openpilot](#accidents-related-to-openpilot)
-- [Methodology](#methodology)
 - [Openpilot internals](#openpilot-internals)
 - [White-Box Attacks](#white-box-attacks)
 - [Black-Box Attacks](#black-box-attacks)
@@ -125,12 +124,6 @@ This section will provide a brief summary of the key features and improvements i
 ## [5. Adversarial Examples Leading to Over- or Under-Braking (Theoretical Impact)](https://arxiv.org/abs/1807.00459)
 - **Incident**: Researchers showed that adversarial perturbations could alter the perception of nearby obstacles in autonomous driving systems, causing them to either brake unnecessarily or fail to brake when needed.
 - **Potential Openpilot Impact**: Although theoretical, this kind of attack could mislead Openpilot’s obstacle detection and lead to dangerous over- or under-braking, with severe consequences if exploited in real-world driving&#8203;:contentReference[oaicite:6]{index=6}.
-
-# Methodology
-
-A generical step-by-step methodology for researching and developing attacks, including the information gathering, tools setup, data collection, algorithm structures, and experiment results, can be found in [Methodology](docs/methodology.md).
-
-Then, **white-box** attack and **black-box** strategies against Openpilot are explained more deeply in the following sections.
 
 # Openpilot Internals
 
