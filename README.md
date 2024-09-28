@@ -19,6 +19,8 @@ The methodology presented in this guide offers a structured approach for both be
 
 # Table of Contents
 - [Introduction](#introduction)
+  - [What are Machine Learning Models?](#what-are-machine-learning-models?)
+  - [What is an Adversarial Example?](#What-is-an-Adversarial-Example?)
 - [Openpilot](#openpilot)
   - [What is the Openpilot Autonomous Driving System?](#what-is-the-openpilot-autonomous-driving-system)
   - [Openpilot Version History](#openpilot-version-history)
