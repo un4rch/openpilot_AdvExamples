@@ -124,27 +124,42 @@ These updates reflect the ongoing improvements in Openpilot's neural network mod
 
 ### [1. Adversarial Perturbation Research (2018)](https://par.nsf.gov/biblio/10128310)
 - **Incident**: Research from 2018 demonstrated that small, physical perturbations—such as black-and-white stickers on a stop sign—could trick neural networks into misclassifying the sign as a different traffic sign, such as a speed limit sign. This raised alarms about the vulnerability of autonomous driving systems to adversarial inputs in real-world settings.
-- **Impact on Openpilot**: While the research did not directly target Openpilot, it highlighted the potential risks for vision-based ADAS like Openpilot, which rely heavily on camera inputs for road sign interpretation&#8203;:contentReference[oaicite:0]{index=0}&#8203;:contentReference[oaicite:1]{index=1}.
+- **Impact on Openpilot**: While the research did not directly target Openpilot, it highlighted the potential risks for vision-based ADAS like Openpilot, which rely heavily on camera inputs for road sign interpretation.
 
 ### [2. Tesla Adversarial Image Attack (2020)](https://arxiv.org/abs/2003.01265)
 - **Incident**: Researchers demonstrated how small, strategically placed stickers on a road could cause Tesla’s Autopilot system to misinterpret lane markings, leading to improper lane changes or unplanned deceleration.
-- **Impact on Openpilot**: Similar adversarial attacks could potentially trick Openpilot’s camera-based system into making dangerous driving decisions by misreading lane lines&#8203;:contentReference[oaicite:2]{index=2}.
+- **Impact on Openpilot**: Similar adversarial attacks could potentially trick Openpilot’s camera-based system into making dangerous driving decisions by misreading lane lines.
 
 ### [3. Adversarial Attack on Camera-based Perception Systems (2020)](https://keenlab.tencent.com/en/2020/03/30/Exploring-Security-Implications-of-AI-in-Autonomous-Driving-%E2%80%93-Case-Studies-on-Tesla/)
 - **Incident**: Tencent’s Keen Security Lab researchers used projected images to fool Tesla’s Autopilot into misinterpreting lane markers and road signs. The manipulated inputs caused the system to take erroneous actions, like steering off-course or failing to stop.
-- **Impact on Openpilot**: The attack highlighted the vulnerability of any ADAS relying on camera-based systems, including Openpilot, to adversarial attacks that could manipulate the system's perception of the road environment&#8203;:contentReference[oaicite:3]{index=3}.
+- **Impact on Openpilot**: The attack highlighted the vulnerability of any ADAS relying on camera-based systems, including Openpilot, to adversarial attacks that could manipulate the system's perception of the road environment.
 
 ### [4. Image Classifier Misinterpretation by Adversarial Attacks (2021)](https://arxiv.org/abs/2101.04232)
 - **Incident**: Research showed that imperceptible noise added to images could cause deep neural networks to misinterpret traffic signs and other visual inputs, potentially leading to catastrophic decisions by autonomous driving systems.
-- **Impact on Openpilot**: Given that Openpilot relies on convolutional neural networks for its perception model, it could also be susceptible to such adversarial examples, especially in earlier versions that may lack robust adversarial defenses&#8203;:contentReference[oaicite:4]{index=4}&#8203;:contentReference[oaicite:5]{index=5}.
+- **Impact on Openpilot**: Given that Openpilot relies on convolutional neural networks for its perception model, it could also be susceptible to such adversarial examples, especially in earlier versions that may lack robust adversarial defenses.
 
 ### [5. Adversarial Examples Leading to Over- or Under-Braking (Theoretical Impact)](https://arxiv.org/abs/1807.00459)
 - **Incident**: Researchers showed that adversarial perturbations could alter the perception of nearby obstacles in autonomous driving systems, causing them to either brake unnecessarily or fail to brake when needed.
-- **Potential Openpilot Impact**: Although theoretical, this kind of attack could mislead Openpilot’s obstacle detection and lead to dangerous over- or under-braking, with severe consequences if exploited in real-world driving&#8203;:contentReference[oaicite:6]{index=6}.
+- **Potential Openpilot Impact**: Although theoretical, this kind of attack could mislead Openpilot’s obstacle detection and lead to dangerous over- or under-braking, with severe consequences if exploited in real-world driving.
 
 ## Openpilot Internals
 
-```TODO: Explicaciones del source code```
+The internal structure of Openpilot is designed around a modular architecture, where various services and components interact with the vehicle’s hardware and neural networks. Below is a breakdown of the critical components and services:
+
+### Sensors and Actuators
+Openpilot interacts with a vehicle's **sensors** (camera, radar, GNSS) and **actuators** (steering, throttle, brakes) to execute driving tasks. The system uses **camerad** to process video inputs from the vehicle’s camera, which are then fed into the deep neural network.
+
+### Neural Network: Supercombo
+At the heart of Openpilot’s decision-making process is the **Supercombo model**, a deep learning model that combines lane-keeping, object detection, and end-to-end driving tasks into a single neural network. It processes sensor inputs and predicts the car's trajectory, adjusting steering, acceleration, and braking accordingly&#8203;:contentReference[oaicite:11]{index=11}&#8203;:contentReference[oaicite:12]{index=12}.
+
+### Services and Messaging
+Openpilot operates using a publisher-subscriber messaging system where different services communicate through **Cereal**, a message-passing framework. Key services include:
+- **modeld**: Runs the Supercombo model and processes vision-based data.
+- **controlsd**: Implements the vehicle's control policies, such as steering and throttle adjustments.
+- **dmonitoringd**: Ensures the driver remains attentive by monitoring the driver’s gaze and head position&#8203;:contentReference[oaicite:13]{index=13}&#8203;:contentReference[oaicite:14]{index=14}.
+
+### Safety Features
+Openpilot integrates several safety checks, such as **driver monitoring** to ensure the human driver is ready to take over at any time. Additionally, it includes redundant systems for object detection, using radar in combination with vision-based detection to enhance accuracy in obstacle avoidance&#8203;:contentReference[oaicite:15]{index=15}&#8203;:contentReference[oaicite:16]{index=16}.
 
 # Running Openpilot in CARLA simulator
 
