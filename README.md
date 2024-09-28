@@ -20,9 +20,7 @@ The methodology presented in this guide offers a structured approach for both be
 # Table of Contents
 - [Introduction](#introduction)
 - [Openpilot](#openpilot)
-- [Openpilot Version History](#openpilot-version-history)
-- [Accidents Related to Openpilot](#accidents-related-to-openpilot)
-- [Openpilot internals](#openpilot-internals)
+- [CARLA simulator](#carla-simulator)
 - [White-Box Attacks](#white-box-attacks)
 - [Black-Box Attacks](#black-box-attacks)
 - [Installation and Usage](#installation-and-usage)
@@ -131,7 +129,14 @@ This section will provide a brief summary of the key features and improvements i
 
 ```TODO: Explicaciones del source code```
 
+# Running Openpilot in CARLA simulator
+
+TODO
+
 # White-Box Attacks
+
+- C&W
+- Openpilot
 
 White-box attacks have full access to the target model, including its architecture, parameters, and weights. In this section, an algorithm is developed to craft an Adversarial Example, exploring how to manage data for the Supercombo model:
 - Input data types: [YUV 4:2:0](https://github.com/peter-popov/unhack-openpilot) format
