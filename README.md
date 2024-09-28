@@ -85,38 +85,38 @@ Since its initial release, Openpilot has evolved some versions, each improving o
 - Major refactor of the **controls** and **vision** modules.
 - Added **car and radar abstraction layers** for broader compatibility.
 - Docker container introduced for testing on a PC.
-- **Plant model** for testing maneuvers was shipped&#8203;:contentReference[oaicite:1]{index=1}.
+- **Plant model** for testing maneuvers was shipped}.
 
 ### Version 0.3 (2017-05-12)
 - Added **CarParams** struct to improve abstraction layers.
 - New model trained with more crowdsourced data for improved lane tracking.
-- Initial **GPS** and **navigation support**&#8203;:contentReference[oaicite:2]{index=2}.
+- Initial **GPS** and **navigation support**.
 
 ### Version 0.4 (2018-01-18)
 - Significant updates to **UI aesthetics** and **autofocus**.
 - Added alpha support for **2017 Toyota Corolla** and **2017 Lexus RX Hybrid**.
-- Focus on improving lane tracking when only one lane line is detected&#8203;:contentReference[oaicite:3]{index=3}.
+- Focus on improving lane tracking when only one lane line is detected.
 
 ### Version 0.5 (2018-07-11)
 - Introduced **Driver Monitoring (beta)** feature.
 - Major efficiency improvements to **vision**, **logger**, and **UI** modules.
-- New side-bar with stats, making UI more intuitive&#8203;:contentReference[oaicite:4]{index=4}.
+- New side-bar with stats, making UI more intuitive.
 
 ### Version 0.6 (2019-07-01)
 - **New driving model**: increased the temporal context tenfold, making lane-keeping more reliable.
-- Openpilot now uses only ~65% of CPU resources, improving system stability and efficiency&#8203;:contentReference[oaicite:5]{index=5}.
+- Openpilot now uses only ~65% of CPU resources, improving system stability and efficiency.
 
 ### Version 0.7 (2019-12-13)
 - Introduced **Lane Departure Warning (LDW)** for all supported vehicles.
-- **Supercombo model**: Combined calibration and driving models for better estimates of lead vehicles&#8203;:contentReference[oaicite:6]{index=6}.
+- **Supercombo model**: Combined calibration and driving models for better estimates of lead vehicles.
 
 ### Version 0.8 (2020-11-30)
 - Fully 3D driving model introduced, significantly improving cut-in detection.
-- **UI** now draws 2 road edges, 4 lane lines, and paths in 3D&#8203;:contentReference[oaicite:7]{index=7}.
+- **UI** now draws 2 road edges, 4 lane lines, and paths in 3D.
 
 ### Version 0.9 (2023-11-17)
 - New **Vision Transformer Architecture** for improved driving performance.
-- Major refinements in lane-keeping and obstacle avoidance, and enhanced compatibility with new Toyota models&#8203;:contentReference[oaicite:8]{index=8}&#8203;:contentReference[oaicite:9]{index=9}.
+- Major refinements in lane-keeping and obstacle avoidance, and enhanced compatibility with new Toyota models.
 
 These updates reflect the ongoing improvements in Openpilot's neural network models, safety systems, and vehicle compatibility, ensuring the system remains at the forefront of autonomous driving technology.
 
