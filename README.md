@@ -144,22 +144,73 @@ These updates reflect the ongoing improvements in Openpilot's neural network mod
 
 ## Openpilot Internals
 
-The internal structure of Openpilot is designed around a modular architecture, where various services and components interact with the vehicle’s hardware and neural networks. Below is a breakdown of the critical components and services:
+The internal structure of Openpilot is designed using a modular architecture, where different services interact to provide autonomous driving capabilities. These modules include sensors, neural networks, control systems, and communication frameworks. Each component is responsible for a specific function, all working together to ensure seamless operation.
 
-### Sensors and Actuators
-Openpilot interacts with a vehicle's **sensors** (camera, radar, GNSS) and **actuators** (steering, throttle, brakes) to execute driving tasks. The system uses **camerad** to process video inputs from the vehicle’s camera, which are then fed into the deep neural network.
+### 1. Sensors and Actuators
 
-### Neural Network: Supercombo
-At the heart of Openpilot’s decision-making process is the [**Supercombo model**](https://arxiv.org/pdf/2206.08176), a deep learning model that combines lane-keeping, object detection, and end-to-end driving tasks into a single neural network. It processes sensor inputs and predicts the car's trajectory, adjusting steering, acceleration, and braking accordingly.
+Openpilot uses a combination of sensors and actuators to interact with the vehicle and the external environment. These components collect data and execute driving tasks like steering and braking.
 
-### Services and Messaging
-Openpilot operates using a publisher-subscriber messaging system where different services communicate through **Cereal**, a message-passing framework. Key services include:
-- **modeld**: Runs the Supercombo model and processes vision-based data.
-- **controlsd**: Implements the vehicle's control policies, such as steering and throttle adjustments.
-- **dmonitoringd**: Ensures the driver remains attentive by monitoring the driver’s gaze and head position.
+- **camerad**: Manages the road-facing and driver-facing cameras. It handles image capture, autofocus, and autoexposure. The image data is transferred via **visionipc**, a low-overhead image sharing system that uses the **YUV 4:2:0** format for efficient processing.
+  
+- **boardd**: Interfaces with the Panda hardware, which communicates with peripherals such as the GNSS module, infrared LEDs for driver monitoring, and the vehicle’s CAN bus.
+  
+- **sensord**: Configures and reads data from sensors such as the gyro, accelerometer, magnetometer, and light sensors.
 
-### Safety Features
-Openpilot integrates several safety checks, such as **driver monitoring** to ensure the human driver is ready to take over at any time. Additionally, it includes redundant systems for object detection, using radar in combination with vision-based detection to enhance accuracy in obstacle avoidance.
+### 2. Neural Network Runners
+
+Openpilot's neural networks process sensor data and provide predictions to guide the vehicle's movement. The main neural networks handle driving path prediction, lane detection, and driver monitoring.
+
+- **modeld**: This service reads image data from **visionipc** and runs the **Supercombo model**, the core neural network responsible for predicting driving paths, lane lines, lead vehicles, and road edges. The predictions are made using inputs from sensors and are processed in real-time to adjust the vehicle's trajectory.
+
+- **dmonitoringmodeld**: Responsible for running the driver monitoring neural network. This model uses the driver-facing camera to track the driver's head pose and eye state (open or closed), ensuring the driver is attentive.
+
+- **dmonitoringd**: The logic behind assessing whether the driver can take over control if needed. It sends alerts if the driver is distracted or if attention needs to be regained before re-engaging Openpilot.
+
+### 3. Localization and Calibration
+
+Accurate localization and calibration are crucial for ensuring the vehicle understands its position in the world and its interaction with the environment.
+
+- **ubloxd**: Processes GNSS data for accurate localization of the vehicle.
+
+- **locationd**: Combines data from multiple sensors (e.g., IMU, GNSS) using a **Kalman Filter** to provide precise measurements of the vehicle’s position, velocity, orientation, and acceleration. This service ensures that Openpilot knows the state of the vehicle, whether it's making turns, going uphill, or maintaining speed.
+
+- **calibrationd**: Warps the image input from the camera into a calibrated frame, aligning it with the pitch and yaw of the vehicle. This process ensures the camera’s view is correctly aligned with the vehicle's orientation.
+
+- **paramsd**: Estimates vehicle-specific parameters like mass, steering ratio, and tire stiffness, which are necessary for converting a driving path into control signals. This service uses a **Kalman Filter** to update these parameters dynamically during a drive, improving control accuracy.
+
+### 4. Controls
+
+The control systems handle vehicle motion by converting neural network predictions into actionable commands for steering, acceleration, and braking.
+
+- **radard**: Processes radar data from different car models and converts it into a standard format used by other services.
+
+- **plannerd**: This service is divided into two parts:
+  - **Lateral Planning**: Determines how much the car should turn based on path predictions from the neural network and lane-line data.
+  - **Longitudinal Planning**: Primarily focuses on lead vehicles and desired speed, generating an acceleration profile for the vehicle to follow.
+
+- **controlsd**: Takes the output from **plannerd** and converts it into vehicle-specific CAN commands to control steering, acceleration, and braking. It operates at 100Hz for real-time adjustments.
+
+### 5. System, Logging, and Miscellaneous Services
+
+These services handle system-level tasks, such as managing resources, logging data, and ensuring proper system operation.
+
+- **manager**: Oversees the startup and shutdown of all the services in Openpilot, ensuring that they are running correctly.
+
+- **thermald**: Monitors the health of the hardware running Openpilot, such as CPU usage, power supply, and system temperatures. It also ensures Openpilot only operates when the system is in an optimal state.
+
+- **loggerd**: Logs video and sensor data for training purposes, which helps improve neural networks. It also logs system crashes and failures for debugging.
+
+- **athenad**: Connects to Comma.ai servers, handling cloud-based requests for the device, such as navigation commands, diagnostics, and file uploads.
+
+### 6. Communication and Messaging
+
+Openpilot's services communicate using a high-performance, publisher-subscriber messaging framework called **Cereal**, which allows for efficient data exchange between different modules.
+
+- **visionipc**: Used specifically for sharing image data from the cameras to the neural network services with low overhead. This system is optimized for handling the **YUV 4:2:0** image format, allowing for efficient compression and quick access to video frames.
+
+### 7. Hardware
+
+To run Openpilot in a real-world physical vehicle, you need specialized hardware such as the **Panda** interface and a computing device like the **Comma 2** or **Comma 3**. The **Panda** acts as a bridge between the vehicle’s CAN bus and Openpilot, relaying signals to and from the car. Newer models, such as the **Comma 3**, run **AGNOS**, an Ubuntu-based operating system optimized for real-time vehicle control.
 
 # Running Openpilot in CARLA simulator
 
