@@ -29,8 +29,6 @@ The methodology presented in this guide offers a structured approach for both be
   - [Accidents Related to Openpilot](#accidents-related-to-openpilot)
   - [Openpilot Internals](#openpilot-internals)
 - [Running Openpilot in CARLA simulator](#running-openpilot-in-carla-simulator)
-  - [Setup](#setup)
-  - [...]()
 - [White-Box Attacks](#white-box-attacks)
   - [Carlini & Wagner against image classification](#carlini-&-wagner-against-image-classification)
   - [Openpilot](#openpilot)
@@ -246,7 +244,101 @@ Supercombo is trained on **Comma.ai's proprietary dataset**, consisting of milli
 
 # Running Openpilot in CARLA simulator
 
-TODO
+This section provides a step-by-step guide to setting up the **CARLA driving simulator** and **Openpilot autonomous driving software**, along with instructions for connecting both systems using the **bridge.py** file. The connection enables real-time simulation of Openpilot's driving control in the CARLA environment.
+
+### System Requirements
+
+Before proceeding with the installation, ensure your system meets the following minimum requirements to avoid performance issues:
+
+- **Operating System**: Ubuntu 20.04.06 (native installation recommended)
+- **RAM**: 32 GB
+- **GPU**: At least 8 GB VRAM (for simulation)
+- **Storage**: Minimum 130 GB of free space
+- **TCP Ports**: Two open TCP ports (default: 2000, 2001)
+- **Internet Connection**: Stable for downloading packages and updates
+
+### Step 1: Install Ubuntu 20.04.06
+
+1. Download the Ubuntu 20.04.06 ISO from the official Ubuntu website.
+2. Create a bootable USB using a tool like **Rufus**.
+3. Install Ubuntu natively on your system following the standard installation steps.
+
+### Step 2: Installing Openpilot (Version 0.9.4)
+
+To install Openpilot on your system, follow these steps:
+
+1. **Clone the Openpilot Repository**:
+Open a terminal and run the following commands:
+```bash
+git clone https://github.com/commaai/openpilot.git
+cd openpilot
+git reset --hard fa310d9e2542cf497d92f007baec8fd751ffa99c  # Checkout version 0.9.4
+```
+2. **Update Submodules**:
+```
+git submodule update --init
+```
+3. **Build and setup**:
+```
+tools/ubuntu_setup.sh
+poetry shell
+scons -u -j $(nproc)
+   ```
+After completing these steps, Openpilot will be installed and ready to integrate with the CARLA simulator.
+
+### Step 3: Installing CARLA (Version 0.9.14)
+To install the [CARLA simulator](https://carla.readthedocs.io/en/0.9.14/build_linux/), you can either download a precompiled package or compile it from the source. Follow these steps to complete the installation:
+1. **Software requeriments**:
+```
+sudo apt-add-repository "deb http://apt.llvm.org/focal/ llvm-toolchain-focal main"
+sudo apt-get install build-essential clang-10 lld-10 g++-7 cmake ninja-build libvulkan1 python python-dev python3-dev python3-pip libpng-dev libtiff5-dev libjpeg-dev tzdata sed curl unzip autoconf libtool rsync libxml2-dev git
+sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/lib/llvm-10/bin/clang++ 180 &&
+sudo update-alternatives --install /usr/bin/clang clang /usr/lib/llvm-10/bin/clang 180
+```
+2. **Upgrade PIP version and python dependencies**:
+```
+# For Python 3
+pip3 install --upgrade pip
+
+# For Python 2
+pip install --upgrade pip
+
+pip install --user setuptools &&
+pip3 install --user -Iv setuptools==47.3.1 &&
+pip install --user distro &&
+pip3 install --user distro &&
+pip install --user wheel &&
+pip3 install --user wheel auditwheel
+```
+3. **Unreal Engine 4.26.2**
+Be aware that to download this fork of Unreal Engine, **you need to have a [GitHub account linked](https://www.unrealengine.com/en-US/ue-on-github) to Unreal Engine's account**. If you don't have this set up, please follow this guide before going any further:
+```
+git clone --depth 1 -b carla https://github.com/CarlaUnreal/UnrealEngine.git ~/UnrealEngine_4.26
+cd ~/UnrealEngine_4.26
+./Setup.sh && ./GenerateProjectFiles.sh && make
+cd ~/UnrealEngine_4.26/Engine/Binaries/Linux && ./UE4Editor
+```
+4. **Build CARLA**:
+```
+git clone https://github.com/carla-simulator/carla
+cd carla
+git reset −−hard 580ae28c9a33f6c0307fd1737d37d2856360fda0
+./Update.sh
+```
+5. **Set Unreal Engine environmental variable**:
+```
+echo "export UE4_ROOT=~/UnrealEngine_4.26" >> ~/.bashrc
+```
+Reset the terminal.
+6. **Build CARLA**:
+```
+make PythonAPI
+make launch
+```
+7. **Compile CARLA from Source**:
+```
+make package
+```
 
 # White-Box Attacks
 
