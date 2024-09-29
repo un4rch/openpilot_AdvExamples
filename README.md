@@ -384,25 +384,28 @@ python3 /path/to/openpilot/tools/sim/bridge.py
 press "1" and "2" repeatedly for Openpilot to engage the vehicle.
 
 # Adversarial Machine Learning
+For a comprehensive, step-by-step guide on researching and preparing white-box and black-box attacks, read the [general methodology document](docs/methodology.md). This guide outlines the systematic approach required for adversarial attacks, including the stages of data preparation, model analysis, and the crafting of adversarial examples. In the following subsections, detailed implementations and explanations for specific attacks are presented.
+
 ## White-Box Attacks
 
-**White-box attacks** are adversarial attack strategies where the attacker has full access to the target model’s architecture, weights, gradients, and training data. This knowledge allows the attacker to craft adversarial examples with high precision, often leading to more successful and subtle attacks compared to black-box methods.
+**White-box attacks** refer to adversarial strategies where the attacker has full access to the underlying model, including its architecture, weights, gradients, and training data. With this privileged information, adversarial examples can be generated with high precision, typically resulting in more effective and less perceptible perturbations compared to black-box attacks.
 
-In this section, we will explore two primary types of white-box attacks:
+This section focuses on two primary white-box attack methodologies:
 
-- [**Carlini & Wagner Attack**](docs/carlini_wagner_attack.md): A powerful optimization-based attack that minimizes the perturbation required to mislead a deep neural network. This attack will be implemented against two types of image classification models using the [CIFAR-10](https://www.kaggle.com/c/cifar-10/) dataset:
-  - A custom-built and trained CNN.
+- [**Carlini & Wagner Attack**](docs/carlini_wagner_attack.md): An optimization-based attack that seeks to minimize the perturbation required to mislead a deep neural network. This attack will be demonstrated on two types of image classification models, trained using the [CIFAR-10](https://www.kaggle.com/c/cifar-10/) dataset:
+  - A custom-built and trained Convolutional Neural Network (CNN).
   - A pre-trained and fine-tuned **ResNet-50** model.
-  
-- [**Disappearance attack against Openpilot**](docs/openpilot_attack.md): This attack is applied specifically against **Openpilot**. The goal is to make certain objects, such as vehicles or road markings, disappear from the model’s perception, leading to potential misinterpretation of the environment by the autonomous system.
 
-Each of these algorithms leverages full access to the model’s gradients to craft adversarial examples that maximize the likelihood of the model making incorrect predictions. For more in-depth algorithm descriptions, implementation details, and examples, refer to the linked markdown files.
+- [**Disappearance Attack against Openpilot**](docs/openpilot_attack.md): This attack specifically targets the Openpilot autonomous driving system. The objective is to cause critical objects, such as vehicles or lane markings, to disappear from the model's perception, potentially leading to dangerous misinterpretations by the system.
+
+Both attack strategies leverage access to model gradients to craft adversarial examples that force the model to make incorrect predictions. For a more detailed explanation of these algorithms, along with code implementation and practical examples, visit the linked markdown files.
 
 ## Black-Box Attacks
 
-In black-box attacks, the attacker only has access to the inputs and outputs of the model. This means that the Supercombo model cannot be used, therefore Evolution Strategies and Gaussian mutations are implemented.
+In contrast to white-box attacks, **black-box attacks** involve scenarios where the attacker does not have access to the internal structure of the model. Instead, the attacker can only observe the inputs and outputs of the model. In such cases, techniques such as **Evolutionary Strategies (ES)** and **Gaussian mutation** are employed to iteratively discover adversarial examples based on output feedback.
 
-Learn more in [Black-Box Attacks](docs/black-box.md).
+For further details on the implementation of black-box attacks, refer to the [Black-Box Attacks](docs/black-box.md) document.
+
 
 # Installation and Usage
 
