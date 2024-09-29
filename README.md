@@ -30,10 +30,7 @@ The methodology presented in this guide offers a structured approach for both be
   - [Openpilot Internals](#openpilot-internals)
 - [Running Openpilot in CARLA simulator](#running-openpilot-in-carla-simulator)
 - [White-Box Attacks](#white-box-attacks)
-  - [Carlini & Wagner against image classification](#carlini-&-wagner-against-image-classification)
-  - [Openpilot](#openpilot)
 - [Black-Box Attacks](#black-box-attacks)
-  - [Openpilot](#openpilot)
 - [Installation and Usage](#installation-and-usage)
 - [Conclusions](#conclusions)
 
@@ -391,16 +388,13 @@ press "1" and "2" repeatedly for Openpilot to engage the vehicle.
 
 In this section, we will explore two primary types of white-box attacks:
 
-- [**Carlini & Wagner Attack**](attacks/carlini_wagner_attack.ipynb): A powerful optimization-based attack that minimizes the perturbation required to mislead a deep neural network. This attack will be implemented against two types of image classification models:
+- [**Carlini & Wagner Attack**](docs/carlini_wagner_attack.md): A powerful optimization-based attack that minimizes the perturbation required to mislead a deep neural network. This attack will be implemented against two types of image classification models using the [CIFAR-10](https://www.kaggle.com/c/cifar-10/) dataset:
   - A custom-built and trained CNN.
-  - A pre-trained **ResNet-50** model.
+  - A pre-trained and fine-tuned **ResNet-50** model.
   
-- [**Disappearance attack against Openpilot**](attacks/openpilot_attack.ipynb): This attack is applied specifically against **Openpilot**. The goal is to make certain objects, such as vehicles or road markings, disappear from the model’s perception, leading to potential misinterpretation of the environment by the autonomous system.
+- [**Disappearance attack against Openpilot**](docs/openpilot_attack.md): This attack is applied specifically against **Openpilot**. The goal is to make certain objects, such as vehicles or road markings, disappear from the model’s perception, leading to potential misinterpretation of the environment by the autonomous system.
 
 Each of these algorithms leverages full access to the model’s gradients to craft adversarial examples that maximize the likelihood of the model making incorrect predictions. For more in-depth algorithm descriptions, implementation details, and examples, refer to the linked markdown files.
-
-
-Learn more in [White-Box Attacks](docs/white-box.md).
 
 # Black-Box Attacks
 
