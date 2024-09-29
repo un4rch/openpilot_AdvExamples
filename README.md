@@ -29,8 +29,9 @@ The methodology presented in this guide offers a structured approach for both be
   - [Accidents Related to Openpilot](#accidents-related-to-openpilot)
   - [Openpilot Internals](#openpilot-internals)
 - [Running Openpilot in CARLA simulator](#running-openpilot-in-carla-simulator)
-- [White-Box Attacks](#white-box-attacks)
-- [Black-Box Attacks](#black-box-attacks)
+- [Adversarial Machine Learning](#adversarial-machine-learning)
+  - [White-Box Attacks](#white-box-attacks)
+  - [Black-Box Attacks](#black-box-attacks)
 - [Installation and Usage](#installation-and-usage)
 - [Conclusions](#conclusions)
 
@@ -382,7 +383,8 @@ python3 /path/to/openpilot/tools/sim/bridge.py
 ```
 press "1" and "2" repeatedly for Openpilot to engage the vehicle.
 
-# White-Box Attacks
+# Adversarial Machine Learning
+## White-Box Attacks
 
 **White-box attacks** are adversarial attack strategies where the attacker has full access to the target model’s architecture, weights, gradients, and training data. This knowledge allows the attacker to craft adversarial examples with high precision, often leading to more successful and subtle attacks compared to black-box methods.
 
@@ -396,7 +398,7 @@ In this section, we will explore two primary types of white-box attacks:
 
 Each of these algorithms leverages full access to the model’s gradients to craft adversarial examples that maximize the likelihood of the model making incorrect predictions. For more in-depth algorithm descriptions, implementation details, and examples, refer to the linked markdown files.
 
-# Black-Box Attacks
+## Black-Box Attacks
 
 In black-box attacks, the attacker only has access to the inputs and outputs of the model. This means that the Supercombo model cannot be used, therefore Evolution Strategies and Gaussian mutations are implemented.
 
