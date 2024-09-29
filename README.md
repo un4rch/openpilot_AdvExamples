@@ -384,7 +384,7 @@ python3 /path/to/openpilot/tools/sim/bridge.py
 press "1" and "2" repeatedly for Openpilot to engage the vehicle.
 
 # Adversarial Machine Learning
-For a comprehensive, step-by-step guide on researching and preparing white-box and black-box attacks, read the [general methodology document](docs/methodology.md). This guide outlines the systematic approach required for adversarial attacks, including the stages of data preparation, model analysis, and the crafting of adversarial examples. In the following subsections, detailed implementations and explanations for specific attacks are presented.
+For a comprehensive, step-by-step guide on researching and preparing white-box and black-box attacks, read the [general methodology document](docs/methodology.md). This guide outlines the systematic approach required for adversarial attacks, oriented to the Openpilot AD system, including the stages of data preparation, model analysis, and the crafting of adversarial examples. In the following subsections, detailed implementations and explanations for specific attacks are presented.
 
 ## White-Box Attacks
 
