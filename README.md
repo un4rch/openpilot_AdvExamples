@@ -386,16 +386,19 @@ python3 /path/to/openpilot/tools/sim/bridge.py
 press "1" and "2" repeatedly for Openpilot to engage the vehicle.
 
 # White-Box Attacks
-- C&W
-- Openpilot
 
-White-box attacks have full access to the target model, including its architecture, parameters, and weights. In this section, an algorithm is developed to craft an Adversarial Example, exploring how to manage data for the Supercombo model:
-- Input data types: [YUV 4:2:0](https://github.com/peter-popov/unhack-openpilot) format
-- Model Output: [Array](https://github.com/commaai/openpilot/blob/fa310d9e2542cf497d92f007baec8fd751ffa99c/selfdrive/modeld/models/driving.h#L239) of 6120 floats
-- Iterative algorithm: Train an Adversarial Example by making small changes (e.g. [FGSM tutorial](https://www.tensorflow.org/tutorials/generative/adversarial_fgsm))
-- Loss function: [Disappearance attack](https://iccv21-adv-workshop.github.io/short_paper/yanan_arow.pdf)
-- Gradients: Optimization vector indicating the direction in which the loss function increases the most
-- Expectation over Transform: [EoT](https://proceedings.mlr.press/v80/athalye18b/athalye18b.pdf) consists of applying transformations to the Adversarial Example to make more robust the effect under different conditions
+**White-box attacks** are adversarial attack strategies where the attacker has full access to the target model’s architecture, weights, gradients, and training data. This knowledge allows the attacker to craft adversarial examples with high precision, often leading to more successful and subtle attacks compared to black-box methods.
+
+In this section, we will explore two primary types of white-box attacks:
+
+- [**Carlini & Wagner Attack**](attacks/carlini_wagner_attack.ipynb): A powerful optimization-based attack that minimizes the perturbation required to mislead a deep neural network. This attack will be implemented against two types of image classification models:
+  - A custom-built and trained CNN.
+  - A pre-trained **ResNet-50** model.
+  
+- [**Disappearance attack against Openpilot**](attacks/openpilot_attack.ipynb): This attack is applied specifically against **Openpilot**. The goal is to make certain objects, such as vehicles or road markings, disappear from the model’s perception, leading to potential misinterpretation of the environment by the autonomous system.
+
+Each of these algorithms leverages full access to the model’s gradients to craft adversarial examples that maximize the likelihood of the model making incorrect predictions. For more in-depth algorithm descriptions, implementation details, and examples, refer to the linked markdown files.
+
 
 Learn more in [White-Box Attacks](docs/white-box.md).
 
