@@ -396,7 +396,7 @@ This section focuses on two primary white-box attack methodologies:
   - A custom-built and trained Convolutional Neural Network (CNN).
   - A pre-trained and fine-tuned **ResNet-50** model.
 
-- [**Disappearance Attack against Openpilot**](docs/openpilot_attack.md): This attack specifically targets the Openpilot autonomous driving system. The objective is to cause critical objects, such as vehicles or lane markings, to disappear from the model's perception, potentially leading to dangerous misinterpretations by the system.
+- [**Disappearance Attack against Openpilot**](docs/openpilot_whitebox_attack.md): This attack specifically targets the Openpilot autonomous driving system. The objective is to cause critical objects, such as vehicles or lane markings, to disappear from the model's perception, potentially leading to dangerous misinterpretations by the system.
 
 Both attack strategies leverage access to model gradients to craft adversarial examples that force the model to make incorrect predictions. For a more detailed explanation of these algorithms, along with code implementation and practical examples, visit the linked markdown files.
 
@@ -404,29 +404,7 @@ Both attack strategies leverage access to model gradients to craft adversarial e
 
 In contrast to white-box attacks, **black-box attacks** involve scenarios where the attacker does not have access to the internal structure of the model. Instead, the attacker can only observe the inputs and outputs of the model. In such cases, techniques such as **Evolutionary Strategies (ES)** and **Gaussian mutation** are employed to iteratively discover adversarial examples based on output feedback.
 
-For further details on the implementation of black-box attacks, refer to the [Black-Box Attacks](docs/black-box.md) document.
-
-
-# Installation and Usage
-
-## Prerequisites
-- Python 3.x
-- OpenPilot 0.9.4
-- TensorFlow/PyTorch
-
-## Setup
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/yourusername/openpilot-adversarial-attacks.git
-    cd openpilot-adversarial-attacks
-    ```
-
-2. Install the required packages:
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-3. Follow the instructions in the `attacks` folder to execute white-box and black-box attacks.
+For further details on the implementation of black-box attacks against Openpilot, visit the [Black-Box Attacks](docs/openpilot_blackbox_attack.md) document.
 
 # Conclusions
 
