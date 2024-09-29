@@ -32,7 +32,6 @@ The methodology presented in this guide offers a structured approach for both be
 - [Adversarial Machine Learning](#adversarial-machine-learning)
   - [White-Box Attacks](#white-box-attacks)
   - [Black-Box Attacks](#black-box-attacks)
-- [Installation and Usage](#installation-and-usage)
 - [Conclusions](#conclusions)
 
 # Introduction
