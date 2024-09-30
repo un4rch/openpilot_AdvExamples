@@ -227,31 +227,14 @@ loader = DataLoader(subset, batch_size=1)  # Ensure batch size matches what you 
 dataiter = iter(loader)
 original_image, label = next(dataiter)
 
-# Display original and perturbed images
-print("Original Image & Label:")
-imshow(torchvision.utils.make_grid(original_image))
-print('Label:', label.item())
-
 # Run the attack
 perturbed_image = cw_l2_attack(model, original_image, label, c=1, targeted=False, max_iter=10000)
-
-print("Perturbed Image & Predicted Label:")
-imshow(torchvision.utils.make_grid(perturbed_image.detach()))
 
 # Evaluate model on perturbed image
 output = model(perturbed_image)
 pred_label = output.max(1, keepdim=True)[1]
 print('Predicted Label after attack:', pred_label.item())
-
-# Show the perturbation
-print("Perturbation:")
-imshow(torchvision.utils.make_grid(perturbed_image.detach() -  original_image + 0.5))
-
-images = [original_image, perturbed_image.detach(), perturbed_image.detach() -  original_image + 0.5]
-titles = [f"Original Image (class {label.item()})", f"Perturbed Image (class {pred_label.item()})", "Perturbation"]
-show_images(images, titles)
 ```
-![Resnet-50 mislead](/images/cw_resnet50_mislead.png)
 
 #### 3. Visualizing the Results
 Once the attack is completed, we can visualize the original, perturbed, and difference images.
@@ -268,16 +251,11 @@ def show_images(original_image, perturbed_image):
         plt.title(titles[i])
     plt.show()
 
-# Example of attack
-dataiter = iter(test_dl)
-original_image, label = next(dataiter)
-
-# Run the attack
-perturbed_image = cw_l2_attack(model, original_image, label)
-
-# Show the images
-show_images(original_image, perturbed_image)
+images = [original_image, perturbed_image.detach(), perturbed_image.detach() -  original_image + 0.5]
+titles = [f"Original Image (class {label.item()})", f"Perturbed Image (class {pred_label.item()})", "Perturbation"]
+show_images(images, titles)
 ```
+![Resnet-50 mislead](/images/cw_resnet50_mislead.png)
 
 ### Custom CNN Attack
 We also apply the CW attack to a custom CNN trained from scratch on the CIFAR-10 dataset.
