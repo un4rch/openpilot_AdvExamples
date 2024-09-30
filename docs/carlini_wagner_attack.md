@@ -1,9 +1,10 @@
-# Carlini & Wagner (CW) L2 Attack
+![image](https://github.com/user-attachments/assets/2a75fd6c-747e-4455-bfbd-39289b5a8907)# Carlini & Wagner (CW) L2 Attack
 
 This guide aims to introduce the Carlini & Wagner adversarial attack to the reader, focusing on its formulation as an optimization problem and how it can be applied to neural networks. The CW attack is a white-box adversarial attack that provides a fine-grained, highly effective means of generating adversarial examples. In this guide, we will demonstrate how to apply the CW L2 attack on two models: a fine-tuned ResNet-50 and a custom CNN, both trained on the CIFAR-10 dataset.
 
 ## Table of Contents
 - [Introduction](#introduction)
+- [Key parameters](#key-parameters)
 - [Optimization Problem](#optimization-problem)
 - [Norms](#norms)
 - [ResNet-50 Attack](#resnet-50-attack)
@@ -21,6 +22,11 @@ In this implementation, we will target two models:
 
 First, we are going to understand the background behind the algorithm.
 
+## Key Parameters
+- **Learning rate**: Controls how quickly the perturbation is adjusted at each iteration.
+- **Max iterations**: Determines how many times the optimization will run.
+- **Kappa (confidence)**: Ensures the adversarial example is classified with a certain confidence. A higher kappa value makes the attack more aggressive.
+
 ## Optimization Problem
 
 The Carlini & Wagner attack is essentially an optimization problem. The goal is to solve for an adversarial perturbation that minimizes the following objective function.
@@ -32,15 +38,29 @@ Being D the function used to quantify the distance between the original input an
 
 That is why the authors proposed a different approach:
 
-![sadsadsad](jdalskjdlaskjdalsj)
+![CW Proposed approach](images/cw_proposed_approach.png)
 
-### Key Parameters
-- **Learning rate**: Controls how quickly the perturbation is adjusted at each iteration.
-- **Max iterations**: Determines how many times the optimization will run.
-- **Kappa (confidence)**: Ensures the adversarial example is classified with a certain confidence. A higher kappa value makes the attack more aggressive.
+By changing the classification function to an objective function, the non-lineality problem is solved. Then they proceed to reformulate the problem introducing the function on the minimization problem and multiplying it by a constant c to ensure that when performing the gradient descent, none of the terms takes precedence over the other:
 
-### The Tanh Trick
-To ensure that pixel values remain valid (between 0 and 1), the CW attack uses a transformation called the **tanh trick**. This transformation bounds the pixel values within a valid range during the optimization process.
+![CW Objective function](images/cw_objective_function.png)
+
+Lastly, they replace the distance metric D with the Lp norm of δ:
+
+![Replace D by Lnorm](images/cw_replace_d_Lnorm.png)
+
+The authors proposed and tested numerous objective functions:
+
+![CW tested objective functions](images/cw_all_objective_functions.png)
+
+They made a comparison among the proposed objective functions and finally realized that the 6th function was the best and they chose that for their attacks.
+
+![CW objective functions comparison](images/cw_objectivesF_comparison.png)
+
+The perturbation is mapped to the hyperbolic tangent space to ensure that the generated images are within a valid input range. They decided to use this space for two main reasons:
+- **Constraint satisfaction**: The tanh function naturally satisfies the constraints applied to the perturbation on CW attacks, such as L2-norm or L∞-norm bounds, ensuring that the perturbation remains within the desired range. The tanh function restricts its output values between -1 and 1, which aligns with the constraints and prevents the perturbation from becoming excessively large.
+- **Smooth mapping**: The tanh function provides a continuous and smooth mapping between the perturbation and input spaces. The function’s differentiability facilitates the gradient computation and enables efficient optimization of the objective function.
+
+![CW Tanh function](images/cw_tanh.png)
 
 ## Norms
 
