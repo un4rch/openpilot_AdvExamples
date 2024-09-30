@@ -7,8 +7,9 @@ This guide aims to introduce the Carlini & Wagner adversarial attack to the read
 - [Key parameters](#key-parameters)
 - [Optimization Problem](#optimization-problem)
 - [Norms](#norms)
-- [ResNet-50 Attack](#resnet-50-attack)
-- [Custom CNN Attack](#custom-cnn-attack)
+- [Adversarial Attacks](#adversarial-attacks)
+    - [ResNet-50 Attack](#resnet-50-attack)
+    - [Custom CNN Attack](#custom-cnn-attack)
 
 ## Introduction
 
@@ -73,11 +74,40 @@ They presented three possible approaches for the attack using different Lp norms
 A comparison between generated AEs with the three norms proposed:
 ![CW Norms comparison](/images/cw_norms_comparison.png)
 
-## ResNet-50 Attack
+## Adversarial attacks
+For the adversarial attacks we are going to start importing all necessary libraries and also preparing our CIFAR-10 dataset:
+```python
+import torch
+import torchvision.models as models
+import torchvision.transforms as transforms
+from torchvision.datasets import CIFAR10
+from torch.utils.data import DataLoader, Subset
+import torch.optim as optim
+import matplotlib.pyplot as plt
+import torchvision
+import numpy as np
+from torch.utils.data import random_split
+
+# Training dataset (80% train / 20% validation)
+dataset_train = CIFAR10('./data', train=True, download=True, transform = transforms.Compose([transforms.ToTensor()]))
+random_seed = 42
+torch.manual_seed(random_seed)
+val_size = int(0.2*len(dataset_train)) # Validation size
+train_size = int(len(dataset_train)-val_size) # Training size
+train_ds, val_ds = random_split(dataset_train, [train_size, val_size]) # Dataset for training phase
+train_dl = torch.utils.data.DataLoader(train_ds, batch_size=128*2, shuffle=True, num_workers=2) # Training data loader
+val_dl = torch.utils.data.DataLoader(val_ds, batch_size=128*2, shuffle=True, num_workers=2) # Validation data loader
+
+# Testing dataset
+test_ds = CIFAR10('./data', train=False, download=True,transform=transforms.Compose([transforms.ToTensor()])) # Testing dataset
+test_dl = torch.utils.data.DataLoader(test_ds,batch_size=128*2, shuffle=True, num_workers=2) # Testing data loader
+```
+
+### ResNet-50 Attack
 
 The first model we target with the CW attack is a **fine-tuned ResNet-50**, pre-trained on ImageNet and fine-tuned for the CIFAR-10 dataset. Below are the key steps:
 
-### 1. Fine-tuning ResNet-50
+#### 1. Fine-tuning ResNet-50
 We begin by fine-tuning the pre-trained ResNet-50 model for CIFAR-10 by freezing all layers except the final fully connected layer, which we replace to output 10 classes (for CIFAR-10).
 
 ```python
@@ -102,7 +132,7 @@ criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.fc.parameters(), lr=0.001)
 ```
 
-### 2. Applying the CW Attack to ResNet-50
+#### 2. Applying the CW Attack to ResNet-50
 After fine-tuning the model, we apply the Carlini & Wagner attack to generate adversarial examples.
 
 ```python
@@ -133,7 +163,7 @@ def cw_l2_attack(model, original_images, labels, targeted=False, c=1e-4, kappa=0
     return perturbed_images
 ```
 
-### 3. Visualizing the Results
+#### 3. Visualizing the Results
 Once the attack is completed, we can visualize the original, perturbed, and difference images.
 
 ```python
@@ -159,10 +189,10 @@ perturbed_image = cw_l2_attack(model, original_image, label)
 show_images(original_image, perturbed_image)
 ```
 
-## Custom CNN Attack
+### Custom CNN Attack
 We also apply the CW attack to a custom CNN trained from scratch on the CIFAR-10 dataset.
 
-### 1. Building and Training the Custom CNN
+#### 1. Building and Training the Custom CNN
 We create a simple convolutional neural network to classify CIFAR-10 images.
 
 ```python
@@ -190,7 +220,7 @@ optimizer = optim.Adam(model.parameters(), lr=0.001)
 criterion = nn.CrossEntropyLoss()
 ```
 
-### 2. Applying the CW Attack to Custom CNN
+#### 2. Applying the CW Attack to Custom CNN
 The CW attack can be applied to the custom CNN similarly to how we applied it to ResNet-50.
 
 ```python
