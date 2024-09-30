@@ -1,5 +1,8 @@
 # Carlini & Wagner (CW) L2 Attack
 
+## Table of contents
+- [Introduction](#introduction)
+
 ## Introduction
 
 The **Carlini & Wagner (CW) attack** is a powerful white-box adversarial attack that seeks to minimize the amount of perturbation added to an input image while successfully fooling the target model. The CW attack focuses on making small, often imperceptible changes to the image to mislead a deep neural network (DNN) into making incorrect classifications.
