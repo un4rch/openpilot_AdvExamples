@@ -246,8 +246,12 @@ print('Predicted Label after attack:', pred_label.item())
 # Show the perturbation
 print("Perturbation:")
 imshow(torchvision.utils.make_grid(perturbed_image.detach() -  original_image + 0.5))
+
+images = [original_image, perturbed_image.detach(), perturbed_image.detach() -  original_image + 0.5]
+titles = [f"Original Image (class {label.item()})", f"Perturbed Image (class {pred_label.item()})", "Perturbation"]
+show_images(images, titles)
 ```
-![Images](asasa)
+![Resnet-50 mislead](cw_resnet50_mislead.png)
 
 #### 3. Visualizing the Results
 Once the attack is completed, we can visualize the original, perturbed, and difference images.
