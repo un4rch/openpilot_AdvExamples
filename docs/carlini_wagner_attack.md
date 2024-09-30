@@ -84,3 +84,4 @@ model.fc = nn.Linear(model.fc.in_features, num_classes)
 # Define loss function and optimizer
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.fc.parameters(), lr=0.001)
+```
