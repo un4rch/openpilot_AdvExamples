@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/2a75fd6c-747e-4455-bfbd-39289b5a8907)# Carlini & Wagner (CW) L2 Attack
+# Carlini & Wagner (CW) L2 Attack
 
 This guide aims to introduce the Carlini & Wagner adversarial attack to the reader, focusing on its formulation as an optimization problem and how it can be applied to neural networks. The CW attack is a white-box adversarial attack that provides a fine-grained, highly effective means of generating adversarial examples. In this guide, we will demonstrate how to apply the CW L2 attack on two models: a fine-tuned ResNet-50 and a custom CNN, both trained on the CIFAR-10 dataset.
 
