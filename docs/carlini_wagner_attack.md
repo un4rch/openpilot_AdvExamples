@@ -251,7 +251,7 @@ images = [original_image, perturbed_image.detach(), perturbed_image.detach() -  
 titles = [f"Original Image (class {label.item()})", f"Perturbed Image (class {pred_label.item()})", "Perturbation"]
 show_images(images, titles)
 ```
-![Resnet-50 mislead](cw_resnet50_mislead.png)
+![Resnet-50 mislead](/images/cw_resnet50_mislead.png)
 
 #### 3. Visualizing the Results
 Once the attack is completed, we can visualize the original, perturbed, and difference images.
