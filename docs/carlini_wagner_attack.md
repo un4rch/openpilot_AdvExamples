@@ -3,6 +3,10 @@ This guide aims to introduce the Carlini & Wagner adversarial attack to the read
 
 ## Table of contents
 - [Introduction](#introduction)
+- [Optimization problem](#optimization-problem)
+- [Norms](#norms)
+- [Resnet-50 attack](#resnet-50-attack)
+- [Custom CNN attack](#custom-cnn-attack)
 
 ## Introduction
 
@@ -13,3 +17,11 @@ The attack is formulated as an optimization problem where the goal is to find th
 For this implementation, we will target two models:
 - **ResNet-50**: A fine-tuned pre-trained model with the CIFAR-10 dataset.
 - **Custom CNN**: A CNN built and trained from scratch on the CIFAR-10 dataset.
+
+## Optimization problem
+
+## Norms
+
+## Resnet-50 attack
+
+## Custom CNN attack
