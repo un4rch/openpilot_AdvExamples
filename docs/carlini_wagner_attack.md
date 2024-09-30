@@ -28,12 +28,11 @@ Here the adversary optimizes the objective function iteratively, adjusting the p
 
 ![Objective function](/images/cw_original_optimization.png)
 
-Where:
-- \( ||\delta||_2^2 \) is the **L2 norm** (Euclidean distance) of the perturbation.
-- \( f(x + \delta) \) is a loss function that penalizes the model for classifying \( x + \delta \) as the original class.
-- \( c \) is a constant that balances between minimizing the perturbation and ensuring the adversarial example misleads the model.
+Being D the function used to quantify the distance between the original input and the perturbed one, C the classification function used. And lastly, ensuring that the adversarial example produced is valid (in the case of images, all the values need to be constrained between 0 and 1 for all the color channels). As the classification function C(x + δ) = t is highly non-linear, making the optimization problem is really difficult to solve with previously existing algorithms.
 
-The attack iteratively adjusts the perturbation \( \delta \) using gradient descent to minimize this objective, making the perturbation as small as possible while still causing the model to misclassify the image.
+That is why the authors proposed a different approach:
+
+![sadsadsad](jdalskjdlaskjdalsj)
 
 ### Key Parameters
 - **Learning rate**: Controls how quickly the perturbation is adjusted at each iteration.
