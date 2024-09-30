@@ -236,7 +236,7 @@ pred_label = output.max(1, keepdim=True)[1]
 print('Predicted Label after attack:', pred_label.item())
 ```
 
-#### 3. Visualizing the Results
+#### 4. Visualizing the Results
 Once the attack is completed, we can visualize the original, perturbed, and difference images.
 
 ```python
