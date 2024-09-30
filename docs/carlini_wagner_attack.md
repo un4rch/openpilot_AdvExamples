@@ -26,7 +26,7 @@ First, we are going to understand the background behind the algorithm.
 The Carlini & Wagner attack is essentially an optimization problem. The goal is to solve for an adversarial perturbation that minimizes the following objective function.
 Here the adversary optimizes the objective function iteratively, adjusting the perturbation to minimize the magnitude while maximizing the attack’s success rate
 
-![Objective function](cw_original_optimization.png)
+![Objective function](images/cw_original_optimization.png)
 
 Where:
 - \( ||\delta||_2^2 \) is the **L2 norm** (Euclidean distance) of the perturbation.
