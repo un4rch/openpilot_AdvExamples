@@ -87,6 +87,8 @@ import matplotlib.pyplot as plt
 import torchvision
 import numpy as np
 from torch.utils.data import random_split
+import torch.nn as nn
+import torchvision.models as models
 
 # Training dataset (80% train / 20% validation)
 dataset_train = CIFAR10('./data', train=True, download=True, transform = transforms.Compose([transforms.ToTensor()]))
@@ -103,38 +105,7 @@ test_ds = CIFAR10('./data', train=False, download=True,transform=transforms.Comp
 test_dl = torch.utils.data.DataLoader(test_ds,batch_size=128*2, shuffle=True, num_workers=2) # Testing data loader
 ```
 
-### ResNet-50 Attack
-
-The first model we target with the CW attack is a **fine-tuned ResNet-50**, pre-trained on ImageNet and fine-tuned for the CIFAR-10 dataset. Below are the key steps:
-
-#### 1. Fine-tuning ResNet-50
-We begin by fine-tuning the pre-trained ResNet-50 model for CIFAR-10 by freezing all layers except the final fully connected layer, which we replace to output 10 classes (for CIFAR-10).
-
-```python
-import torch
-import torch.optim as optim
-import torch.nn as nn
-import torchvision.models as models
-
-# Load pre-trained ResNet-50 model
-model = models.resnet50(pretrained=True)
-
-# Freeze all layers except the final fully connected layer
-for param in model.parameters():
-    param.requires_grad = False
-
-# Replace the final layer for CIFAR-10
-num_classes = 10
-model.fc = nn.Linear(model.fc.in_features, num_classes)
-
-# Define loss function and optimizer
-criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.fc.parameters(), lr=0.001)
-```
-
-#### 2. Applying the CW Attack to ResNet-50
-After fine-tuning the model, we apply the Carlini & Wagner attack to generate adversarial examples.
-
+Now, we are going to define the L2-Norm Carlini & Wagner algorithm:
 ```python
 def cw_l2_attack(model, original_images, labels, targeted=False, c=1e-4, kappa=0, max_iter=1000, learning_rate=0.01):
     perturbed_images = torch.zeros_like(original_images, requires_grad=True).to("cpu")
@@ -162,6 +133,121 @@ def cw_l2_attack(model, original_images, labels, targeted=False, c=1e-4, kappa=0
     perturbed_images = 1/2*(nn.Tanh()(perturbed_images) + 1)
     return perturbed_images
 ```
+
+### ResNet-50 Attack
+
+The first model we target with the CW attack is a **fine-tuned ResNet-50**, pre-trained on ImageNet and fine-tuned for the CIFAR-10 dataset. Below are the key steps:
+
+#### 1. Loading ResNet-50
+We begin by loading the pre-trained ResNet-50 model for CIFAR-10 and freezing all layers except the final fully connected layer, which we replace to output 10 classes (for CIFAR-10).
+
+```python
+# Load pre-trained ResNet-50 model
+model = models.resnet50(pretrained=True)
+
+# Freeze all layers except the final fully connected layer
+for param in model.parameters():
+    param.requires_grad = False
+
+# Replace the final layer for CIFAR-10
+num_classes = 10
+model.fc = nn.Linear(model.fc.in_features, num_classes)
+
+# Define loss function and optimizer
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.Adam(model.fc.parameters(), lr=0.001)
+```
+
+#### 2. Fine-tuning ResNet-50
+Then, we are going to train our last layer with the CIFAR-10 dataset, for the model to be able to predict the 10 classes taking advantage of the previous knowledge:
+```python
+def train_model(model, train_dl, val_dl, criterion, optimizer, num_epochs=10):
+    train_losses = []
+    val_losses = []
+    for epoch in range(num_epochs):
+        model.train()
+        running_loss = 0.0
+        for images, labels in train_dl:
+            # Move data to GPU if available
+            images, labels = images, labels
+
+            # Zero the parameter gradients
+            optimizer.zero_grad()
+
+            # Forward pass
+            outputs = model(images)
+            loss = criterion(outputs, labels)
+
+            # Backward pass and optimize
+            loss.backward()
+            optimizer.step()
+
+            running_loss += loss.item() * images.size(0)
+
+        epoch_loss = running_loss / len(train_dl.dataset)
+        train_losses.append(epoch_loss)
+        
+        # Validation loss
+        model.eval()
+        with torch.no_grad():
+            val_running_loss = 0.0
+            for images, labels in val_dl:
+                images, labels = images, labels
+                outputs = model(images)
+                loss = criterion(outputs, labels)
+                val_running_loss += loss.item() * images.size(0)
+
+            val_loss = val_running_loss / len(val_dl.dataset)
+            val_losses.append(val_loss)
+
+        print(f'Epoch {epoch+1}, Train Loss: {epoch_loss:.4f}, Validation Loss: {val_loss:.4f}')
+
+    print('Finished Training')
+    return train_losses, val_losses
+
+train_losses, val_losses = train_model(model, train_dl, val_dl, criterion, optimizer, num_epochs=20)
+
+# Save finetuned resnet_50 model
+torch.save(model, './resnet_50.pth')
+
+# Load resnet_50 model
+model = torch.load('./resnet_50.pth')
+model.eval()  # Set the model to evaluation mode
+```
+
+#### 3. Applying the CW Attack to ResNet-50
+After fine-tuning the model, we apply the Carlini & Wagner attack to generate adversarial examples.
+
+```python
+specific_index = 45  # Example index you want to access
+subset = Subset(test_ds, [specific_index])
+loader = DataLoader(subset, batch_size=1)  # Ensure batch size matches what you need
+
+# Example of running the attack
+dataiter = iter(loader)
+original_image, label = next(dataiter)
+
+# Display original and perturbed images
+print("Original Image & Label:")
+imshow(torchvision.utils.make_grid(original_image))
+print('Label:', label.item())
+
+# Run the attack
+perturbed_image = cw_l2_attack(model, original_image, label, c=1, targeted=False, max_iter=10000)
+
+print("Perturbed Image & Predicted Label:")
+imshow(torchvision.utils.make_grid(perturbed_image.detach()))
+
+# Evaluate model on perturbed image
+output = model(perturbed_image)
+pred_label = output.max(1, keepdim=True)[1]
+print('Predicted Label after attack:', pred_label.item())
+
+# Show the perturbation
+print("Perturbation:")
+imshow(torchvision.utils.make_grid(perturbed_image.detach() -  original_image + 0.5))
+```
+![Images](asasa)
 
 #### 3. Visualizing the Results
 Once the attack is completed, we can visualize the original, perturbed, and difference images.
