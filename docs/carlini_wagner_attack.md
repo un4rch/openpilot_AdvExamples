@@ -65,17 +65,13 @@ The perturbation is mapped to the hyperbolic tangent space to ensure that the ge
 ## Norms
 
 ### L2 Norm
-In the Carlini & Wagner attack, the **L2 norm** is used to measure the size of the perturbation. The L2 norm represents the Euclidean distance between the original and perturbed images:
+They presented three possible approaches for the attack using different Lp norms:
+- **L0-norm**: Measures the number of non-zero elements in a vector. In this context, it represents the number of pixels modified in the perturbation. By minimizing the L0-norm, the attack seeks to change as few pixels as possible, focusing on a few critical pixels. It makes it so that a few pixels go under a significant modification, thus making it clear to the human eye.
+- **L2-norm**: Computes the Euclidean distance between two vectors, which in this case, represents the pixel-wise differences between the original input and the adversarial example. By minimizing the L2-norm the attack aims to make small changes across the overall pixels of the initial image. It distributes the perturbation more evenly across the input, minimizing the visual impact on the human eye.
+- **L∞-norm**: Calculates the maximum absolute difference between corresponding elements of two vectors. This method constrains the perturbation such that the absolute maximum change in any individual pixel value does not exceed a certain threshold. By minimizing the L∞-norm, the attack aims to keep the largest pixel change across all pixels within the allowed limit.
 
-\[
-L2 = \sqrt{\sum (x_{i} - x'_{i})^2}
-\]
-
-This ensures that the perturbation remains small and imperceptible to the human eye. In contrast to simpler methods like FGSM (which uses the L∞ norm), the CW attack's use of the L2 norm allows for more subtle perturbations that are harder to detect.
-
-### Other Norms (For Context)
-- **L∞ Norm**: Measures the maximum change to any individual pixel. This norm is used in attacks like FGSM.
-- **L1 Norm**: Measures the sum of the absolute differences between the original and perturbed images.
+A comparison between generated AEs with the three norms proposed:
+![CW Norms comparison](/images/cw_norms_comparison.png)
 
 ## ResNet-50 Attack
 
