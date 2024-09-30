@@ -85,3 +85,99 @@ model.fc = nn.Linear(model.fc.in_features, num_classes)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.fc.parameters(), lr=0.001)
 ```
+
+### 2. Applying the CW Attack to ResNet-50
+After fine-tuning the model, we apply the Carlini & Wagner attack to generate adversarial examples.
+
+```
+def cw_l2_attack(model, original_images, labels, targeted=False, c=1e-4, kappa=0, max_iter=1000, learning_rate=0.01):
+    perturbed_images = torch.zeros_like(original_images, requires_grad=True).to("cpu")
+    optimizer = optim.Adam([perturbed_images], lr=learning_rate)
+    
+    for iteration in range(max_iter):
+        perturbed_images_tanh = 1/2*(nn.Tanh()(perturbed_images) + 1)
+        outputs = model(perturbed_images_tanh)
+        labels_one_hot = torch.eye(len(outputs[0]))[labels].to(original_images.device)
+        
+        i, _ = torch.max((1 - labels_one_hot) * outputs, dim=1)
+        j = torch.masked_select(outputs, labels_one_hot.bool())
+        loss = torch.clamp(j - i, min=-kappa)
+        
+        l2dist = torch.norm(perturbed_images_tanh - original_images, p=2)
+        loss = l2dist + torch.sum(c * loss)
+        
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+
+        if iteration % (max_iter // 10) == 0:
+            print(f'Iteration {iteration}, Loss: {loss.item()}')
+    
+    perturbed_images = 1/2*(nn.Tanh()(perturbed_images) + 1)
+    return perturbed_images
+```
+
+### 3. Visualizing the Results
+Once the attack is completed, we can visualize the original, perturbed, and difference images.
+
+```
+import matplotlib.pyplot as plt
+
+def show_images(original_image, perturbed_image):
+    images = [original_image, perturbed_image, perturbed_image - original_image]
+    titles = ["Original Image", "Perturbed Image", "Perturbation"]
+    for i, img in enumerate(images):
+        plt.subplot(1, 3, i+1)
+        imshow(torchvision.utils.make_grid(img))
+        plt.title(titles[i])
+    plt.show()
+
+# Example of attack
+dataiter = iter(test_dl)
+original_image, label = next(dataiter)
+
+# Run the attack
+perturbed_image = cw_l2_attack(model, original_image, label)
+
+# Show the images
+show_images(original_image, perturbed_image)
+```
+
+## Custom CNN Attack
+We also apply the CW attack to a custom CNN trained from scratch on the CIFAR-10 dataset.
+
+### 1. Building and Training the Custom CNN
+We create a simple convolutional neural network to classify CIFAR-10 images.
+
+```
+import torch.nn as nn
+import torch.optim as optim
+
+class Cifar10CNN(nn.Module):
+    def __init__(self, num_classes=10):
+        super(Cifar10CNN, self).__init__()
+        self.conv1 = nn.Conv2d(3, 32, kernel_size=3, padding=1)
+        self.conv2 = nn.Conv2d(32, 64, kernel_size=3, padding=1)
+        self.fc1 = nn.Linear(64*8*8, 512)
+        self.fc2 = nn.Linear(512, num_classes)
+
+    def forward(self, x):
+        x = nn.ReLU()(self.conv1(x))
+        x = nn.MaxPool2d(2)(nn.ReLU()(self.conv2(x)))
+        x = x.view(x.size(0), -1)
+        x = nn.ReLU()(self.fc1(x))
+        x = self.fc2(x)
+        return x
+
+model = Cifar10CNN()
+optimizer = optim.Adam(model.parameters(), lr=0.001)
+criterion = nn.CrossEntropyLoss()
+```
+
+### 2. Applying the CW Attack to Custom CNN
+The CW attack can be applied to the custom CNN similarly to how we applied it to ResNet-50.
+
+```
+perturbed_image = cw_l2_attack(model, original_image, label, c=1e-4, max_iter=1000)
+show_images(original_image, perturbed_image)
+```
