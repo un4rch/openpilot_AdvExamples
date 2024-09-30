@@ -1,4 +1,5 @@
 # Carlini & Wagner (CW) L2 Attack
+This guide aims to introduce the Carlini & Wagner adversarial attack to the reader, ...?
 
 ## Table of contents
 - [Introduction](#introduction)
