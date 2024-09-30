@@ -11,7 +11,7 @@ This guide aims to introduce the Carlini & Wagner adversarial attack to the read
 
 ## Introduction
 
-The **Carlini & Wagner (CW) attack** is a powerful white-box adversarial attack that seeks to minimize the perturbation added to an input image while successfully fooling the target model. The CW attack focuses on making small, often imperceptible changes to the image that mislead a deep neural network (DNN) into making incorrect classifications.
+The [**Carlini & Wagner (CW) attack**](https://arxiv.org/pdf/1608.04644) is a powerful white-box adversarial attack that seeks to minimize the perturbation added to an input image while successfully fooling the target model. The CW attack focuses on making small, often imperceptible changes to the image that mislead a deep neural network (DNN) into making incorrect classifications.
 
 The attack is framed as an optimization problem where the objective is to find the smallest possible perturbation that leads the model to misclassify the input. The **L2 norm** is used to measure this perturbation, which represents the Euclidean distance between the original image and the adversarial image.
 
@@ -19,13 +19,14 @@ In this implementation, we will target two models:
 - **ResNet-50**: A fine-tuned, pre-trained model on the CIFAR-10 dataset.
 - **Custom CNN**: A CNN built and trained from scratch on the CIFAR-10 dataset.
 
+First, we are going to understand the background behind the algorithm.
+
 ## Optimization Problem
 
-The Carlini & Wagner attack is essentially an optimization problem. The goal is to solve for an adversarial perturbation that minimizes the following objective function:
+The Carlini & Wagner attack is essentially an optimization problem. The goal is to solve for an adversarial perturbation that minimizes the following objective function.
+Here the adversary optimizes the objective function iteratively, adjusting the perturbation to minimize the magnitude while maximizing the attack’s success rate
 
-\[
-\min ||\delta||_2^2 + c \cdot f(x + \delta)
-\]
+![Objective function](cw_original_optimization.png)
 
 Where:
 - \( ||\delta||_2^2 \) is the **L2 norm** (Euclidean distance) of the perturbation.
