@@ -89,7 +89,7 @@ optimizer = optim.Adam(model.fc.parameters(), lr=0.001)
 ### 2. Applying the CW Attack to ResNet-50
 After fine-tuning the model, we apply the Carlini & Wagner attack to generate adversarial examples.
 
-```
+```python
 def cw_l2_attack(model, original_images, labels, targeted=False, c=1e-4, kappa=0, max_iter=1000, learning_rate=0.01):
     perturbed_images = torch.zeros_like(original_images, requires_grad=True).to("cpu")
     optimizer = optim.Adam([perturbed_images], lr=learning_rate)
@@ -120,7 +120,7 @@ def cw_l2_attack(model, original_images, labels, targeted=False, c=1e-4, kappa=0
 ### 3. Visualizing the Results
 Once the attack is completed, we can visualize the original, perturbed, and difference images.
 
-```
+```python
 import matplotlib.pyplot as plt
 
 def show_images(original_image, perturbed_image):
@@ -149,7 +149,7 @@ We also apply the CW attack to a custom CNN trained from scratch on the CIFAR-10
 ### 1. Building and Training the Custom CNN
 We create a simple convolutional neural network to classify CIFAR-10 images.
 
-```
+```python
 import torch.nn as nn
 import torch.optim as optim
 
@@ -177,7 +177,7 @@ criterion = nn.CrossEntropyLoss()
 ### 2. Applying the CW Attack to Custom CNN
 The CW attack can be applied to the custom CNN similarly to how we applied it to ResNet-50.
 
-```
+```python
 perturbed_image = cw_l2_attack(model, original_image, label, c=1e-4, max_iter=1000)
 show_images(original_image, perturbed_image)
 ```
