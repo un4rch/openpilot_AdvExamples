@@ -261,37 +261,151 @@ show_images(images, titles)
 We also apply the CW attack to a custom CNN trained from scratch on the CIFAR-10 dataset.
 
 #### 1. Building and Training the Custom CNN
-We create a simple convolutional neural network to classify CIFAR-10 images.
+We create a simple convolutional neural network with 4 convolution layers to classify CIFAR-10 images.
+
+```python
+import torch.nn.functional as F
+
+class Cifar10CNN(nn.Module):
+    def __init__(self, pNumClasses, pNumInputSize, pNumChannels):
+        
+        super(Cifar10CNN, self).__init__()
+
+        self.conv_1 = nn.Sequential(
+            nn.Conv2d(pNumChannels, pNumInputSize, kernel_size=3, padding=1), 
+            nn.ReLU(),
+            nn.Dropout(p=0.2)
+        )
+        
+        self.conv_2 = nn.Sequential(
+            nn.Conv2d(pNumInputSize, pNumInputSize*2, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.Dropout(p=0.2)
+        )
+
+        self.conv_3 = nn.Sequential(
+            nn.Conv2d(pNumInputSize*2, pNumInputSize*4, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.Dropout(p=0.2)
+        )
+
+        self.conv_4 = nn.Sequential(
+            nn.Conv2d(pNumInputSize*4, pNumInputSize*4, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.Dropout(p=0.2)
+        )
+        
+        self.network = nn.Sequential(
+            self.conv_1, # Convolution Layer 1: output dimension 32-3+1 = 30
+            self.conv_2, # Convolution Layer 2: output dimension 30-3+1 = 28
+            nn.MaxPool2d(kernel_size=2, stride=2), # Pooling Layer 1: output dimension 28/2 = 14
+            self.conv_3, # Convolution Layer 3: output dimension 14-3+1 = 12
+            self.conv_4, # Convolution Layer 4: output dimension 12-3+1 = 10
+            nn.MaxPool2d(kernel_size=2, stride=2), # Pooling Layer 2: 10/2 = 5
+            nn.Flatten(), # Flatten Layer 1
+            nn.Linear(pNumInputSize*4*8*8, 512),
+            nn.ReLU(),
+            nn.Dropout(p=0.2),
+            nn.Linear(512, pNumClasses) # Fully Connected Layer (CIFAR-10 has output 10 classes)
+        )
+
+    def forward(self, x):
+        #return F.softmax(self.network(x),dim=1)
+        return self.network(x)
+
+cifarModel = Cifar10CNN(10, 32, 3)
+
+optimizer = torch.optim.Adam(cifarModel.parameters(), lr=0.001)
+loss_function = nn.CrossEntropyLoss()
+```
+
+#### 2. Training the custom CNN
+Now the CNN is going to be trained with the CIFAR-10 dataset:
+
+```python
+def train_model(model, train_dl, val_dl, criterion, optimizer, num_epochs=10):
+    train_losses = []
+    val_losses = []
+    for epoch in range(num_epochs):
+        # Training phase
+        model.train()  # Set the model to training mode
+        running_loss = 0.0
+        for images, labels in train_dl:
+            # Move data to the device the model is on, typically GPU if available
+            if torch.cuda.is_available():
+                images, labels = images.cuda(), labels.cuda()
+
+            optimizer.zero_grad()  # Zero the parameter gradients to ensure clean updates
+
+            outputs = model(images)  # Forward pass: compute predicted outputs
+            loss = criterion(outputs, labels)  # Calculate loss based on the criterion given
+
+            loss.backward()  # Backpropagation, compute gradients
+            optimizer.step()  # Apply gradients and update model parameters
+
+            running_loss += loss.item() * images.size(0)  # Multiply loss by the batch size for total loss
+
+        epoch_loss = running_loss / len(train_dl.dataset)  # Calculate average loss over the entire dataset
+        train_losses.append(epoch_loss)
+
+        # Validation phase
+        model.eval()  # Set the model to evaluation mode
+        val_running_loss = 0.0
+        with torch.no_grad():  # Disable gradient calculation for efficiency
+            for images, labels in val_dl:
+                if torch.cuda.is_available():
+                    images, labels = images.cuda(), labels.cuda()
+
+                outputs = model(images)  # Compute predictions
+                loss = criterion(outputs, labels)  # Calculate loss
+                val_running_loss += loss.item() * images.size(0)  # Aggregate loss
+
+            val_loss = val_running_loss / len(val_dl.dataset)  # Average loss over validation set
+            val_losses.append(val_loss)
+
+        print(f'Epoch {epoch+1}, Train Loss: {epoch_loss:.4f}, Validation Loss: {val_loss:.4f}')
+
+    print('Finished Training')
+    return train_losses, val_losses
+
+train_losses, val_losses = train_model(cifarModel, train_dl, val_dl, loss_function, optimizer, num_epochs=10)
+
+# Save custom cifrar-10 trained cnn model
+torch.save(cifarModel, './cifar_10_cnn.pth')
+
+# Load resnet_50 model
+cifarModel = torch.load('./cifar_10_cnn.pth')
+cifarModel.eval()  # Set the model to evaluation mode
+```
+
+#### 3. Applying the CW Attack to custom CNN
+After training the model, we apply the Carlini & Wagner attack to generate adversarial examples.
 
 ```python
 import torch.nn as nn
-import torch.optim as optim
 
-class Cifar10CNN(nn.Module):
-    def __init__(self, num_classes=10):
-        super(Cifar10CNN, self).__init__()
-        self.conv1 = nn.Conv2d(3, 32, kernel_size=3, padding=1)
-        self.conv2 = nn.Conv2d(32, 64, kernel_size=3, padding=1)
-        self.fc1 = nn.Linear(64*8*8, 512)
-        self.fc2 = nn.Linear(512, num_classes)
+specific_index = 45  # Example index you want to access
+subset = Subset(test_ds, [specific_index])
+loader = DataLoader(subset, batch_size=1)  # Ensure batch size matches what you need
 
-    def forward(self, x):
-        x = nn.ReLU()(self.conv1(x))
-        x = nn.MaxPool2d(2)(nn.ReLU()(self.conv2(x)))
-        x = x.view(x.size(0), -1)
-        x = nn.ReLU()(self.fc1(x))
-        x = self.fc2(x)
-        return x
+# Example of running the attack
+dataiter = iter(loader)
+original_image, label = next(dataiter)
 
-model = Cifar10CNN()
-optimizer = optim.Adam(model.parameters(), lr=0.001)
-criterion = nn.CrossEntropyLoss()
+# Run the attack
+perturbed_image = cw_l2_attack(cifarModel, original_image, label, c=1, targeted=False, max_iter=10000)
+
+# Evaluate model on perturbed image
+output = cifarModel(perturbed_image)
+pred_label = output.max(1, keepdim=True)[1]
+print('Predicted Label after attack:', pred_label.item())
 ```
-
-#### 2. Applying the CW Attack to Custom CNN
-The CW attack can be applied to the custom CNN similarly to how we applied it to ResNet-50.
+#### 4. Visualizing the Results
+Once the attack is completed, we can visualize the original, perturbed, and difference images.
 
 ```python
-perturbed_image = cw_l2_attack(model, original_image, label, c=1e-4, max_iter=1000)
-show_images(original_image, perturbed_image)
+images = [original_image, perturbed_image.detach(), perturbed_image.detach() -  original_image + 0.5]
+titles = [f"Original Image (class {label.item()})", f"Perturbed Image (class {pred_label.item()})", "Perturbation"]
+show_images(images, titles)
 ```
+![Custom CNN mislead](/images/cw_customCNN_mislead.png)
