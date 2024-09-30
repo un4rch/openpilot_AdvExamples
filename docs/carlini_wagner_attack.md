@@ -38,29 +38,29 @@ Being D the function used to quantify the distance between the original input an
 
 That is why the authors proposed a different approach:
 
-![CW Proposed approach](images/cw_proposed_approach.png)
+![CW Proposed approach](/images/cw_proposed_approach.png)
 
 By changing the classification function to an objective function, the non-lineality problem is solved. Then they proceed to reformulate the problem introducing the function on the minimization problem and multiplying it by a constant c to ensure that when performing the gradient descent, none of the terms takes precedence over the other:
 
-![CW Objective function](images/cw_objective_function.png)
+![CW Objective function](/images/cw_objective_function.png)
 
 Lastly, they replace the distance metric D with the Lp norm of δ:
 
-![Replace D by Lnorm](images/cw_replace_d_Lnorm.png)
+![Replace D by Lnorm](/images/cw_replace_d_Lnorm.png)
 
 The authors proposed and tested numerous objective functions:
 
-![CW tested objective functions](images/cw_all_objective_functions.png)
+![CW tested objective functions](/images/cw_all_objective_functions.png)
 
 They made a comparison among the proposed objective functions and finally realized that the 6th function was the best and they chose that for their attacks.
 
-![CW objective functions comparison](images/cw_objectivesF_comparison.png)
+![CW objective functions comparison](/images/cw_objectivesF_comparison.png)
 
 The perturbation is mapped to the hyperbolic tangent space to ensure that the generated images are within a valid input range. They decided to use this space for two main reasons:
 - **Constraint satisfaction**: The tanh function naturally satisfies the constraints applied to the perturbation on CW attacks, such as L2-norm or L∞-norm bounds, ensuring that the perturbation remains within the desired range. The tanh function restricts its output values between -1 and 1, which aligns with the constraints and prevents the perturbation from becoming excessively large.
 - **Smooth mapping**: The tanh function provides a continuous and smooth mapping between the perturbation and input spaces. The function’s differentiability facilitates the gradient computation and enables efficient optimization of the objective function.
 
-![CW Tanh function](images/cw_tanh.png)
+![CW Tanh function](/images/cw_tanh.png)
 
 ## Norms
 
