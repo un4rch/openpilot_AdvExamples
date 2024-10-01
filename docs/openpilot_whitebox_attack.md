@@ -13,15 +13,11 @@ This guide introduces how to implement white-box adversarial attacks against the
 - [Running the Attack](#running-the-attack)
 - [Visualizing the Results](#visualizing-the-results)
 
----
-
 ## Introduction
 
 OpenPilot is an open-source autonomous driving system that uses deep neural networks to process sensor inputs and make real-time driving decisions. At the core of its decision-making is the **Supercombo model**, which integrates lane detection, object detection, and end-to-end driving tasks into a single neural network.
 
 In this guide, we aim to exploit the weaknesses of the Supercombo model through a **white-box attack**, where we have complete access to the model's architecture, weights, and gradients. The attack will involve generating an **adversarial patch**—a small image perturbation designed to trick the Supercombo model into misinterpreting its surroundings, potentially causing unsafe driving behavior.
-
----
 
 ## Setting Up the Environment
 
@@ -37,8 +33,6 @@ Before starting, you will need to set up an environment to load and manipulate t
 
 Once the environment is set up, you'll load the ONNX model and convert it to PyTorch for easier manipulation during the adversarial attack.
 
----
-
 ## Defining Important Functions
 
 To run the attack effectively, we need several utility functions. Some key functionalities include:
@@ -50,8 +44,6 @@ To run the attack effectively, we need several utility functions. Some key funct
 3. **Preprocessing Frames**: Frames captured from the simulation environment need to be cropped, resized, and normalized before being fed into the model. This step ensures that the input format is compatible with Supercombo's architecture.
 
 # TODO: comment for defining functions like RGB to YUV conversion
-
----
 
 ## Comparison of ONNX and PyTorch Models
 
@@ -65,8 +57,6 @@ In this step, we will:
 This comparison guarantees that our adversarial examples, generated via PyTorch, are valid and will affect the OpenPilot system.
 
 # TODO: comment for comparing ONNX and PyTorch outputs
-
----
 
 ## Adversarial Patch Generation
 
@@ -84,8 +74,6 @@ For each frame, the patch will be placed at different locations, rotated by vary
 
 # TODO: comment for placing adversarial patches with EoT transformations
 
----
-
 ## Supercombo Model Interaction
 
 After generating the adversarial patch, we need to interact with the **Supercombo model** to evaluate the effects of the patch. This step involves feeding the patched images into the Supercombo model and measuring how the patch affects the model's predictions.
@@ -93,8 +81,6 @@ After generating the adversarial patch, we need to interact with the **Supercomb
 The **Supercombo** model processes two consecutive frames, along with additional inputs (like desire, traffic convention, and feature buffers). We will need to preprocess the input frames and pass them through the model, first with and then without the adversarial patch, to observe the differences in predictions.
 
 # TODO: comment for interacting with Supercombo model and evaluating predictions
-
----
 
 ## Running the Attack
 
@@ -108,8 +94,6 @@ The optimization will be carried out using the **Adam optimizer**, which adjusts
 
 # TODO: comment for initializing and optimizing the adversarial patch
 
----
-
 ## Visualizing the Results
 
 Finally, we will visualize the results of the attack by comparing:
@@ -120,7 +104,5 @@ Finally, we will visualize the results of the attack by comparing:
 These visualizations will help us understand how the patch affects the Supercombo model's perception and how subtle the patch can be while still being effective.
 
 # TODO: comment for visualizing the original, patched, and difference images
-
----
 
 This guide provides a step-by-step approach to implementing a white-box adversarial attack on the OpenPilot system. By carefully crafting adversarial patches and applying them to driving scenes, we can observe how small perturbations can mislead even advanced neural network models like Supercombo, highlighting the importance of robustness in autonomous driving systems.
