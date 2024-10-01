@@ -29,7 +29,26 @@ Before starting, you will need to set up an environment to load and manipulate t
 3. **ONNX Runtime**: To run inferences on the ONNX model.
 4. **Other Libraries**: `matplotlib`, `numpy`, `opencv-python` for image processing.
 
-# TODO: comment for setting up libraries
+```python
+import sys
+import os
+import re
+import json
+
+import onnx
+import onnxruntime
+from onnx2torch import convert
+import torch
+import torch.nn as nn
+import torch.optim as optim
+import torch.nn.functional as F
+
+import numpy as np
+import pandas as pd
+
+import cv2
+from matplotlib import pyplot as plt
+```
 
 Once the environment is set up, you'll load the ONNX model and convert it to PyTorch for easier manipulation during the adversarial attack.
 
