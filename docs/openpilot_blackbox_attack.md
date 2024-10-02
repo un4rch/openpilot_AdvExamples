@@ -16,8 +16,6 @@ Black-box optimization is a method where the inner workings of a system are unkn
 
 This repository applies this technique to adversarial attacks in a black-box setting where the goal is to find an adversarial example (AE) that perturbs the system's output in a desired direction. The methodology assumes that there is no access to the internal parameters of the model, relying only on observing changes in the model's output during iterations.
 
-![Black-box graphical diagram](/images/blackbox_attack.jpg)
-
 ## (1+1) Evolution Strategy
 The (1+1) ES is a simple optimization strategy that simulates the process of natural selection. It works by generating a new solution (offspring) from an existing solution (parent) in each generation. If the offspring outperforms the parent, it replaces the parent; otherwise, the parent is retained for the next iteration. In this guide, the (1+1) ES is used to find an optimal AE for black-box systems by evaluating the performance of the AE in a simulated environment.
 
@@ -58,6 +56,7 @@ def disappearance_loss(image, conf, dist, real_dist, l1=0.01, l2=0.001):
 ```
 
 ## Black-Box Algorithm
+![Black-box graphical diagram](/images/blackbox_attack.jpg)
 ### Environment Setup
 This black-box attack is going to be performed during simulation loop in CARLA simulator. To setup the environment, read [this](/README.md#running-openpilot-in-carla-simulator) guide about CARLA simulation installation and establishing a connection with Openpilot.
 
