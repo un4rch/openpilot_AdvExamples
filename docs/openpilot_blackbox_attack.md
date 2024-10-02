@@ -56,7 +56,7 @@ def disappearance_loss(image, conf, dist, real_dist, l1=0.01, l2=0.001):
 
 ## Black-Box Algorithm
 ### Environment Setup
-visit [aaa](#/README.md#running-openpilot-in-carla-simulator).
+visit [aaa](/README.md#running-openpilot-in-carla-simulator).
 
 ### Implementation Steps
 1. **Initialize the Population**: A random adversarial example (AE) is generated. This example is then evaluated by running it through the black-box system.
