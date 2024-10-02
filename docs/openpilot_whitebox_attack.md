@@ -465,7 +465,6 @@ Finally, we will visualize the results of the attack by comparing:
 3. The patch itself.
 
 These visualizations will help us understand how the patch affects the Supercombo model's perception and how subtle the patch can be while still being effective.
-
-# TODO: comment for visualizing the original, patched, and difference images
-
-This guide provides a step-by-step approach to implementing a white-box adversarial attack on the OpenPilot system. By carefully crafting adversarial patches and applying them to driving scenes, we can observe how small perturbations can mislead even advanced neural network models like Supercombo, highlighting the importance of robustness in autonomous driving systems.
+```python
+TODO
+```
