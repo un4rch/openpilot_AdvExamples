@@ -55,6 +55,11 @@ def disappearance_loss(image, conf, dist, real_dist, l1=0.01, l2=0.001):
 ```
 
 ## Black-Box Algorithm
+### Implementation Steps
+4.1 **Initialize the Population**: A random adversarial example (AE) is generated. This example is then evaluated by running it through the black-box system.
+4.2 **Mutate the Offspring**: Using Gaussian mutation, the offspring is generated from the parent AE. This offspring is a slightly modified version of the parent based on random noise.
+4.3 **Evaluate the Offspring**: Run the simulation using the generated offspring and collect output data, such as detection confidence and predicted distances in the black-box system.
+4.4 **Select the Best Solution**: The current and previous solutions (parent and offspring) are compared based on their performance in the simulation. The better solution is selected for the next iteration.
 ```python
 def one_plus_one_evolution_strategy_algorithm(data_list, lr=100, sgth=25):
     d_mean = np.mean([elem[2] for elem in data_list])
