@@ -85,7 +85,7 @@ def one_plus_one_evolution_strategy_algorithm(data_list, lr=100, sgth=25):
 ```
 
 ## Visualization and Monitoring
-During optimization, it is crucial to visualize how the performance evolves across iterations. Charts showing detection confidence, adversarial distances, and other metrics can help determine if the AE is improving.
+During optimization, it is crucial to visualize how the performance evolves across iterations. Charts showing detection confidence, adversarial distances, and other metrics can help determine if the AE is improving. This [python script](/attacks/generate_charts.py) creates charts of the gathered information metrics.
 
 ### Monitoring Metrics:
 - **Detection confidence**: How confident the system is in detecting an object.
