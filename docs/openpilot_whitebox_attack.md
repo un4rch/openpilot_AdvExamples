@@ -469,10 +469,6 @@ Finally, we will visualize the results of the attack by comparing:
 - The confidence values represent the model's belief in a particular prediction, and lower confidence indicates that the patch is effectively misleading the model.
 - The distance ratio (Batch_pdist / Batch_rdist) measures how much the patch distorts the model's perception of distance. A higher ratio indicates that the patch is causing the model to perceive objects as farther away than they actually are, which suggests the patch is effective.
 
-3. Detailed Output:
-- The printed confidence and distance metrics allow you to numerically assess how the attack progresses over time. By tracking these changes, you can determine how effective the patch is at deceiving the model.
-
-These visualizations will help us understand how the patch affects the Supercombo model's perception and how subtle the patch can be while still being effective.
 ```python
 first_patch = tensor_to_numpy(train_df['Patch'].iloc[0])
 last_patch = tensor_to_numpy(train_df['Patch'].iloc[-1])
@@ -494,3 +490,4 @@ print(f"[*] Last dist diff: {last_dist}")
 print(f"Note conf: Lower conf misleads the system")
 print(f"Note dist: If dist diff division is high means that patch is effective (makes distance higher)")
 ```
+These visualizations will help us understand how the patch affects the Supercombo model's perception and how subtle the patch can be while still being effective.
