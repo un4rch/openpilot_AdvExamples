@@ -129,7 +129,7 @@ def preprocess_frame(frame_tensor, roi_area=None, resize_dim=(128,256)):
     return parsed_frame
 ```
 4. **Image display**: Some functions to display images and see the patch or frames.
-```pyhton
+```python
 def display_image(image):
 	plt.imshow(image)
 	plt.show()
@@ -160,7 +160,7 @@ def subplot(img1, img2):
     plt.show()
 ```
 5. **Format conversion**: ???
-```pyhton
+```python
 def numpy_to_tensor(array):
 	# Convert image from BGR to RGB as PyTorch uses RGB by default
 	frame_rgb = cv2.cvtColor(array, cv2.COLOR_BGR2RGB)
