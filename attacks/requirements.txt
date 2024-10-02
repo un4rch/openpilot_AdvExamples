@@ -1,0 +1,8 @@
+onnx
+onnxruntime
+onnx2torch
+torch
+matplotlib
+numpy
+opencv-python # cv2
+pandas
