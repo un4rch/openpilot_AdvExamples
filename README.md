@@ -37,7 +37,7 @@ The methodology presented in this guide offers a structured approach for both be
 
 # Directory Breakdown
 This guide is separated in some folders:
-- `attacks/](attacks)`
+- `[attacks/](attacks)`
 
 # Introduction
 
