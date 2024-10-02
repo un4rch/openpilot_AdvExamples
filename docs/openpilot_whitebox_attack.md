@@ -460,9 +460,17 @@ print(f"[*] DONE: Adversarial Patch Trained")
 ## Visualizing the Results
 
 Finally, we will visualize the results of the attack by comparing:
-1. The original frames without the adversarial patch.
-2. The frames with the adversarial patch applied.
-3. The patch itself.
+1. Patch Comparison:
+- The code compares the initial adversarial patch (first_patch) and the final patch (last_patch). It checks if the patch has changed during the training process and plots both patches side by side using subplot().
+- This helps visualize how the patch has evolved through training.
+
+2. Confidence and Distance Metrics:
+- The code retrieves the confidence values (Batch_pconf) and the distance metrics (Batch_pdist and Batch_rdist) for both the first and last batches of frames.
+- The confidence values represent the model's belief in a particular prediction, and lower confidence indicates that the patch is effectively misleading the model.
+- The distance ratio (Batch_pdist / Batch_rdist) measures how much the patch distorts the model's perception of distance. A higher ratio indicates that the patch is causing the model to perceive objects as farther away than they actually are, which suggests the patch is effective.
+
+3. Detailed Output:
+- The printed confidence and distance metrics allow you to numerically assess how the attack progresses over time. By tracking these changes, you can determine how effective the patch is at deceiving the model.
 
 These visualizations will help us understand how the patch affects the Supercombo model's perception and how subtle the patch can be while still being effective.
 ```python
