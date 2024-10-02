@@ -21,7 +21,7 @@ Before you can run the notebooks, ensure you have the following installed on you
 1. **Set up a Virtual Environment (optional but recommended):**
     ```bash
     python -m venv ipynb_venv
-    source ipynb_venv/bin/activate  # On Windows use `venv\Scripts\activate`
+    source ipynb_venv/bin/activate  # On Windows use `ipynb_venv\Scripts\activate`
     ```
     
 2. **Clone the Repository** (if applicable):
