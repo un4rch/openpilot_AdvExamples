@@ -268,11 +268,13 @@ The patch will be optimized to reduce the confidence of the model's object detec
 
 ## Running the Attack
 
-To run the attack, we will:
+The flow of the attack is described as follows:
 1. **Initialize the adversarial patch** with random values.
-2. **Apply the patch** to a sequence of frames from a driving scene.
-3. **Run inference** on the patched frames using the Supercombo model.
-4. **Optimize the patch** by minimizing a loss function that penalizes high confidence in detecting critical objects (such as vehicles or lanes).
+2. **Process data formats** like YUV4:2:0.
+3. **Prepare input** frames and other data: **Apply the patch**, desire, traffic convention, etc.
+4. **Model query** to supercombo model.
+5. **Compare outputs** and compute the disappearance loss.
+6. **Optimize the patch** by minimizing a loss function that penalizes high confidence in detecting critical objects (such as vehicles or lanes) and low distances with the lead vehicle.
 
 The optimization will be carried out using the **Adam optimizer**, which adjusts the patch to minimize the model's confidence in detecting objects near the patch.
 
