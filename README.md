@@ -37,7 +37,9 @@ The methodology presented in this guide offers a structured approach for both be
 
 # Directory Breakdown
 This guide is separated in some folders:
-- `[attacks/](attacks)`
+- [attacks/](attacks): The `attacks/` folder contains python implementations of the adversarial attacks described during the methodology.
+- [docs/](docs): The `docs/` folder contains other specific documentations in addition to the general methodology, such as: Carlini&Wagner, Openpilot White-box Adversarial Attack, etc.
+- [images/](images): The `images/` folder contains images used during the docs for additional resources and making explanations more understandable.
 
 # Introduction
 
