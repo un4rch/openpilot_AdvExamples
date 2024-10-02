@@ -7,6 +7,9 @@ This guide outlines the implementation of blackbox optimization using the (1+1) 
 - [Gaussian Mutation](#gaussian-mutation)
 - [Disappearance Loss Function](#Disappearance-Loss-Function)
 - [Black-Box Algorithm](#black-box-algorithm)
+  - [Environment Setup](#environment-setup)
+  - [Implementation Steps](#implementation-steps)
+- [Visualization and Monitoring](#visualization-and-monitoring)
 
 ## Introduction
 Black-box optimization is a method where the inner workings of a system are unknown, and only input-output relations are accessible. For optimizing such systems, [(1+1) Evolution Strategy (ES)](https://watermark.silverchair.com/evco_a_00248.pdf?token=AQECAHi208BE49Ooan9kkhW_Ercy7Dm3ZL_9Cf3qfKAc485ysgAAAzgwggM0BgkqhkiG9w0BBwagggMlMIIDIQIBADCCAxoGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM5asW0jnGUK5Ntr-rAgEQgIIC6-Qe-zgkQ4y8cRdKKQRMNmrN7a8RgV6ZXP0cCep4WURMnPE923Cm3O5W3RainU3r5PDqDcpays_D-2oLtRZv6NiVGDXsrB28hWTRauo8jcJWCLiBrthjJwBT9UAueoboNzD4s8_dmIyb9Z9jCaMtNbRpN27SBki3hTnTPsylzGXDJnF6UhrVe8pdSRa6AQjoAycqzjRGEugjQ6vLRf8r1VTxnVMhwCKeClJ4avl3JFsjlxRZtoBpIW3MS1xGSdZdD-vfxn0u3kOysKXXxYlSGuAWMDScgTazsJC_R78h4zHV2LJ06QEVik-4d9YXIwXKu7JATl7erpS1k3hNsm2RzkpXSyXo8CUCFz1ooxF3FXVenThxmI8Qr_b8Ak9hoLGuxH71fKzn5e122KtRIrPDDB1P2_3IvnqZ1X9T6lPAEKrgenNOB-LHQ9tDwQgE2xN-E1sBVkhLD5-BIdJirM5aYdGAtbWjZY4IVBjUMecXeLqzCAgYamPgJpxYd_Y8epnYzqbulTM_JIrTjyJgVrGEd-wdecMeHDvMiYWpSAj7sJ5dZQyUXa41p5UsUP0PUI-27XRkgmNmdifrkFLSVbxaJ2X-zU0u4bmKkq82hFnsDyHFPDjnO3oYgkDr94S0QCP0cgCZagDqpN4oZZzeF8Ww2qksw3C38hlM7hWd6QjFkiLBRZ4zzMaaExQhFfGVIWNzi-NuN3iWEdDsMvb_z0Sqe4Kh3l2n7cAZs0_ju22cFEKatmrLfg15toptzCUTjxkoyqO3dXb6hUXGiDMo0tkGKrT8Ny08BLbMH8TYG9sAY83B0mZFJQ3kNvoAj2jikUfLLp1GZNYeanIYuYrfi90fQR4W18IPT0EJCSYBbw4IdIqTMPbc6i-m9alsGGm99R1rcz-2t05pn2-RTmxH9NJ8wzNPTBYXohjWPIJrl-fIf1U9w1qCo7CvHUdbJPx7N6gX_eZLEd4jDIhvsPAPyXQvUbC75-2ps5fRpFLdRQ) combined with [Gaussian mutation](https://arxiv.org/pdf/2002.03001) is an effective method.
@@ -81,3 +84,10 @@ def one_plus_one_evolution_strategy_algorithm(data_list, lr=100, sgth=25):
 
     return patch_next
 ```
+
+## Visualization and Monitoring
+During optimization, it is crucial to visualize how the performance evolves across iterations. Charts showing detection confidence, adversarial distances, and other metrics can help determine if the AE is improving.
+
+### Monitoring Metrics:
+- **Detection confidence**: How confident the system is in detecting an object.
+- **Distance predictions**: Comparing predicted distances with real distances to assess the impact of the AE
