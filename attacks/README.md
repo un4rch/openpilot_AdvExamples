@@ -18,16 +18,16 @@ Before you can run the notebooks, ensure you have the following installed on you
 
 ## Installation
 
-1. **Clone the Repository** (if applicable):
+1. **Set up a Virtual Environment (optional but recommended):**
+    ```bash
+    python -m venv ipynb_venv
+    source ipynb_venv/bin/activate  # On Windows use `venv\Scripts\activate`
+    ```
+    
+2. **Clone the Repository** (if applicable):
     ```bash
     git clone https://github.com/yourusername/your-repo.git
     cd your-repo
-    ```
-
-2. **Set up a Virtual Environment (optional but recommended):**
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
     ```
 
 3. **Install the Required Python Packages:**
