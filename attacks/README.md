@@ -56,6 +56,5 @@ Before you can run the notebooks, ensure you have the following installed on you
 
 ## Notebook Descriptions
 
-- `notebook1.ipynb`: Brief description of what this notebook does.
-- `notebook2.ipynb`: Brief description of what this notebook does.
-- [Add descriptions for each notebook in your project].
+- `carlini_wagner_cifar_10.ipynb`: Carlini & Wagner algorithm implementation against CIFAR-10 dataset.
+- `attack_whitebox.ipynb`: Openpilot white-box attack implementation against the Supercombo model.
