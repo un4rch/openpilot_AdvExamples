@@ -466,5 +466,23 @@ Finally, we will visualize the results of the attack by comparing:
 
 These visualizations will help us understand how the patch affects the Supercombo model's perception and how subtle the patch can be while still being effective.
 ```python
-TODO
+first_patch = tensor_to_numpy(train_df['Patch'].iloc[0])
+last_patch = tensor_to_numpy(train_df['Patch'].iloc[-1])
+print(f"[*] Number of patches: {train_df.shape[0]}")
+if np.any(first_patch - last_patch != 0):
+    print("Patch has been updated")
+else:
+    print("No change in patch")
+subplot(first_patch, last_patch)
+
+first_conf = train_df['Batch_pconf'].iloc[0]
+last_conf = train_df['Batch_pconf'].iloc[-1]
+first_dist = train_df['Batch_pdist'].iloc[0] / train_df['Batch_rdist'].iloc[0]
+last_dist = train_df['Batch_pdist'].iloc[-1] / train_df['Batch_rdist'].iloc[-1]
+print(f"[*] First conf: {first_conf}")
+print(f"[*] Last conf: {last_conf}")
+print(f"[*] First dist diff: {first_dist}")
+print(f"[*] Last dist diff: {last_dist}")
+print(f"Note conf: Lower conf misleads the system")
+print(f"Note dist: If dist diff division is high means that patch is effective (makes distance higher)")
 ```
