@@ -50,19 +50,37 @@ import cv2
 from matplotlib import pyplot as plt
 ```
 
-Once the environment is set up, you'll load the ONNX model and convert it to PyTorch for easier manipulation during the adversarial attack.
+Once the environment is set up, the ONNX model is loaded and converted into PyTorch for easier manipulation during the adversarial attack:
+```python
+# Load Supercombo ONNX model
+model_name = "supercombo_0.8.3.onnx" # For 0.9.4: supercombo_0.9.4.onnx
+onnx_model = onnx.load(model_name)
+
+# Conver to PyTorch model
+torch_model = convert(onnx_model)
+if torch.cuda.is_available():
+    torch_model.cuda()
+#torch_model.half() # Make the model use float16 dtype
+torch_model.eval()
+#print(torch_model)
+
+# Session ONNX
+session = onnxruntime.InferenceSession(model_name, providers=['CPUExecutionProvider'])
+```
 
 ## Defining Important Functions
 
 To run the attack effectively, we need several utility functions. Some key functionalities include:
 
-1. **Converting RGB to YUV**: The Supercombo model operates on YUV images rather than RGB. You'll need a function to convert images to the YUV color space before passing them to the model.
+1. **Converting BGR to YUV**: The Supercombo model operates on YUV images rather than RGB. You'll need a function to convert images to the YUV color space before passing them to the model.
    
 2. **Parsing Images**: The Supercombo model expects images in a specific format, with six channels for YUV encoding. Parsing the image into this format is essential for accurate predictions.
 
 3. **Preprocessing Frames**: Frames captured from the simulation environment need to be cropped, resized, and normalized before being fed into the model. This step ensures that the input format is compatible with Supercombo's architecture.
 
-# TODO: comment for defining functions like RGB to YUV conversion
+```pyhton
+#TODO
+```
 
 ## Comparison of ONNX and PyTorch Models
 
