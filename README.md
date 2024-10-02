@@ -36,7 +36,8 @@ The methodology presented in this guide offers a structured approach for both be
 - [Conclusions](#conclusions)
 
 # Directory Breakdown
-
+This guide is separated in some folders:
+- `attacks/](attacks)`
 
 # Introduction
 
