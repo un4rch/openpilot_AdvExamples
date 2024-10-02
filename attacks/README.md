@@ -45,7 +45,8 @@ Before you can run the notebooks, ensure you have the following installed on you
     ```
     This will open the Jupyter Notebook interface in your default web browser.
     IMPORTANT: Open the link from terminal with the access token. The link looks something like this:
-    `[I 2024-10-02 11:48:36.274 ServerApp] http://localhost:8888/tree?token=580daa36dc6f3e1c85f34f073ab48f5b7906a88a67cb3afe`
+
+   `[I 2024-10-02 11:48:36.274 ServerApp] http://localhost:8888/tree?token=580daa36dc6f3e1c85f34f073ab48f5b7906a88a67cb3afe`
 
 3. **Navigate to the Folder**:
     In the Jupyter Notebook interface, navigate to the directory containing the `.ipynb` files and click on the notebook you wish to run.
