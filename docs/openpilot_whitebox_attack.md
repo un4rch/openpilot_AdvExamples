@@ -2,6 +2,8 @@
 
 This guide introduces how to implement white-box adversarial attacks against the OpenPilot autonomous driving system, specifically targeting the Supercombo model. The focus will be on crafting adversarial patches that trick the model into making incorrect predictions. This attack will be conducted on both the **0.8.3** and **0.9.4** versions of Supercombo, using **ONNX** and **PyTorch** models.
 
+You can find the Jupyter Notebook implementation [here](/attacks/attack_whitebox.ipynb) and execution guide [here](/attacks/README.md).
+
 ## Table of Contents
 - [Introduction](#introduction)
 - [Setting Up the Environment](#setting-up-the-environment)
