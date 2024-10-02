@@ -56,7 +56,7 @@ def disappearance_loss(image, conf, dist, real_dist, l1=0.01, l2=0.001):
 
 ## Black-Box Algorithm
 ### Environment Setup
-This black-box attack is going to be performed during simulation loop in CARLA simulator. To setup the environment, read [this](/README.md#running-openpilot-in-carla-simulator) guide about CALRA simulation installation and establishing a connection with Openpilot.
+This black-box attack is going to be performed during simulation loop in CARLA simulator. To setup the environment, read [this](/README.md#running-openpilot-in-carla-simulator) guide about CARLA simulation installation and establishing a connection with Openpilot.
 
 ### Implementation Steps
 1. **Initialize the Population**: A random adversarial example (AE) is generated. This example is then evaluated by running it through the black-box system.
