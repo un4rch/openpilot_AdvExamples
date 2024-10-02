@@ -276,7 +276,7 @@ To run the attack, we will:
 
 The optimization will be carried out using the **Adam optimizer**, which adjusts the patch to minimize the model's confidence in detecting objects near the patch.
 
-```pyhton
+```python
 original_input_imgs_data = None # Shape: (1, 12, 128, 256)
 original_big_input_imgs_data = None # Shape: (1, 12, 128, 256)
 patched_input_imgs_data = None # Shape: (1, 12, 128, 256)
