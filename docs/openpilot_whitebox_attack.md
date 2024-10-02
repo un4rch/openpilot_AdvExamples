@@ -6,10 +6,7 @@ This guide introduces how to implement white-box adversarial attacks against the
 - [Introduction](#introduction)
 - [Setting Up the Environment](#setting-up-the-environment)
 - [Defining Important Functions](#defining-important-functions)
-- [Comparison of ONNX and PyTorch Models](#comparison-of-onnx-and-pytorch-models)
-- [Adversarial Patch Generation](#adversarial-patch-generation)
-  - [Expectation Over Transformation](#expectation-over-transformation)
-- [Supercombo Model Interaction](#supercombo-model-interaction)
+- [Adversarial Iterative Algorithm](#adversarial-iterative-algorithm)
 - [Running the Attack](#running-the-attack)
 - [Visualizing the Results](#visualizing-the-results)
 
@@ -73,29 +70,195 @@ session = onnxruntime.InferenceSession(model_name, providers=['CPUExecutionProvi
 To run the attack effectively, we need several utility functions. Some key functionalities include:
 
 1. **Converting BGR to YUV**: The Supercombo model operates on YUV images rather than RGB. You'll need a function to convert images to the YUV color space before passing them to the model.
-   
+```python
+def rgb_to_yuv(rgb_tensor):
+    # Ensure tensor is in (N, C, H, W) format
+    assert rgb_tensor.dim() == 4 and rgb_tensor.size(1) == 3, "Input tensor must be in (N, C, H, W) format with 3 channels"
+
+    # Convert RGB to YUV
+    R = rgb_tensor[:, 0, :, :]
+    G = rgb_tensor[:, 1, :, :]
+    B = rgb_tensor[:, 2, :, :]
+
+    Y = 0.299 * R + 0.587 * G + 0.114 * B
+    U = -0.14713 * R - 0.28886 * G + 0.436 * B
+    V = 0.614 * R - 0.51498 * G - 0.10001 * B
+
+    yuv_tensor = torch.stack([Y, U, V], dim=1)
+    return yuv_tensor
+```
 2. **Parsing Images**: The Supercombo model expects images in a specific format, with six channels for YUV encoding. Parsing the image into this format is essential for accurate predictions.
+```python
+def parse_image(frame):
+    # Ensure frame is a tensor of shape (1, 3, H, W)
+    assert frame.dim() == 4 and frame.size(1) == 3, "Input tensor must be of shape (1, 3, H, W)"
+    
+    H = frame.size(2)
+    W = frame.size(3)
+    
+    # Initialize the parsed tensor with shape (6, H//2, W//2)
+    parsed = torch.zeros((6, H//2, W//2), dtype=torch.uint8)
+    
+    # Extract the channels from the input tensor
+    Y = frame[0, 0, :, :]
+    U = frame[0, 1, :, :]
+    V = frame[0, 2, :, :]
 
+    # Populate the parsed tensor
+    parsed[0] = Y[0:H:2, 0::2]
+    parsed[1] = Y[1:H:2, 0::2]
+    parsed[2] = Y[0:H:2, 1::2]
+    parsed[3] = Y[1:H:2, 1::2]
+    parsed[4] = U[0:H//2, 0::2]
+    parsed[5] = V[0:H//2, 0::2]
+    
+    return parsed.unsqueeze(0)
+```
 3. **Preprocessing Frames**: Frames captured from the simulation environment need to be cropped, resized, and normalized before being fed into the model. This step ensures that the input format is compatible with Supercombo's architecture.
-
+```python
+def preprocess_frame(frame_tensor, roi_area=None, resize_dim=(128,256)):
+    x, y, w, h = roi_area
+    # Extract ROI (Region Of Interest) area of an image
+    roi_tensor = frame_tensor[:, :, y:y+h, x:x+w]
+    # Resize the images to the required dimensions
+    roi_tensor_resized = F.interpolate(roi_tensor, size=resize_dim, mode='bilinear', align_corners=False)
+    # Convert to YUV
+    roi_tensor_resized_yuv = rgb_to_yuv(roi_tensor_resized)
+    # Parse YUV with 6 channels: YUV_4:2:0
+    parsed_frame = parse_image(roi_tensor_resized_yuv)
+    return parsed_frame
+```
+4. **Image display**: Some functions to display images and see the patch or frames.
 ```pyhton
-#TODO
+def display_image(image):
+	plt.imshow(image)
+	plt.show()
+	plt.clf()
+
+def display_img(image):
+	plt.imshow(image)
+	plt.axis('off')
+	plt.show()
+	plt.clf()
+
+def subplot(img1, img2):
+	# Create a figure with subplots
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 5))
+
+    # Display the frame in the first subplot
+    ax1.imshow(img1)
+    ax1.set_title('Original Frame')
+    ax1.axis('off')
+
+    # Display the adversarial patch in the second subplot
+    ax2.imshow(img2)
+    ax2.set_title('Adversarial Patch')
+    ax2.axis('off')
+
+    # Show the plot
+    plt.tight_layout()
+    plt.show()
+```
+5. **Format conversion**: ???
+```pyhton
+def numpy_to_tensor(array):
+	# Convert image from BGR to RGB as PyTorch uses RGB by default
+	frame_rgb = cv2.cvtColor(array, cv2.COLOR_BGR2RGB)
+	# Convert to float32 for precision, then to float16
+	tensor = torch.tensor(frame_rgb, dtype=torch.float32).permute(2, 0, 1).unsqueeze(0)
+	return tensor.to(torch.float16)
+
+def tensor_to_numpy(tensor):
+	# Convert back to float32 to avoid overflow when converting to uint8
+	tensor_float32 = tensor.squeeze(0).permute(1, 2, 0).to(torch.float32)
+	image_back = tensor_float32.detach().numpy().astype(np.uint8)
+	# Convert RGB back to BGR
+	return cv2.cvtColor(image_back, cv2.COLOR_RGB2BGR)
+
+def check_images_conversion(frame):
+	# Step 1: Load the image using OpenCV
+	#frame = cv2.imread(data_dir + frame_name)
+
+	# Step 2: Convert the image to a PyTorch tensor in float16
+	# Convert image from BGR to RGB as PyTorch uses RGB by default
+	frame_rgb = numpy_to_tensor(frame)
+
+	# Step 3: Convert the tensor back to a NumPy array
+	# Convert back to float32 to avoid overflow when converting to uint8
+	image_back_bgr = tensor_to_numpy(frame_rgb)
+
+	# Check if both images are the same
+	assert np.array_equal(frame, image_back_bgr), "The images are not the same!"
+	display_img(frame)
+	display_img(image_back_bgr)
+```
+6. **Expectation over Transform (EoT)**: ???
+```python
+def place_patch(frames, patch, patch_size=(50, 50), eot_locations=[], eot_rotations=[], eot_scales=[]):
+	"""
+	Places a patch on 2 consecutive frames with Expectation over Transform (EoT).
+
+	Parameters:
+	- frames: List of 2 tensors of shape (N, C, H, W), the batch of frames.
+	- patch: Tensor of shape (N, C, H_patch, W_patch), the patch to place.
+	- patch_size: Tuple (H_patch, W_patch), the size of the patch.
+	- eot_locations: List of tuples [(x, y)], locations to place the patch.
+	- eot_rotations: List of angles in degrees to rotate the patch.
+	- eot_scales: List of scale factors to resize the patch.
+
+	Returns:
+	- frames_patches: List of 2 lists of transformed frames with patches applied for consecutive frames.
+	"""
+	frames_patches = []
+	for frame in frames:
+		frame_transforms = []
+		for (x, y) in eot_locations:
+			for rotation in eot_rotations:
+				for scale in eot_scales:
+					# Clone the frame
+					frame_with_patch = frame.clone()
+					
+					# Resize (scale) the patch
+					scaled_patch = F.interpolate(patch, scale_factor=scale, mode='bilinear', align_corners=False)
+
+					# Calculate new patch size after scaling
+					new_H_patch, new_W_patch = scaled_patch.shape[2], scaled_patch.shape[3]
+					
+					# Create an affine transformation matrix for rotation
+					theta = torch.tensor([
+						[torch.cos(torch.tensor(rotation)), -torch.sin(torch.tensor(rotation)), 0],
+						[torch.sin(torch.tensor(rotation)), torch.cos(torch.tensor(rotation)), 0]
+					], dtype=torch.float32)
+					
+					# Grid for sampling
+					grid = F.affine_grid(theta.unsqueeze(0), scaled_patch.size(), align_corners=False)
+					
+					# Apply the affine transformation (rotation)
+					rotated_patch = F.grid_sample(scaled_patch, grid, mode='bilinear', padding_mode='zeros', align_corners=False)
+					
+					# Place the rotated and scaled patch onto the frame
+					frame_with_patch[:, :, y:y + new_H_patch, x:x + new_W_patch] = rotated_patch
+					
+					# Append the transformed frame to the list
+					frame_transforms.append(frame_with_patch)
+		
+		frames_patches.append(frame_transforms)
+
+	return frames_patches
+```
+7. **Disappearance loss**: ???
+```python
+def disappearance_loss(patch, conf, patchDist, realDist, l1=0.01, l2=0.001):
+	Lconf = -torch.log(1 - conf) # 1-conf ya que se busca minimizar conf
+	Ldist = -torch.abs(patchDist/realDist)
+	# Compute differences along height and width
+	diff_h = patch[:, :, 1:, :] - patch[:, :, :-1, :]
+	diff_w = patch[:, :, :, 1:] - patch[:, :, :, :-1]
+	Ltv = torch.sum(torch.abs(diff_h)) + torch.sum(torch.abs(diff_w))
+	return Lconf + l1*Ldist + l2*Ltv
 ```
 
-## Comparison of ONNX and PyTorch Models
-
-When working with adversarial attacks, it is critical to ensure that the PyTorch-converted model behaves identically to the ONNX version. A mismatch in outputs could indicate inconsistencies in the model conversion, leading to inaccurate attack results.
-
-In this step, we will:
-1. **Load the ONNX model** using **ONNX Runtime**.
-2. **Run inference** on both the ONNX and PyTorch versions of the model.
-3. **Compare the outputs** to ensure they are equivalent.
-
-This comparison guarantees that our adversarial examples, generated via PyTorch, are valid and will affect the OpenPilot system.
-
-# TODO: comment for comparing ONNX and PyTorch outputs
-
-## Adversarial Patch Generation
+## Adversarial Iterative Algorithm
 
 ### Overview
 
