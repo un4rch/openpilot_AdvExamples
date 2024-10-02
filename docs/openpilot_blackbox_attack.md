@@ -1,1 +1,2 @@
-
+# OpenPilot Black-box Adversarial Attack
+This guide outlines the implementation of blackbox optimization using the (1+1) Evolution Strategy (ES) with Gaussian mutation for black-box optimization scenarios. The approach focuses on generating Adversarial Examples (AEs) for attacking deep neural networks, specifically, the Openpilot Supercombo model, in environments where model parameters are inaccessible.
