@@ -55,4 +55,19 @@ def disappearance_loss(image, conf, dist, real_dist, l1=0.01, l2=0.001):
 ```
 
 ## Black-Box Algorithm
-xdxdxd
+```python
+def one_plus_one_evolution_strategy_algorithm(data_list, lr=100, sgth=25):
+    d_mean = np.mean([elem[2] for elem in data_list])
+    c_mean = np.mean([elem[3] for elem in data_list])
+    l_mean = np.mean([elem[4] for elem in data_list])
+    d_mean_prev = np.mean([elem[2] for elem in patch_prev_info[1]])
+    c_mean_prev = np.mean([elem[3] for elem in patch_prev_info[1]])
+    l_mean_prev = np.mean([elem[4] for elem in patch_prev_info[1]])
+
+    if (d_mean > d_mean_prev and c_mean < c_mean_prev) or patch_prev is None:
+        patch_next = gaussian_mutation(patch_act, lr)
+    else:
+        patch_next = gaussian_mutation(patch_prev, lr)
+
+    return patch_next
+```
