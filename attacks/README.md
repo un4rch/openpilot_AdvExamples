@@ -43,7 +43,7 @@ Before you can run the notebooks, ensure you have the following installed on you
     ```bash
     jupyter notebook
     ```
-    This will open the Jupyter Notebook interface in your default web browser by default in: [localhost:8888](localhost:8888).
+    This will open the Jupyter Notebook interface in your default web browser by default in: [localhost:8888](HTTP://localhost:8888).
 
 2. **Navigate to the Folder**:
     In the Jupyter Notebook interface, navigate to the directory containing the `.ipynb` files and click on the notebook you wish to run.
