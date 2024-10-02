@@ -26,19 +26,14 @@ Before you can run the notebooks, ensure you have the following installed on you
     
 2. **Clone the Repository** (if applicable):
     ```bash
-    git clone https://github.com/yourusername/your-repo.git
-    cd your-repo
+    git clone https://github.com/un4rch/openpilot_AdvExamples.git
+    cd openpilot_AdvExamples/attacks/
     ```
 
 3. **Install the Required Python Packages:**
     The required dependencies are listed in the `requirements.txt` file. Install them by running:
     ```bash
-    pip install -r requirements.txt
-    ```
-
-    If there's no `requirements.txt`, manually install the dependencies listed in the notebooks using:
-    ```bash
-    pip install jupyter pandas numpy matplotlib  # Add other necessary libraries here
+    pip3 install -r requirements.txt
     ```
 
 ## Running the Notebooks
