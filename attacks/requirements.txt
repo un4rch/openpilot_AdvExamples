@@ -6,3 +6,4 @@ matplotlib
 numpy
 opencv-python # cv2
 pandas
+jupyter
