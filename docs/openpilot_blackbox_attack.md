@@ -58,6 +58,8 @@ def disappearance_loss(image, conf, dist, real_dist, l1=0.01, l2=0.001):
 ### Environment Setup
 This black-box attack is going to be performed during simulation loop in CARLA simulator. To setup the environment, read [this](/README.md#running-openpilot-in-carla-simulator) guide about CARLA simulation installation and establishing a connection with Openpilot.
 
+Additionally, place this [bridge.py](???) file in your `openpilot/tools/sim` directory.
+
 ### Implementation Steps
 1. **Initialize the Population**: A random adversarial example (AE) is generated. This example is then evaluated by running it through the black-box system.
 2. **Mutate the Offspring**: Using Gaussian mutation, the offspring is generated from the parent AE. This offspring is a slightly modified version of the parent based on random noise.
