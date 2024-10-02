@@ -159,7 +159,7 @@ def subplot(img1, img2):
     plt.tight_layout()
     plt.show()
 ```
-5. **Format conversion**: ???
+5. **Format conversion**: Convert arrays from Numpy to PyTorch tensors and backwards, also check if the conversion is successful or if any information has been lost.
 ```python
 def numpy_to_tensor(array):
 	# Convert image from BGR to RGB as PyTorch uses RGB by default
@@ -192,7 +192,7 @@ def check_images_conversion(frame):
 	display_img(frame)
 	display_img(image_back_bgr)
 ```
-6. **Expectation over Transform (EoT)**: ???
+6. **Expectation over Transform (EoT)**: This technique consists of applying some transformations to the patch in an image, so that the adversarial example becomes more robust when is placed in different positions or another conditions.
 ```python
 def place_patch(frames, patch, patch_size=(50, 50), eot_locations=[], eot_rotations=[], eot_scales=[]):
 	"""
@@ -246,7 +246,7 @@ def place_patch(frames, patch, patch_size=(50, 50), eot_locations=[], eot_rotati
 
 	return frames_patches
 ```
-7. **Disappearance loss**: ???
+7. **Disappearance loss**: This function measures the patch's effectiveness around the target. Specifically, it seeks for a low confidence and high distance, while smoothing the patch pattern.
 ```python
 def disappearance_loss(patch, conf, patchDist, realDist, l1=0.01, l2=0.001):
 	Lconf = -torch.log(1 - conf) # 1-conf ya que se busca minimizar conf
