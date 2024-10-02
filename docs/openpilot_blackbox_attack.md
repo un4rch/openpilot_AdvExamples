@@ -90,4 +90,4 @@ During optimization, it is crucial to visualize how the performance evolves acro
 
 ### Monitoring Metrics:
 - **Detection confidence**: How confident the system is in detecting an object.
-- **Distance predictions**: Comparing predicted distances with real distances to assess the impact of the AE
+- **Distance predictions**: Comparing predicted distances with real distances to assess the impact of the AE.
