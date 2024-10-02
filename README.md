@@ -18,6 +18,7 @@ By the end of this guide, users will have a solid understanding of:
 The methodology presented in this guide offers a structured approach for both beginners and intermediate users who wish to delve into the field of **Adversarial Machine Learning** and its application in critical real-world systems like image recognition and autonomous driving.
 
 # Table of Contents
+- [Directory Breakdown](#directory-breakdown)
 - [Introduction](#introduction)
   - [What are Machine Learning Models?](#what-are-machine-learning-models)
   - [What is an Adversarial Example?](#What-is-an-Adversarial-Example)
@@ -33,6 +34,9 @@ The methodology presented in this guide offers a structured approach for both be
   - [White-Box Attacks](#white-box-attacks)
   - [Black-Box Attacks](#black-box-attacks)
 - [Conclusions](#conclusions)
+
+# Directory Breakdown
+
 
 # Introduction
 
