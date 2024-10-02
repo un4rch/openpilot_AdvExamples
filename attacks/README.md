@@ -1,13 +1,12 @@
 # Jupiter Notebook execution guide
 
-This project contains a set of Jupyter notebooks (`.ipynb` files) that demonstrate [briefly describe what the notebooks do]. This guide will walk you through the steps to set up the environment and execute the notebooks.
+This project contains a set of Jupyter notebooks (`.ipynb` files) that perform adversarial attacks. This guide outlines the steps to set up the environment and execute the notebooks.
 
 ## Table of Contents
 1. [Prerequisites](#prerequisites)
 2. [Installation](#installation)
 3. [Running the Notebooks](#running-the-notebooks)
 4. [Notebook Descriptions](#notebook-descriptions)
-5. [FAQ](#faq)
 
 ## Prerequisites
 
@@ -62,20 +61,3 @@ Before you can run the notebooks, ensure you have the following installed on you
 - `notebook1.ipynb`: Brief description of what this notebook does.
 - `notebook2.ipynb`: Brief description of what this notebook does.
 - [Add descriptions for each notebook in your project].
-
-## FAQ
-
-**Q: What should I do if I get an ImportError for a missing library?**  
-A: Ensure you’ve installed the required dependencies listed in `requirements.txt`. If the error persists, manually install the missing package using `pip install <package_name>`.
-
-**Q: How do I stop the Jupyter server?**  
-A: Press `Ctrl + C` in the terminal where the server is running, then press `y` to confirm.
-
-**Q: Can I run these notebooks without installing Jupyter on my local machine?**  
-A: Yes! You can upload the notebooks to Google Colab and run them in your browser. Simply open [Google Colab](https://colab.research.google.com/), upload the `.ipynb` file, and execute the cells as needed.
-
----
-
-If you encounter any issues or have questions, feel free to open an issue or reach out to [your contact info].
-
-Happy coding!
