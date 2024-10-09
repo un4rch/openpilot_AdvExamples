@@ -366,7 +366,7 @@ self._carla_objects.append(OPENPILOT_VEHICLE)
 max_steer_angle = OPENPILOT_VEHICLE.get_physics_control().wheels[0].max_steer_angle
 ```
 
-3. **Terminal 1: Start the CARLA Server**
+2. **Terminal 1: Start the CARLA Server**
 First, launch the CARLA simulator in the first terminal:
 ```bash
 ./CarlaUE4.sh
