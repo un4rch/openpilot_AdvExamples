@@ -269,7 +269,7 @@ Before proceeding with the installation, ensure your system meets the following 
 
 ## Step 2: Installing Openpilot (Version 0.9.4)
 
-To install Openpilot on your system, follow these steps:
+To install [Openpilot](https://github.com/commaai/openpilot/tree/fa310d9e2542cf497d92f007baec8fd751ffa99c/tools) on your system, follow these steps:
 
 1. **Clone the Openpilot Repository**:
 Open a terminal and run the following commands:
