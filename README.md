@@ -1,4 +1,4 @@
-Documentation of the whole project: (TFG.pdf)[TFG.pdf]
+Documentation of the whole project: [TFG.pdf](TFG.pdf)
 
 # Methodology Overview
 
